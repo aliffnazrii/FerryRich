@@ -21,7 +21,24 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'role',
     ];
+
+    public function paidReviews()
+    {
+        return $this->hasMany(PaidReview::class, 'content_creator_id');
+    }
+
+    public function uploadedVideos()
+    {
+        return $this->hasMany(Video::class, 'uploaded_by');
+    }
+
+    public function reviewedVideos()
+    {
+        return $this->hasMany(Video::class, 'reviewed_by');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

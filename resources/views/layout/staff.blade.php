@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="blue-theme">
+<html lang="en" data-bs-theme="semi-dark">
 
 <head>
     <meta charset="utf-8">
@@ -189,7 +189,7 @@
                                     Profile
                                 </a>
                             </li>
-                         
+
                             <li class="nav-item m-2">
                                 <a href="/dashboard" class="nav-link">
                                     <div class="parent-icon"><i class="material-icons-outlined">home</i>
@@ -223,7 +223,7 @@
                                 </a>
                             </li>
 
-                         
+
 
                             <!-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
