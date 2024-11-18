@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes();
 
 
 
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 });
 Route::get('/dashboard', function () {
     return view('staff/dashboard');
@@ -38,7 +39,3 @@ Route::get('/profile-cc', function () {
 Route::get('/task-cc', function () {
     return view('cc/task-cc');
 });
-Auth::routes();
-
-
-Auth::routes();
