@@ -65,52 +65,52 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->name}}</td>
                             <td>Active</td>
-                            <td> <button type="button" class="btn btn-grd-primary px-4" data-bs-toggle="modal"
+                            <td> <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                     data-bs-target="#UpdateModal{{$user->id}}">View</button></td>
                        
                        
-    <!-- Modal -->
-    <div class="modal fade modal-xl" id="UpdateModal{{$user->id}}">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header py-2">
-                    <h5 class="modal-title">Content Creator Information</h5>
-                    <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="modal">
-                        <i class="material-icons-outlined">close</i>
-                    </a>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
+<!-- Modal -->
+<div class="modal fade modal-xl" id="UpdateModal{{$user->id}}" tabindex="-1" aria-labelledby="UpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header py-3">
+                <h5 class="modal-title" id="UpdateModalLabel">Content Creator Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
                         <form method="POST" action="{{ route('users.update',$user->id) }}">
                             @csrf
-                        @method('PUT')
-                            <div class="form-group m-3">
+                            @method('PUT')
+
+                            <div class="form-group mb-3">
                                 <label for="name">Name:</label>
                                 <input type="text" class="form-control" name="name" value="{{ $user->name }}">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        
-                            <div class="form-group m-3">
+
+                            <div class="form-group mb-3">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" name="email" value="{{ $user->email }}" disabled>
+                                <input type="email" class="form-control" name="email" value="{{ $user->email }}">
                                 @error('email')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        
-                            <div class="form-group m-3">
+
+                            <div class="form-group mb-3">
                                 <label for="phone">Phone:</label>
                                 <input type="text" class="form-control" name="phone" value="{{ $user->phone }}">
                                 @error('phone')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        
-                            <div class="form-group m-3">
+
+                            <div class="form-group mb-3">
                                 <label for="role">Role:</label>
-                                <input type="text" class="form-control" name="role" value="{{$user->role == 'cc' ? 'Content Creator': 'Staff'}}">
+                                <input type="text" class="form-control" name="role" value="{{$user->role == 'cc' ? 'Content Creator': 'Staff'}}" disabled>
 
                                 {{-- <select class="form-control" id="role" name="role">
                                     <option {{$user->role == 'cc'? 'Content Creator': 'Staff'}} value="admin">Admin</option>
@@ -120,13 +120,11 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        
-                            {{-- <button type="submit" class="btn btn-primary">Create User</button> --}}
-                      
-                            <div class="col-md-12">
-                                <div class="d-md-flex d-grid align-items-center gap-3">
-                                    <button type="submit" class="btn btn-primary px-4">Submit</button>
-                                    <button type="button" class="btn btn-danger px-4">cancel</button>
+
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary px-4 me-2">Submit</button>
+                                    <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -135,6 +133,7 @@
             </div>
         </div>
     </div>
+</div>
 
 </tr>
 @endforeach

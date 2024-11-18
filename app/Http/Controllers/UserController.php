@@ -48,8 +48,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
-            // Add other validation rules as needed
+            'phone' => 'nullable|string|max:20', 
         ]);
 
         $user = User::findOrFail($id);
