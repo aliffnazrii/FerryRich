@@ -9,8 +9,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        $users = User::where('role','cc')->get();
+        return view('staff.list-cc', compact('users'));
     }
 
     public function create()
@@ -21,9 +21,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            // Add other validation rules as needed
+           'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users,email', // Check for unique email
+            'password' => 'required|string|min:8|confirmed', // Require confirmation
+            'phone' => 'nullable|string|max:20', // Allow phone to be optional
+            'role' => 'required|string|in:admin,user', // Ensure role is valid
         ]);
 
         User::create($request->all());

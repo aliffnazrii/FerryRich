@@ -180,6 +180,9 @@
                             <i class="material-icons-outlined">close</i>
                         </a>
                     </div>
+
+
+                    {{-- ROUTES FOR NAV BAR --}}
                     <div class="offcanvas-body p-0">
                         <ul class="navbar-nav align-items-center flex-grow-1">
                            
@@ -192,7 +195,7 @@
                                 </a>
                             </li>
                             <li class="nav-item m-2">
-                                <a href="/list-product" class="nav-link">
+                                <a href="{{route('products.index')}}" class="nav-link">
                                     <div class="parent-icon"><i class="material-icons-outlined">task</i>
                                     </div>
                                     <div class="menu-title d-flex align-items-center">Product</div>
@@ -206,7 +209,7 @@
                                 </a>
                             </li>
                             <li class="nav-item m-2">
-                                <a href="/list-cc" class="nav-link">
+                                <a href="{{route('users.index')}}" class="nav-link">
                                     <div class="parent-icon"><i class="material-icons-outlined">work_outline</i>
                                     </div>
                                     <div class="menu-title d-flex align-items-center"> Content Creator</div>

@@ -26,13 +26,22 @@
         <hr>
         <div class="card">
             <div class="card-body">
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <div class="row">
                     <div class="col-10"></div>
 
-                    <div class="col  text-center">
+                    {{-- <div class="col  text-center">
                         <button type="button" class="btn btn-grd-primary px-4 m-3" data-bs-toggle="modal"
                             data-bs-target="#FormModal">Add CC</button>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="table-responsive">
@@ -49,37 +58,22 @@
                         </thead>
 
                         <tbody>
-                            <td>Azmin Aliah</td>
-                            <td>Melaka</td>
-                            <td>mimien</td>
-                            <td>22</td>
+                            @foreach($users as $user)
+                            <tr>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->name}}</td>
                             <td>Active</td>
                             <td> <button type="button" class="btn btn-grd-primary px-4" data-bs-toggle="modal"
-                                    data-bs-target="#UpdateModal">View</button></td>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Username</th>
-                                <th>Age</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
+                                    data-bs-target="#UpdateModal{{$user->id}}">View</button></td>
+                       
+                       
     <!-- Modal -->
-    <div class="modal fade modal-xl" id="UpdateModal">
+    <div class="modal fade modal-xl" id="UpdateModal{{$user->id}}">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header border-bottom-0 py-2 bg-grd-info">
+                <div class="modal-header py-2">
                     <h5 class="modal-title">Content Creator Information</h5>
                     <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="modal">
                         <i class="material-icons-outlined">close</i>
@@ -87,72 +81,52 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-body">
-                        <form class="row g-3">
-                            <div class="col-md-6">
-                                <label for="input1" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="input1" placeholder="First Name">
+                        <form method="POST" action="{{ route('users.update',$user->id) }}">
+                            @csrf
+                        @method('PUT')
+                            <div class="form-group m-3">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" name="name" value="{{ $user->name }}">
+                                @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="col-md-6">
-                                <label for="input2" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="input2" placeholder="Last Name">
+                        
+                            <div class="form-group m-3">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" name="email" value="{{ $user->email }}" disabled>
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="col-md-12">
-                                <label for="input3" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="input3" placeholder="Phone">
+                        
+                            <div class="form-group m-3">
+                                <label for="phone">Phone:</label>
+                                <input type="text" class="form-control" name="phone" value="{{ $user->phone }}">
+                                @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="col-md-12">
-                                <label for="input4" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="input4">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input5" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="input5">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input6" class="form-label">DOB</label>
-                                <input type="date" class="form-control" id="input6">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input7" class="form-label">Country</label>
-                                <select id="input7" class="form-select">
-                                    <option selected="">Choose...</option>
-                                    <option>One</option>
-                                    <option>Two</option>
-                                    <option>Three</option>
-                                </select>
-                            </div>
+                        
+                            <div class="form-group m-3">
+                                <label for="role">Role:</label>
+                                <input type="text" class="form-control" name="role" value="{{$user->role == 'cc' ? 'Content Creator': 'Staff'}}">
 
-                            <div class="col-md-6">
-                                <label for="input8" class="form-label">City</label>
-                                <input type="text" class="form-control" id="input8" placeholder="City">
+                                {{-- <select class="form-control" id="role" name="role">
+                                    <option {{$user->role == 'cc'? 'Content Creator': 'Staff'}} value="admin">Admin</option>
+                                    <option value="user">User</option>
+                                </select> --}}
+                                @error('role')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="col-md-4">
-                                <label for="input9" class="form-label">State</label>
-                                <select id="input9" class="form-select">
-                                    <option selected="">Choose...</option>
-                                    <option>One</option>
-                                    <option>Two</option>
-                                    <option>Three</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="input10" class="form-label">Zip</label>
-                                <input type="text" class="form-control" id="input10" placeholder="Zip">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input11" class="form-label">Address</label>
-                                <textarea class="form-control" id="input11" placeholder="Address ..." rows="3"></textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="input12">
-                                    <label class="form-check-label" for="input12">Check me out</label>
-                                </div>
-                            </div>
+                        
+                            {{-- <button type="submit" class="btn btn-primary">Create User</button> --}}
+                      
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
-                                    <button type="button" class="btn btn-grd-danger px-4">Submit</button>
-                                    <button type="button" class="btn btn-grd-info px-4">Reset</button>
+                                    <button type="submit" class="btn btn-primary px-4">Submit</button>
+                                    <button type="button" class="btn btn-danger px-4">cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -161,92 +135,18 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade modal-xl" id="FormModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-bottom-0 py-2 bg-grd-info">
-                    <h5 class="modal-title">Registration Form</h5>
-                    <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="modal">
-                        <i class="material-icons-outlined">close</i>
-                    </a>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
-                        <form class="row g-3">
-                            <div class="col-md-6">
-                                <label for="input1" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="input1" placeholder="First Name">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="input2" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="input2" placeholder="Last Name">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input3" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="input3" placeholder="Phone">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input4" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="input4">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input5" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="input5">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input6" class="form-label">DOB</label>
-                                <input type="date" class="form-control" id="input6">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input7" class="form-label">Country</label>
-                                <select id="input7" class="form-select">
-                                    <option selected="">Choose...</option>
-                                    <option>One</option>
-                                    <option>Two</option>
-                                    <option>Three</option>
-                                </select>
-                            </div>
 
-                            <div class="col-md-6">
-                                <label for="input8" class="form-label">City</label>
-                                <input type="text" class="form-control" id="input8" placeholder="City">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="input9" class="form-label">State</label>
-                                <select id="input9" class="form-select">
-                                    <option selected="">Choose...</option>
-                                    <option>One</option>
-                                    <option>Two</option>
-                                    <option>Three</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="input10" class="form-label">Zip</label>
-                                <input type="text" class="form-control" id="input10" placeholder="Zip">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="input11" class="form-label">Address</label>
-                                <textarea class="form-control" id="input11" placeholder="Address ..." rows="3"></textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="input12">
-                                    <label class="form-check-label" for="input12">Check me out</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="d-md-flex d-grid align-items-center gap-3">
-                                    <button type="button" class="btn btn-grd-danger px-4">Submit</button>
-                                    <button type="button" class="btn btn-grd-info px-4">Reset</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+</tr>
+@endforeach
+                       
+                                </tbody>
+                        
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
 
 
     <!--bootstrap js-->

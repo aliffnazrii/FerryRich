@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
@@ -14,12 +16,18 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('staff/dashboard');
 });
-Route::get('/list-cc', function () {
-    return view('staff/list-cc');
-});
-Route::get('/list-product', function () {
-    return view('staff/product');
-});
+
+// Route::get('/list-cc', function () {
+//     return view('staff/list-cc');
+// });
+// Route::get('/list-product', function () {
+//     return view('staff/product');
+// });
+
+Route::resource('products', ProductController::class);
+Route::resource('users', UserController::class);
+
+
 Route::get('/profile', function () {
     return view('staff/profile');
 });
