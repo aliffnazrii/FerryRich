@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
 Route::get('/', function () {
     return view('login');
 });
@@ -33,3 +38,7 @@ Route::get('/profile-cc', function () {
 Route::get('/task-cc', function () {
     return view('cc/task-cc');
 });
+Auth::routes();
+
+
+Auth::routes();
