@@ -35,5 +35,12 @@ class UserSeeder extends Seeder
             'role' => 'Admin',
             'is_approved' => true,
         ]);
+        User::create([
+            'name' => 'alepnaz',
+            'email' => 'a@a',
+            'password' => Hash::make('aliffnazrii'),
+            'role' => 'Staff',
+            'is_approved' => true,
+        ]);
     }
 }

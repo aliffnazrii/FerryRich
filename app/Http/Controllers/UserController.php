@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role','cc')->get();
+        $users = User::where('role','Content Creator')->get();
         return view('staff.list-cc', compact('users'));
     }
 
@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if(Auth::user()->role == 'staff' || Auth::user()->role == 'admin')
+        if(Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin')
       {  
           return view('staff.profile', compact('user'));
     }

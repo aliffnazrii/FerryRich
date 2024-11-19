@@ -37,25 +37,22 @@
 
                 <div class="table-responsive">
                     <table id="example2" class="table table-striped table-border">
-                        <thead class="">
+                        <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Brand</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Price (RM)</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach($products as $product)
-                            <tr>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->name}}</td>
-                            <td>RM{{$product->price}}</td>
-                            <td>{{$product->name}}</td>
+                         
+                                @foreach ($products as $product)
+                                <tr>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->description }}</td>
+                                    <td>{{ $product->price }}</td>
                             <td> <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                     data-bs-target="#ViewProduct{{$product->id}}">View</button></td>
                                     <div class="modal fade modal-xl" id="ViewProduct{{$product->id}}">

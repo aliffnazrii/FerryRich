@@ -31,7 +31,7 @@ class LoginController extends Controller
     {
         $role = Auth::user()->role;
 
-        if ($role === 'admin' || $role === 'staff') {
+        if ($role === 'Admin' || $role === 'Staff') {
             return '/dashboard';
         } elseif ($role === 'cc') {
             return '/dashboard-cc';
