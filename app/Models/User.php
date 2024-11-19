@@ -23,12 +23,14 @@ class User extends Authenticatable
         'password',
         'phone',
         'role',
+        'tiktok_username',
+        'tiktok_profile_link',
+        'ic_number',
+        'bank_name',
+        'cardholder_name',
+        'bank_account_number',
+        'is_approved',
     ];
-
-    public function paidReviews()
-    {
-        return $this->hasMany(PaidReview::class, 'content_creator_id');
-    }
 
     public function uploadedVideos()
     {
@@ -38,6 +40,11 @@ class User extends Authenticatable
     public function reviewedVideos()
     {
         return $this->hasMany(Video::class, 'reviewed_by');
+    }
+
+    public function paidReviews()
+    {
+        return $this->hasMany(PaidReview::class, 'content_creator_id');
     }
 
     /**

@@ -15,14 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('file_path');
             $table->unsignedBigInteger('uploaded_by');
-            $table->foreign('uploaded_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('upload_date')->useCurrent();
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
             $table->unsignedBigInteger('reviewed_by')->nullable();
-            $table->foreign('reviewed_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamp('reviewed_at')->nullable();
             $table->text('feedback')->nullable();
             $table->timestamps();
+
+            $table->foreign('uploaded_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('reviewed_by')->references('id')->on('users')->onDelete('set null');
+       
         });
     }
 

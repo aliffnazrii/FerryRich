@@ -14,16 +14,21 @@ return new class extends Migration
         Schema::create('paid_reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('content_creator_id');
-            $table->foreign('content_creator_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('deal_rate');
             $table->integer('total_product')->default(1);
             $table->enum('order_status', ['Pending', 'Delivered', 'Cancelled'])->default('Pending');
             $table->enum('payment_status', ['Pending', 'Paid'])->default('Pending');
             $table->date('payment_date_advance')->nullable();
             $table->date('payment_date_final')->nullable();
+            $table->string('shipment_tracking_number')->nullable();
+            $table->boolean('product_received')->default(false);
+            $table->string('receipt_photo')->nullable();
             $table->timestamps();
+
+            $table->foreign('content_creator_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+    
         });
     }
 

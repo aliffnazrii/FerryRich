@@ -27,14 +27,19 @@
         <div class="card">
             <div class="card-body">
                 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
                 <div class="row">
                     <div class="col-10"></div>
 
@@ -45,7 +50,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table id="example2" class="table table-striped table-bordered">
+                    <table id="example2" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Name</th>

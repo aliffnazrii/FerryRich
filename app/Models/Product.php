@@ -9,8 +9,6 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'products';
-
     protected $fillable = [
         'name',
         'description',
@@ -19,6 +17,11 @@ class Product extends Model
 
     public function paidReviews()
     {
-        return $this->hasMany(PaidReview::class);
+        return $this->hasMany(PaidReview::class, 'product_id');
+    }
+
+    public function guidelines()
+    {
+        return $this->hasOne(Guideline::class, 'product_id');
     }
 }

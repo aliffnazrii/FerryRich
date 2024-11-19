@@ -9,8 +9,6 @@ class Video extends Model
 {
     use HasFactory;
 
-    protected $table = 'videos';
-
     protected $fillable = [
         'file_path',
         'uploaded_by',
@@ -29,5 +27,10 @@ class Video extends Model
     public function reviewer()
     {
         return $this->belongsTo(User::class, 'reviewed_by');
+    }
+
+    public function reviewSubmission()
+    {
+        return $this->hasOne(ReviewSubmission::class, 'video_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -35,7 +36,14 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+
+        if(Auth::user()->role == 'staff' || Auth::user()->role == 'admin')
+      {  
+          return view('staff.profile', compact('user'));
+    }
+    else{
+        return view('cc.profile-cc', compact('user'));
+      }
     }
 
     public function edit($id)
@@ -53,7 +61,7 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
         $user->update($request->all());
-        return redirect()->route('users.index')->with('success', 'User  updated successfully.');
+        return redirect()->back()->with('success', 'Information  updated successfully.');
     }
 
     public function destroy($id)
@@ -61,4 +69,11 @@ class UserController extends Controller
         User::destroy($id);
         return redirect()->route('users.index')->with('success', 'User  deleted successfully.');
     }
+
+
+    #ADDITIONAL FUNCTION 
+
+   
+
+
 }

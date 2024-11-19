@@ -5,26 +5,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Default Title')</title>
-    <!--favicon-->
-    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png">
-    <!-- loader-->
-    <link href="assets/css/pace.min.css" rel="stylesheet">
-    <script src="assets/js/pace.min.js"></script>
+   <!-- Favicon -->
+   <link rel="icon" href="{{ asset('assets/images/favicon-32x32.png') }}" type="image/png">
 
-    <!--plugins-->
-    <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/metisMenu.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/mm-vertical.css">
-    <!--bootstrap css-->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
-    <!--main css-->
-    <link href="assets/css/bootstrap-extended.css" rel="stylesheet">
-    <link href="sass/main.css" rel="stylesheet">
-    <link href="sass/dark-theme.css" rel="stylesheet">
-    <link href="sass/blue-theme.css" rel="stylesheet">
-    <link href="sass/responsive.css" rel="stylesheet">
+   <!-- Loader -->
+   <link rel="stylesheet" href="{{ asset('assets/css/pace.min.css') }}">
+   <script src="{{ asset('assets/js/pace.min.js') }}"></script>
+
+   <!-- Plugins -->
+   <link rel="stylesheet" href="{{ asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/plugins/metismenu/metisMenu.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/plugins/metismenu/mm-vertical.css') }}">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+
+   <!-- Fonts -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined">
+
+   <!-- Main CSS -->
+   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-extended.css') }}">
+   <link rel="stylesheet" href="{{ asset('sass/main.css') }}">
+   <link rel="stylesheet" href="{{ asset('sass/dark-theme.css') }}">
+   <link rel="stylesheet" href="{{ asset('sass/blue-theme.css') }}">
+   <link rel="stylesheet" href="{{ asset('sass/responsive.css') }}">
+
 
 </head>
 
