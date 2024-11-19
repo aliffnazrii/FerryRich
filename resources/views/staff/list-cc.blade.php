@@ -53,24 +53,27 @@
                     <table id="example2" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Username</th>
-                                <th>Age</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Approval Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach($users as $user)
                             <tr>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>Active</td>
-                            <td> <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->role }}</td>
+                                <td>{{ $user->is_approved ? 'Approved' : 'Pending' }}</td>
+                                {{-- <td>
+                                    <a href="{{ route('users.edit', $user->id) }}">Edit</a>
+                                    <a href="{{ route('users.destroy', $user->id) }}">Delete</a>
+                                </td> --}}
+                            <td> 
+                                <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                     data-bs-target="#UpdateModal{{$user->id}}">View</button></td>
                        
                        
