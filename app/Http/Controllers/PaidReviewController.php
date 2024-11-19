@@ -10,7 +10,7 @@ class PaidReviewController extends Controller
     public function index()
     {
         $paidReviews = PaidReview::all();
-        return view('paid_reviews.index', compact('paidReviews'));
+        return view('staff.paid-review', compact('paidReviews'));
     }
 
     public function create()

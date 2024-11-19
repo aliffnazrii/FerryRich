@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaidReviewController;
+use App\Http\Controllers\ReviewSubmissionController;
+use App\Http\Controllers\VideoController;
+use App\Http\Controllers\PaymentController;
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
@@ -26,6 +31,10 @@ Route::get('/dashboard', function () {
 
 Route::resource('products', ProductController::class);
 Route::resource('users', UserController::class);
+Route::resource('reviews', PaidReviewController::class);
+Route::resource('submissions', ReviewSubmissionController::class);
+Route::resource('videos', VideoController::class);
+Route::resource('payments', PaymentController::class);
 
 
 Route::get('/profile', function () {

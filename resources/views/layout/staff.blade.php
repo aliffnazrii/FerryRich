@@ -186,71 +186,90 @@
                             <i class="material-icons-outlined">close</i>
                         </a>
                     </div>
-
-
-                    {{-- ROUTES FOR NAV BAR --}}
+        
                     <div class="offcanvas-body p-0">
                         <ul class="navbar-nav align-items-center flex-grow-1">
-                           
-        
+                            
+                            <!-- Dashboard -->
                             <li class="nav-item m-2">
                                 <a href="/dashboard" class="nav-link">
-                                    <div class="parent-icon"><i class="material-icons-outlined">home</i>
-                                    </div>
+                                    <div class="parent-icon"><i class="material-icons-outlined">home</i></div>
                                     <div class="menu-title d-flex align-items-center">Dashboard</div>
                                 </a>
                             </li>
+                            
+                            <!-- Product -->
                             <li class="nav-item m-2">
-                                <a href="{{route('products.index')}}" class="nav-link">
-                                    <div class="parent-icon"><i class="material-icons-outlined">task</i>
-                                    </div>
+                                <a href="{{ route('products.index') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
                                     <div class="menu-title d-flex align-items-center">Product</div>
                                 </a>
                             </li>
+        
+                            <!-- Review -->
                             <li class="nav-item m-2">
                                 <a href="/review" class="nav-link">
-                                    <div class="parent-icon"><i class='material-icons-outlined'>folder</i>
-                                    </div>
+                                    <div class="parent-icon"><i class="material-icons-outlined">rate_review</i></div>
                                     <div class="menu-title d-flex align-items-center">Review</div>
                                 </a>
                             </li>
+                            
+                            <!-- Content Creator -->
                             <li class="nav-item m-2">
-                                <a href="{{route('users.index')}}" class="nav-link">
-                                    <div class="parent-icon"><i class="material-icons-outlined">work_outline</i>
-                                    </div>
-                                    <div class="menu-title d-flex align-items-center"> Content Creator</div>
-                                </a>
-                            </li>
-                            <li class="nav-item m-2">
-                                <a href="{{ route('users.show', auth()->id()) }}" class="nav-link">
-                                    <div class="parent-icon"><i class="material-icons-outlined">person_outline</i>
-                                    </div>
-                                    Profile
+                                <a href="{{ route('users.index') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">group</i></div>
+                                    <div class="menu-title d-flex align-items-center">Content Creator</div>
                                 </a>
                             </li>
         
-                            <!-- Logout Button -->
+                            <!-- Video Queue -->
                             <li class="nav-item m-2">
-                                
-                                    {{-- <a href="{{ route('logout') }}" class="nav-link" >
-                                        <div class="parent-icon"><i class="material-icons-outlined">logout</i></div>
-                                        <div class="menu-title d-flex align-items-center">Logout</div>
-                                        
-                                    </a> --}}
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit()" class="nav-link">
-                                        <div class="parent-icon"><i class="material-icons-outlined">logout</i></div>
-                                        Logout
-                                    </a>
-                                    
-                                    <form method="POST" action="{{ route('logout') }}" id="logoutForm" style="display: none;">
-                                        @csrf
-                                    </form>
+                                <a href="{{route('videos.index')}}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">movie</i></div>
+                                    <div class="menu-title d-flex align-items-center">Video Queue</div>
+                                </a>
+                            </li>
+        
+                            <!-- Payment -->
+                            <li class="nav-item m-2">
+                                <a href="{{ route('payments.index') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">attach_money</i></div>
+                                    <div class="menu-title d-flex align-items-center">Payment</div>
+                                </a>
+                            </li>
+        
+                            <!-- Guidelines -->
+                            {{-- <li class="nav-item m-2">
+                                <a href="{{ route('guidelines.index') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">description</i></div>
+                                    <div class="menu-title d-flex align-items-center">Guidelines</div>
+                                </a>
+                            </li> --}}
+        
+                            <!-- Profile -->
+                            <li class="nav-item m-2">
+                                <a href="{{ route('users.show', auth()->id()) }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">person_outline</i></div>
+                                    <div class="menu-title d-flex align-items-center">Profile</div>
+                                </a>
+                            </li>
+        
+                            <!-- Logout -->
+                            <li class="nav-item m-2">
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit()" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">logout</i></div>
+                                    <div class="menu-title d-flex align-items-center">Logout</div>
+                                </a>
+                                <form method="POST" action="{{ route('logout') }}" id="logoutForm" style="display: none;">
+                                    @csrf
+                                </form>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
+        
         <!--end navigation-->
 
 

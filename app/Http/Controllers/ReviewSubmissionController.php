@@ -10,7 +10,7 @@ class ReviewSubmissionController extends Controller
     public function index()
     {
         $reviewSubmissions = ReviewSubmission::all();
-        return view('review_submissions.index', compact('reviewSubmissions'));
+        return view('staff.submission', compact('reviewSubmissions'));
     }
 
     public function create()
