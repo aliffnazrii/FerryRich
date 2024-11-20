@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\PaidReview;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -122,4 +123,27 @@ class PaymentController extends Controller
         // Redirect to the payments index page with success message
         return redirect()->route('payments.index')->with('success', 'Payment deleted successfully');
     }
+
+    // public function PaymentList()
+    // {
+
+    //     $userId = auth()->user()->id;
+    //     $payments = PaidReview::with(['payments', 'contentCreator'])
+    //         // ->where('content_creator_id', $userId)  // Assuming this is the correct column name
+    //         ->get();
+    //     return view('cc.payment-history', compact('payments'));
+    // }
+
+    public function PaymentList()
+    {
+        $userId = auth()->user()->id;
+
+        // Fetch PaidReviews for the authenticated Content Creator with related payments
+        $payments = PaidReview::with('payments')
+            // ->where('content_creator_id', $userId) // Ensure this column exists in the PaidReviews table
+            ->get();
+
+        return view('cc.payment-history', compact('payments'));
+    }
+
 }

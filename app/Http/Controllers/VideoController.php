@@ -55,9 +55,19 @@ class VideoController extends Controller
         return redirect()->route('videos.index')->with('success', 'Video updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy($id) 
     {
         Video::destroy($id);
         return redirect()->route('videos.index')->with('success', 'Video deleted successfully.');
     }
+
+    // CUSTOM FUNCTION TO HANDLE VIDEO UPLOAD
+
+    public function videoList(){
+
+        $userId = auth()->user()->id;
+       $videos = Video::where('uploaded_by',$userId)->get();
+        return view('cc.video-submission', compact('videos'));
+    }
+
 }

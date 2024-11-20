@@ -192,6 +192,11 @@
         <!--end top header-->
 
 
+        {{-- ------------NAV ITEM STARTS HERE------------ --}}
+
+
+
+
         <!--navigation-->
         <div class="primary-menu">
             <nav class="navbar navbar-expand-xl align-items-center">
@@ -213,31 +218,50 @@
                     </div>
                     <div class="offcanvas-body p-0">
                         <ul class="navbar-nav align-items-center flex-grow-1">
-                            <li class="nav-item m-2">
-                                <a href="/profile-cc" class="nav-link">
-                                    <div class="parent-icon"><i class="material-icons-outlined">person_outline</i>
-                                    </div>
-                                    Profile
-                                </a>
-                            </li>
 
+                            
+                            <!-- Dashboard -->
                             <li class="nav-item m-2">
                                 <a href="/dashboard-cc" class="nav-link">
-                                    <div class="parent-icon"><i class="material-icons-outlined">home</i>
-                                    </div>
+                                    <div class="parent-icon"><i class="material-icons-outlined">dashboard</i></div>
                                     <div class="menu-title d-flex align-items-center">Dashboard</div>
                                 </a>
                             </li>
+
+                            <!-- Assigned Reviews -->
                             <li class="nav-item m-2">
-
-                                <a href="/task-cc" class="nav-link">
-                                    <div class="parent-icon"><i class="material-icons-outlined">task</i>
-                                    </div>
-                                    <div class="menu-title d-flex align-items-center">Task</div>
-
+                                <a href="{{ route('assignedReviews') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">assignment</i></div>
+                                    <div class="menu-title d-flex align-items-center">Assigned Reviews</div>
                                 </a>
                             </li>
 
+                            <!-- Video Submissions -->
+                            <li class="nav-item m-2">
+                                <a href="{{ route('videos.submission') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">movie</i></div>
+                                    <div class="menu-title d-flex align-items-center">Video Submissions</div>
+                                </a>
+                            </li>
+
+                            <!-- Payment History -->
+                            <li class="nav-item m-2">
+                                <a href="{{ route('payments.history') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">payment</i></div>
+                                    <div class="menu-title d-flex align-items-center">Payment History</div>
+                                </a>
+                            </li>
+
+                            <!-- Profile -->
+                            <li class="nav-item m-2">
+                                <a href="{{ route('users.show', auth()->id()) }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">person_outline</i>
+                                    </div>
+                                    <div class="menu-title d-flex align-items-center">Profile</div>
+                                </a>
+                            </li>
+                            
+                            <!-- Logout -->
                             <li class="nav-item m-2">
                                 <!-- Logout Form -->
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -248,13 +272,11 @@
                                 <!-- Logout Button -->
                                 <a class="nav-link"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="material-icons-outlined">power_settings_new</i>
-                                    <div class="menu-title d-flex align-items-center">
-                                        Logout
+                                    <div class="parent-icon"><i class="material-icons-outlined">power_settings_new</i>
                                     </div>
+                                    <div class="menu-title d-flex align-items-center">Logout</div>
                                 </a>
                             </li>
-
 
                         </ul>
                     </div>

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
+use App\Models\ReviewSubmission;
 use Illuminate\Http\Request;
 use App\Models\PaidReview;
 use App\Models\Product;
@@ -75,5 +77,15 @@ class PaidReviewController extends Controller
     {
         PaidReview::destroy($id);
         return redirect()->route('paid_reviews.index')->with('success', 'Paid Review deleted successfully.');
+    }
+
+    public function assignedReview()
+    {
+        $cc = Auth::user()->id;
+
+        $assignedReviews = PaidReview::with(['product', 'reviewSubmissions'])
+            ->where('content_creator_id', 1)
+            ->get();
+        return view('cc.assigned-review', compact('assignedReviews'));
     }
 }

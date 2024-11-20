@@ -10,9 +10,18 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'Content Creator')->get();
-        return view('staff.list-cc', compact('users'));
+
+        $id = Auth::user()->id;
+
+        if (Auth::user()->role == 'Content Creator') {
+            $user = User::where('role', 'Content Creator')->findOrFail($id);
+            return view('cc.profile-cc', compact('user'));
+        } else {
+            $users = User::where('role', 'Content Creator')->get();
+            return view('staff.list-cc', compact('users'));
+        }
     }
+
 
     public function create()
     {

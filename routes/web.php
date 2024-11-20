@@ -43,6 +43,9 @@ Route::get('/profile', function () {
 Route::get('/review', function () {
     return view('staff/list-review');
 });
+Route::get('/review-list', [PaidReviewController::class, 'assignedReview'])->name('assignedReviews');
+Route::get('/video-submission', [VideoController::class, 'videoList'])->name('videos.submission');
+Route::get('/payment-history', [PaymentController::class, 'PaymentList'])->name('payments.history');
 
 
 //CONTENT CREATOR SIDE SECTION
