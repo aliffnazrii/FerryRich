@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role','Content Creator')->get();
+        $users = User::where('role', 'Content Creator')->get();
         return view('staff.list-cc', compact('users'));
     }
 
@@ -22,7 +22,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email', // Check for unique email
             'password' => 'required|string|min:8|confirmed', // Require confirmation
             'phone' => 'nullable|string|max:20', // Allow phone to be optional
@@ -37,13 +37,11 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if(Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin')
-      {  
-          return view('staff.profile', compact('user'));
-    }
-    else{
-        return view('cc.profile-cc', compact('user'));
-      }
+        if (Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin') {
+            return view('staff.profile', compact('user'));
+        } else {
+            return view('cc.profile-cc', compact('user'));
+        }
     }
 
     public function edit($id)
@@ -56,7 +54,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'phone' => 'nullable|string|max:20', 
+            'phone' => 'nullable|string|max:20',
         ]);
 
         $user = User::findOrFail($id);
@@ -73,7 +71,7 @@ class UserController extends Controller
 
     #ADDITIONAL FUNCTION 
 
-   
+
 
 
 }

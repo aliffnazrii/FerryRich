@@ -13,10 +13,10 @@ class PaidReviewController extends Controller
 {
     public function index()
     {
-        $paidReviews = PaidReview::with(['contentCreator','product','reviewSubmissions', 'payments'])->get();
+        $paidReviews = PaidReview::with(['contentCreator', 'product', 'reviewSubmissions', 'payments'])->get();
         $products = Product::all();
-        $contentcreators = User::where('role','Content Creator')->get();
-        return view('staff.paid-review', compact('paidReviews','products','contentcreators'));
+        $contentcreators = User::where('role', 'Content Creator')->get();
+        return view('staff.paid-review', compact('paidReviews', 'products', 'contentcreators'));
     }
 
     public function create()
@@ -27,7 +27,7 @@ class PaidReviewController extends Controller
     public function store(Request $request)
     {
         // $request->validate([
-           
+
         // ]);
 
         $paidReview = PaidReview::create($request->all());
@@ -43,9 +43,9 @@ class PaidReviewController extends Controller
 
         // Create the Payment record, associating it with the PaidReview
         $payment = Payment::create([
-            'paid_review_id' => $paidReview->id, 
-            'amount' => $paidReview->deal_rate, 
-            'reference_number' => null, 
+            'paid_review_id' => $paidReview->id,
+            'amount' => $paidReview->deal_rate,
+            'reference_number' => null,
         ]);
         return redirect()->back()->with('success', 'Paid Review created successfully.');
     }
@@ -64,11 +64,9 @@ class PaidReviewController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-           
-        ]);
+        $request->validate([]);
 
-        $paidReview = PaidReview::findOrFail($id);
+        $paidReview = PaidReview::with(['contentCreator', 'product', 'reviewSubmissions', 'payments'])->findOrFail($id);
         $paidReview->update($request->all());
         return redirect()->back()->with('success', 'Paid Review updated successfully.');
     }

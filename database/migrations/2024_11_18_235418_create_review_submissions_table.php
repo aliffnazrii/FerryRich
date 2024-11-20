@@ -22,7 +22,6 @@ return new class extends Migration
 
             $table->foreign('paid_review_id')->references('id')->on('paid_reviews')->onDelete('cascade');
             $table->foreign('video_id')->references('id')->on('videos')->onDelete('set null');
-        
         });
     }
 

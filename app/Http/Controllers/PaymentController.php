@@ -92,16 +92,14 @@ class PaymentController extends Controller
     {
         // Validate incoming request data
         $request->validate([
-            'paid_review_id' => 'required|exists:paid_reviews,id',
-            'amount' => 'required|numeric',
+
             'reference_number' => 'required|string|unique:payments,reference_number,' . $payment->id,
             'status' => 'required|string',
         ]);
 
         // Update the payment
         $payment->update([
-            'paid_review_id' => $request->paid_review_id,
-            'amount' => $request->amount,
+
             'reference_number' => $request->reference_number,
             'status' => $request->status,
         ]);

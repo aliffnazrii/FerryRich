@@ -17,9 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('file_path')->nullable();
             $table->timestamps();
-            
+
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        
         });
     }
 

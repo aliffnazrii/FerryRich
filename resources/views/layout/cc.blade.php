@@ -2,39 +2,39 @@
 <html lang="en" data-bs-theme="semi-dark">
 
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title','default title')</title>
-   <!-- Favicon -->
-   <link rel="icon" href="{{ asset('assets/images/favicon-32x32.png') }}" type="image/png">
+    <title>@yield('title', 'default title')</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('assets/images/favicon-32x32.png') }}" type="image/png">
 
-   <!-- Loader -->
-   <link rel="stylesheet" href="{{ asset('assets/css/pace.min.css') }}">
-   <script src="{{ asset('assets/js/pace.min.js') }}"></script>
+    <!-- Loader -->
+    <link rel="stylesheet" href="{{ asset('assets/css/pace.min.css') }}">
+    <script src="{{ asset('assets/js/pace.min.js') }}"></script>
 
-   <!-- Plugins -->
-   <link rel="stylesheet" href="{{ asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}">
-   <link rel="stylesheet" href="{{ asset('assets/plugins/metismenu/metisMenu.min.css') }}">
-   <link rel="stylesheet" href="{{ asset('assets/plugins/metismenu/mm-vertical.css') }}">
-   <link rel="stylesheet" href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}">
-   <link rel="stylesheet" href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}">
+    <!-- Plugins -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/metismenu/metisMenu.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/metismenu/mm-vertical.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}">
 
-   <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
-   <!-- Fonts -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined">
 
-   <!-- Main CSS -->
-   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-extended.css') }}">
-   <link rel="stylesheet" href="{{ asset('sass/main.css') }}">
-   <link rel="stylesheet" href="{{ asset('assets/css/horizontal-menu.css') }}">
-   <link rel="stylesheet" href="{{ asset('sass/dark-theme.css') }}">
-   <link rel="stylesheet" href="{{ asset('sass/blue-theme.css') }}">
-   <link rel="stylesheet" href="{{ asset('sass/semi-dark.css') }}">
-   <link rel="stylesheet" href="{{ asset('sass/bordered-theme.css') }}">
-   <link rel="stylesheet" href="{{ asset('sass/responsive.css') }}">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-extended.css') }}">
+    <link rel="stylesheet" href="{{ asset('sass/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/horizontal-menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('sass/dark-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('sass/blue-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('sass/semi-dark.css') }}">
+    <link rel="stylesheet" href="{{ asset('sass/bordered-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('sass/responsive.css') }}">
 
 </head>
 
@@ -63,34 +63,44 @@
 
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" data-bs-auto-close="outside"
-                            data-bs-toggle="dropdown" href="javascript:;"><i class="material-icons-outlined">notifications</i>
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative"
+                            data-bs-auto-close="outside" data-bs-toggle="dropdown" href="javascript:;"><i
+                                class="material-icons-outlined">notifications</i>
                             <span class="badge-notify">5</span>
                         </a>
                         <div class="dropdown-menu dropdown-notify dropdown-menu-end shadow">
                             <div class="px-3 py-1 d-flex align-items-center justify-content-between border-bottom">
                                 <h5 class="notiy-title mb-0">Notifications</h5>
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret option" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret option"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="material-icons-outlined">
                                             more_vert
                                         </span>
                                     </button>
                                     <div class="dropdown-menu dropdown-option dropdown-menu-end shadow">
-                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
-                                                    class="material-icons-outlined fs-6">inventory_2</i>Archive All</a></div>
-                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
-                                                    class="material-icons-outlined fs-6">done_all</i>Mark all as read</a></div>
-                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
-                                                    class="material-icons-outlined fs-6">mic_off</i>Disable Notifications</a></div>
-                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2"
+                                                href="javascript:;"><i
+                                                    class="material-icons-outlined fs-6">inventory_2</i>Archive All</a>
+                                        </div>
+                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2"
+                                                href="javascript:;"><i
+                                                    class="material-icons-outlined fs-6">done_all</i>Mark all as
+                                                read</a></div>
+                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2"
+                                                href="javascript:;"><i
+                                                    class="material-icons-outlined fs-6">mic_off</i>Disable
+                                                Notifications</a></div>
+                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2"
+                                                href="javascript:;"><i
                                                     class="material-icons-outlined fs-6">grade</i>What's new ?</a></div>
                                         <div>
                                             <hr class="dropdown-divider">
                                         </div>
-                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
-                                                    class="material-icons-outlined fs-6">leaderboard</i>Reports</a></div>
+                                        <div><a class="dropdown-item d-flex align-items-center gap-2 py-2"
+                                                href="javascript:;"><i
+                                                    class="material-icons-outlined fs-6">leaderboard</i>Reports</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -99,11 +109,13 @@
                                     <a class="dropdown-item border-bottom py-2" href="javascript:;">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="">
-                                                <img src="assets/images/avatars/01.png" class="rounded-circle" width="45" height="45" alt="">
+                                                <img src="assets/images/avatars/01.png" class="rounded-circle"
+                                                    width="45" height="45" alt="">
                                             </div>
                                             <div class="">
                                                 <h5 class="notify-title">Congratulations Jhon</h5>
-                                                <p class="mb-0 notify-desc">Many congtars jhon. You have won the gifts.</p>
+                                                <p class="mb-0 notify-desc">Many congtars jhon. You have won the gifts.
+                                                </p>
                                                 <p class="mb-0 notify-time">Today</p>
                                             </div>
                                             <div class="notify-close position-absolute end-0 me-3">
@@ -134,31 +146,41 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a href="javascript:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                            <img src="assets/images/avatars/01.png" class="rounded-circle p-1 border" width="45" height="45" alt="">
+                        <a href="javascript:;" class="dropdown-toggle dropdown-toggle-nocaret"
+                            data-bs-toggle="dropdown">
+                            <img src="assets/images/avatars/01.png" class="rounded-circle p-1 border" width="45"
+                                height="45" alt="">
                         </a>
                         <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
                             <a class="dropdown-item gap-2 py-2" href="javascript:;">
                                 <div class="text-center">
-                                    <img src="assets/images/avatars/01.png" class="rounded-circle p-1 shadow mb-3" width="90" height="90" alt="">
+                                    <img src="assets/images/avatars/01.png" class="rounded-circle p-1 shadow mb-3"
+                                        width="90" height="90" alt="">
                                     <h5 class="user-name mb-0 fw-bold">Hello, Jhon</h5>
                                 </div>
                             </a>
                             <hr class="dropdown-divider">
-                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i class="material-icons-outlined">person_outline</i>Profile</a>
-                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i class="material-icons-outlined">local_bar</i>Setting</a>
-                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i class="material-icons-outlined">dashboard</i>Dashboard</a>
-                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i class="material-icons-outlined">account_balance</i>Earning</a>
-                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i class="material-icons-outlined">cloud_download</i>Downloads</a>
+                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                                    class="material-icons-outlined">person_outline</i>Profile</a>
+                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                                    class="material-icons-outlined">local_bar</i>Setting</a>
+                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                                    class="material-icons-outlined">dashboard</i>Dashboard</a>
+                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                                    class="material-icons-outlined">account_balance</i>Earning</a>
+                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
+                                    class="material-icons-outlined">cloud_download</i>Downloads</a>
                             <hr class="dropdown-divider">
-                            
+
                             <!-- Logout Form -->
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
                                 @csrf
                             </form>
-                            
+
                             <!-- Logout Button -->
-                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="material-icons-outlined">power_settings_new</i>Logout
                             </a>
                         </div>
@@ -173,11 +195,13 @@
         <!--navigation-->
         <div class="primary-menu">
             <nav class="navbar navbar-expand-xl align-items-center">
-                <div class="offcanvas offcanvas-start w-260" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas offcanvas-start w-260" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header border-bottom h-70">
                         <div class="d-flex align-items-center gap-2">
                             <div class="">
-                                <img src="assets/images/logo-icon.png" class="logo-icon" width="45" alt="logo icon">
+                                <img src="assets/images/logo-icon.png" class="logo-icon" width="45"
+                                    alt="logo icon">
                             </div>
                             <div class="">
                                 <h4 class="logo-text">FerryRich</h4>
@@ -215,19 +239,21 @@
                             </li>
 
                             <li class="nav-item m-2">
-                            <!-- Logout Form -->
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                            
-                            <!-- Logout Button -->
-                            <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="material-icons-outlined">power_settings_new</i>
-                                <div class="menu-title d-flex align-items-center">
-                                Logout
-                                </div>
-                            </a>
-                        </li>
+                                <!-- Logout Form -->
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+
+                                <!-- Logout Button -->
+                                <a class="nav-link"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="material-icons-outlined">power_settings_new</i>
+                                    <div class="menu-title d-flex align-items-center">
+                                        Logout
+                                    </div>
+                                </a>
+                            </li>
 
 
                         </ul>

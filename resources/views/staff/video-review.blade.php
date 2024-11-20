@@ -3,60 +3,60 @@
 @section('title', 'video Queue')
 
 @section('content')
-<main class="main-wrapper">
-    <div class="main-content">
+    <main class="main-wrapper">
+        <div class="main-content">
 
 
-        <h6 class="mb-0 text-uppercase">Video List</h6>
-        <hr>
-        <div class="card">
-            <div class="card-body">
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-                <div class="row">
-                    <div class="col-10"></div>
+            <h6 class="mb-0 text-uppercase">Video List</h6>
+            <hr>
+            <div class="card">
+                <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <div class="row">
+                        <div class="col-10"></div>
 
-                    <div class="col  text-center">
-                        <button type="button" class="btn btn-primary px-4 m-3" data-bs-toggle="modal"
-                            data-bs-target="#AddProduct">Add</button>
+                        <div class="col  text-center">
+                            <button type="button" class="btn btn-primary px-4 m-3" data-bs-toggle="modal"
+                                data-bs-target="#AddProduct">Add</button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="table-responsive">
-                    <table id="example2" class="table table-striped table-border">
-                        <thead>
-                            <tr>
-                                <th>Content Creator</th>
-                                <th>File Path</th>
-                                <th>Status</th>
-                                <th>Feedback</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
+                    <div class="table-responsive">
+                        <table id="example2" class="table table-striped table-border">
+                            <thead>
+                                <tr>
+                                    <th>Content Creator</th>
+                                    <th>File Path</th>
+                                    <th>Status</th>
+                                    <th>Feedback</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                         
-                            @foreach ($videos as $video)
-                            <tr>
-                                <td>{{ $video->uploader->name }}</td>
-                                <td><a href="{{ asset($video->file_path) }}" target="_blank">View Video</a></td>
-                                <td>{{ $video->status }}</td>
-                                <td>{{ $video->feedback ?? 'No Feedback' }}</td>
-                            <td> <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
-                                    data-bs-target="#ViewProduct{{$video->id}}">View</button></td>
-                                    {{-- <div class="modal fade modal-xl" id="ViewProduct{{$product->id}}">
+                            <tbody>
+
+                                @foreach ($videos as $video)
+                                    <tr>
+                                        <td>{{ $video->uploader->name }}</td>
+                                        <td><a href="{{ asset($video->file_path) }}" target="_blank">View Video</a></td>
+                                        <td>{{ $video->status }}</td>
+                                        <td>{{ $video->feedback ?? 'No Feedback' }}</td>
+                                        <td> <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
+                                                data-bs-target="#ViewProduct{{ $video->id }}">View</button></td>
+                                        {{-- <div class="modal fade modal-xl" id="ViewProduct{{$product->id}}">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header py-2 ">
@@ -93,20 +93,20 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                </tr>
+                                    </tr>
                                 @endforeach
-                        </tbody>
-                       
-                    </table>
+                            </tbody>
+
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
-    <!-- Modal -->
-    {{-- <div class="modal fade modal-xl" id="AddProduct">
+        <!-- Modal -->
+        {{-- <div class="modal fade modal-xl" id="AddProduct">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header py-2">
@@ -143,38 +143,38 @@
             </div>
         </div>
     </div> --}}
-    <!-- Modal -->
-   
+        <!-- Modal -->
 
 
-    <!--bootstrap js-->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <!--plugins-->
-    <script src="assets/js/jquery.min.js"></script>
-    <!--plugins-->
-    <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-    <script src="assets/plugins/metismenu/metisMenu.min.js"></script>
-    <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-    <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            var table = $('#example2').DataTable({
-                lengthChange: false,
-                buttons: ['copy', 'excel', 'pdf', 'print']
+        <!--bootstrap js-->
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+        <!--plugins-->
+        <script src="assets/js/jquery.min.js"></script>
+        <!--plugins-->
+        <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+        <script src="assets/plugins/metismenu/metisMenu.min.js"></script>
+        <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+        <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#example').DataTable();
             });
+        </script>
+        <script>
+            $(document).ready(function() {
+                var table = $('#example2').DataTable({
+                    lengthChange: false,
+                    buttons: ['copy', 'excel', 'pdf', 'print']
+                });
 
-            table.buttons().container()
-                .appendTo('#example2_wrapper .col-md-6:eq(0)');
-        });
-    </script>
-    <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
-    <script src="assets/js/main.js"></script>
+                table.buttons().container()
+                    .appendTo('#example2_wrapper .col-md-6:eq(0)');
+            });
+        </script>
+        <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+        <script src="assets/js/main.js"></script>
 
-</main>
+    </main>
 @endsection

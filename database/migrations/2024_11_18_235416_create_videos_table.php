@@ -24,7 +24,6 @@ return new class extends Migration
 
             $table->foreign('uploaded_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('reviewed_by')->references('id')->on('users')->onDelete('set null');
-       
         });
     }
 

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('paid_review_id')->references('id')->on('paid_reviews')->onDelete('cascade');
-        
         });
     }
 

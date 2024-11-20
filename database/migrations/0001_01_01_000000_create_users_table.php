@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->enum('role', ['Content Creator', 'Staff', 'Admin'])->default('Content Creator');
+            $table->enum('role', ['Content Creator', 'Finance', 'Staff', 'Admin'])->default('Content Creator');
             $table->string('tiktok_username')->nullable();
             $table->string('tiktok_profile_link')->nullable();
             $table->string('ic_number')->nullable();
@@ -28,7 +28,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-    
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
