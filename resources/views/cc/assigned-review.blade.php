@@ -47,7 +47,12 @@
                                         <td>{{ $review->product->name }}</td>
                                         <td>{{ $review->deal_rate }}</td>
                                         <td>{{ $review->total_product }}</td>
-                                        <td>{{ $review->order_status }}</td>
+
+                                        <td><span
+                                                class="badge 
+                                        {{ $review->order_status == 'Delivered' ? 'bg-success' : ($review->order_status == 'Cancelled' ? 'bg-danger' : 'bg-warning') }}">
+                                                {{ ucfirst($review->order_status) }}
+                                            </span></td>
                                         <td>
                                             <button class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#reviewModal{{ $review->id }}">View</button>

@@ -64,18 +64,14 @@ class VideoController extends Controller
             $video = Video::findOrFail($id);
             $video->update([
                 'file_path' => $path,
+                'status' => 'Pending',
+                'feedback' => '',
             ]);
             return redirect()->back()->with('success', 'Video Uploaded successfully.');
         }
         return redirect()->back()->with('error', 'No file uploaded.');
     }
 
-
-    public function destroy($id)
-    {
-        Video::destroy($id);
-        return redirect()->route('videos.index')->with('success', 'Video deleted successfully.');
-    }
 
     // CUSTOM FUNCTION TO HANDLE VIDEO UPLOAD
 
@@ -85,6 +81,18 @@ class VideoController extends Controller
         $userId = auth()->user()->id;
         $videos = Video::where('uploaded_by', $userId)->get();
         return view('cc.video-submission', compact('videos'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $video = Video::findOrFail($id);
+
+        $video->update([
+            'feedback' => $request->input('feedback'),
+            'status' => $request->input('status'),
+        ]);
+
+        return back()->with('success', 'Information updated successfully.');
     }
 
     public function streamVideo($id)

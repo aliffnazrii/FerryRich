@@ -57,8 +57,17 @@
                                         <td>{{ $review->product->name }}</td>
                                         <td>{{ $review->deal_rate }}</td>
                                         <td>{{ $review->total_product }}</td>
-                                        <td>{{ $review->order_status }}</td>
-                                        <td>{{ $review->payment_status }}</td>
+                                        <td><span
+                                                class="badge 
+                                    {{ $review->order_status == 'Delivered' ? 'bg-success' : ($review->order_status == 'Cancelled' ? 'bg-danger' : 'bg-warning') }}">
+                                                {{ ucfirst($review->order_status) }}
+                                            </span></td>
+                          
+                                        <td><span
+                                                class="badge 
+                                    {{ $review->payment_status == 'Paid' ? 'bg-success' : 'bg-warning' }}">
+                                                {{ ucfirst($review->payment_status) }}
+                                            </span></td>
                                         <td>
                                             <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#viewReview{{ $review->id }}">View</button>
@@ -103,7 +112,8 @@
 
                                                                     <div class="col-md-12 my-3">
                                                                         <label for="deal_rate" class="form-label">Deal Rate
-                                                                            (RM)</label>
+                                                                            (RM)
+                                                                        </label>
                                                                         <input type="number"
                                                                             value="{{ $review->deal_rate ?? '' }}"
                                                                             name="deal_rate" step="0.01"

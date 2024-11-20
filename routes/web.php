@@ -46,6 +46,7 @@ Route::get('/review', function () {
 });
 Route::get('/review-list', [PaidReviewController::class, 'assignedReview'])->name('assignedReviews');
 Route::get('/video-submission', [VideoController::class, 'videoList'])->name('videos.submission');
+Route::put('/update-video-status/{id}', [VideoController::class, 'updateStatus'])->name('videos.updateStatus');
 Route::get('/payment-history', [PaymentController::class, 'PaymentList'])->name('payments.history');
 
 

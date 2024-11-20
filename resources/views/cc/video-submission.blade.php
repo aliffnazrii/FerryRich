@@ -50,6 +50,7 @@
                                             @else
                                                 N/A
                                             @endif
+                                        </td>
                                         <td class="text-center">
 
                                             <span
@@ -59,7 +60,7 @@
                                             </span>
 
                                         </td>
-                                        <td>{{ $video->feedback ?? 'N/A' }}</td>
+                                        <td>{{ $video->feedback == '' ? 'N/A' : $video->feedback }}</td>
                                         <td class="text-center">
 
                                             @if ($video->status != 'Approved')
