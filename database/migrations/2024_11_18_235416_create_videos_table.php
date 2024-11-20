@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->string('file_path')->nullable();
-            $table->unsignedBigInteger('uploaded_by');
-            $table->timestamp('upload_date')->useCurrent();
+            $table->unsignedBigInteger('uploaded_by')->nullable();
+            $table->timestamp('upload_date')->nullable();
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
             $table->unsignedBigInteger('reviewed_by')->nullable();
             $table->timestamp('reviewed_at')->nullable();

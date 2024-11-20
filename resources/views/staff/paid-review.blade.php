@@ -260,7 +260,7 @@
                                             id="total_product" placeholder="Total Products" required>
                                     </div>
 
-                                    <div class="col-md-12 my-3">
+                                    {{-- <div class="col-md-12 my-3">
                                         <label for="order_status" class="form-label">Order Status</label>
                                         <select name="order_status" class="form-control" id="order_status" required>
                                             <option>Select</option>
@@ -293,7 +293,7 @@
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
                                         </select>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                                 <div class="modal-footer">

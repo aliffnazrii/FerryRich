@@ -49,7 +49,7 @@
                                         <td>{{ $review->total_product }}</td>
                                         <td>{{ $review->order_status }}</td>
                                         <td>
-                                            <button class="btn btn-info" data-bs-toggle="modal"
+                                            <button class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#reviewModal{{ $review->id }}">View</button>
                                         </td>
                                     </tr>

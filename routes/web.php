@@ -40,6 +40,7 @@ Route::resource('payments', PaymentController::class);
 Route::get('/profile', function () {
     return view('staff/profile');
 });
+
 Route::get('/review', function () {
     return view('staff/list-review');
 });
@@ -49,6 +50,8 @@ Route::get('/payment-history', [PaymentController::class, 'PaymentList'])->name(
 
 
 //CONTENT CREATOR SIDE SECTION
+
+Route::get('/videos/stream/{id}', [VideoController::class, 'streamVideo'])->name('videos.stream');
 
 Route::get('/dashboard-cc', function () {
     return view('cc/dashboard-cc');

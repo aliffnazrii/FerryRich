@@ -43,12 +43,104 @@
                                 @foreach ($videos as $video)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td><a href="{{ asset($video->file_path) }}" target="_blank">View Video</a></td>
-                                        <td>{{ $video->status }}</td>
-                                        <td>{{ $video->feedback ?? 'No Feedback' }}</td>
                                         <td>
-                                            <button class="btn btn-info" data-bs-toggle="modal"
-                                                data-bs-target="#videoModal{{ $video->id }}">View</button>
+                                            @if ($video->file_path != '')
+                                                <a href="{{ route('videos.stream', $video->id) }}" target="_blank">View
+                                                    Video</a>
+                                            @else
+                                                N/A
+                                            @endif
+                                        <td class="text-center">
+
+                                            <span
+                                                class="badge 
+                                            {{ $video->status == 'Approved' ? 'bg-success' : ($video->status == 'Rejected' ? 'bg-danger' : 'bg-warning') }}">
+                                                {{ ucfirst($video->status) }}
+                                            </span>
+
+                                        </td>
+                                        <td>{{ $video->feedback ?? 'N/A' }}</td>
+                                        <td class="text-center">
+
+                                            @if ($video->status != 'Approved')
+                                                <button class="btn btn-primary col-md-2" data-bs-toggle="modal"
+                                                    data-bs-target="#videoModal{{ $video->id }}">View</button>
+                                                <button class="btn btn-primary col-md-2" data-bs-toggle="modal"
+                                                    data-bs-target="#uploadVideo{{ $video->id }}">Upload</button>
+                                            @else
+                                                <button class="btn btn-primary col-md-2" data-bs-toggle="modal"
+                                                    data-bs-target="#videoModal{{ $video->id }}">View</button>
+                                                <button class="btn btn-primary col-md-2" data-bs-toggle="modal"
+                                                    data-bs-target="#linkModal{{ $video->id }}">Link</button>
+                                            @endif
+
+                                            <!-- Upload Video Modal -->
+                                            <div class="modal fade" id="linkModal{{ $video->id }}" tabindex="-1"
+                                                aria-labelledby="modalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalLabel">Upload Link</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post"
+                                                                action="{{ route('reviews.update', $video->id) }}">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="mb-3">
+                                                                    <label for="upload" class="form-label">Upload
+                                                                        Link</label>
+                                                                    <input type="file" name="file_path"
+                                                                        class="form-control" id="upload">
+                                                                </div>
+
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-success">Upload</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Upload Video Modal -->
+                                            <div class="modal fade" id="uploadVideo{{ $video->id }}" tabindex="-1"
+                                                aria-labelledby="modalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalLabel">Upload Video</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post"
+                                                                action="{{ route('videos.update', $video->id) }}"
+                                                                enctype="multipart/form-data">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="mb-3">
+                                                                    <label for="upload" class="form-label">Upload
+                                                                        Video</label>
+                                                                    <input type="file" name="file_path"
+                                                                        class="form-control" id="upload">
+                                                                </div>
+
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-success">Upload</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <!-- Modal -->

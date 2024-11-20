@@ -34,14 +34,11 @@ class PaidReviewController extends Controller
 
         $paidReview = PaidReview::create($request->all());
 
-        // $video = Video::create([
-        //     'paid_review_id' => $paidReview->id, 
-        //     'file_path' => '-', 
-        //     'uploaded_by' => $request->input('uploaded_by'),
-        //     'upload_date' => $request->input('upload_date'),
-        //     'status' => $request->input('status'), 
-        //     // ... other video details (e.g., 'reviewed_by', 'reviewed_at', 'feedback')
-        // ]);
+        $video = Video::create([
+            'uploaded_by' => $paidReview->content_creator_id,
+
+            // ... other video details (e.g., 'reviewed_by', 'reviewed_at', 'feedback')
+        ]);
 
         // Create the Payment record, associating it with the PaidReview
         $payment = Payment::create([
@@ -84,7 +81,7 @@ class PaidReviewController extends Controller
         $cc = Auth::user()->id;
 
         $assignedReviews = PaidReview::with(['product', 'reviewSubmissions'])
-            ->where('content_creator_id', 1)
+            ->where('content_creator_id', $cc)
             ->get();
         return view('cc.assigned-review', compact('assignedReviews'));
     }

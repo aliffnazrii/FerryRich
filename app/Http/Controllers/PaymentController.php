@@ -140,7 +140,7 @@ class PaymentController extends Controller
 
         // Fetch PaidReviews for the authenticated Content Creator with related payments
         $payments = PaidReview::with('payments')
-            // ->where('content_creator_id', $userId) // Ensure this column exists in the PaidReviews table
+            ->where('content_creator_id', $userId) // Ensure this column exists in the PaidReviews table
             ->get();
 
         return view('cc.payment-history', compact('payments'));
