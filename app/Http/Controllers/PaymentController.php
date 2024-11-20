@@ -15,7 +15,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::all(); // Get all payments
+        $payments = Payment::with(['paidReview'])->get(); // Get all payments
         return view('staff.payment', compact('payments')); // Return to the index view
     }
 

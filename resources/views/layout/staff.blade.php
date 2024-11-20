@@ -208,7 +208,7 @@
         
                             <!-- Review -->
                             <li class="nav-item m-2">
-                                <a href="/review" class="nav-link">
+                                <a href="{{route('reviews.index')}}" class="nav-link">
                                     <div class="parent-icon"><i class="material-icons-outlined">rate_review</i></div>
                                     <div class="menu-title d-flex align-items-center">Review</div>
                                 </a>
