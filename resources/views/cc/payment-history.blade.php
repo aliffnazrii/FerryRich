@@ -97,6 +97,17 @@
                                                                     value="{{ $payment->reference_number ?? 'N/A' }}"
                                                                     readonly>
                                                             </div>
+
+                                                            @if ($payment->file_path)
+                                                                <div class="mb-3">
+                                                                    <label for="reference_number" class="form-label">Receipt
+                                                                    </label>
+                                                                    <br>
+                                                                    <a class="btn btn-primary mt-1 ml-1"
+                                                                        href="{{ route('payments.viewReceipt', $payment->id) }}"
+                                                                        target="_blank">View Receipt</a>
+                                                                </div>
+                                                            @endif
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">

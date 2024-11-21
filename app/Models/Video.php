@@ -13,6 +13,7 @@ class Video extends Model
         'file_path',
         'uploaded_by',
         'upload_date',
+        'video_link',
         'status',
         'reviewed_by',
         'reviewed_at',

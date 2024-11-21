@@ -18,9 +18,12 @@ Auth::routes();
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/dashboard', function () {
-    return view('staff/dashboard');
-});
+// Route::get('/dashboard', function () {
+//     return view('staff/dashboard');
+// });
+
+Route::get('/dashboard', [UserController::class, 'staffDashboard'])->name('staffDashboard');
+
 
 // Route::get('/list-cc', function () {
 //     return view('staff/list-cc');
@@ -54,6 +57,8 @@ Route::get('/payment-history', [PaymentController::class, 'PaymentList'])->name(
 //CONTENT CREATOR SIDE SECTION
 
 Route::get('/videos/stream/{id}', [VideoController::class, 'streamVideo'])->name('videos.stream');
+Route::put('/videos/upload-link/{id}', [VideoController::class, 'uploadLink'])->name('videos.uploadLink');
+Route::put('/review/update-order-status/{id}', [PaidReviewController::class, 'updateOrderStatus'])->name('reviews.updateOrderStatus');
 
 Route::get('/payment/viewReceipt/{id}', [PaymentController::class, 'viewReceipt'])->name('payments.viewReceipt');
 

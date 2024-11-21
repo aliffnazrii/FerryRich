@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ReviewSubmission;
+use App\Models\Video;
 
 class ReviewSubmissionController extends Controller
 {
@@ -13,17 +14,11 @@ class ReviewSubmissionController extends Controller
         return view('staff.submission', compact('reviewSubmissions'));
     }
 
-    public function create()
+    public function store(Request $request,$vid_id)
     {
-        return view('review_submissions.create');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'submission_text' => 'required',
-            // Add other validation rules as needed
-        ]);
+  
+        $video = Video::find($vid_id);
+        $contentCreator = $video->uploaded_by;
 
         ReviewSubmission::create($request->all());
         return redirect()->route('review_submissions.index')->with('success', 'Review Submission created successfully.');

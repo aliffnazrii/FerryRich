@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaidReview;
+use App\Models\Payment;
+use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -79,6 +82,57 @@ class UserController extends Controller
 
 
     #ADDITIONAL FUNCTION 
+
+    public function staffDashboard()
+    {
+        // General Stats
+        $totalPayments = Payment::sum('amount');
+        $totalAssignedReviews = PaidReview::count();
+        $totalApprovedVideos = Video::where('status', 'Approved')->count();
+        $totalPendingVideos = Video::where('status', 'Pending')->count();
+        $totalContentCreators = User::where('role', 'Content Creator')->where('is_approved', true)->count();
+    
+        // Review Status Data
+        $pendingReviews = PaidReview::where('order_status', 'Pending')->count();
+        $inProgressReviews = PaidReview::where('order_status', 'In Progress')->count();
+        $completedReviews = PaidReview::where('order_status', 'Completed')->count();
+        $totalReviews = PaidReview::count();
+        $reviewCompletionRate = ($totalReviews > 0) ? ($completedReviews / $totalReviews) * 100 : 0;
+    
+        // Monthly Video Stats
+        $monthlyVideosApproved = Video::where('status', 'Approved')
+            ->whereMonth('created_at', now()->month)
+            ->count();
+        $monthlyVideosTotal = Video::whereMonth('created_at', now()->month)->count();
+        $monthlyVideoGrowth = ($monthlyVideosTotal > 0) ? ($monthlyVideosApproved / $monthlyVideosTotal) * 100 : 0;
+    
+        // Yearly Payment Stats
+        $yearlyPaymentsCompleted = Payment::where('status', 'Completed')
+            ->whereYear('created_at', now()->year)
+            ->sum('amount');
+        $yearlyPaymentsTotal = Payment::whereYear('created_at', now()->year)->count();
+        $yearlyPaymentGrowth = ($yearlyPaymentsTotal > 0) ? ($yearlyPaymentsCompleted / $yearlyPaymentsTotal) * 100 : 0;
+    
+        // Pass data to the view
+        return view('staff.dashboard', compact(
+            'totalPayments',
+            'totalAssignedReviews',
+            'totalApprovedVideos',
+            'totalPendingVideos',
+            'totalContentCreators',
+            'pendingReviews',
+            'inProgressReviews',
+            'completedReviews',
+            'reviewCompletionRate',
+            'monthlyVideosApproved',
+            'monthlyVideosTotal',
+            'monthlyVideoGrowth',
+            'yearlyPaymentsCompleted',
+            'yearlyPaymentsTotal',
+            'yearlyPaymentGrowth'
+        ));
+    }
+    
 
 
 

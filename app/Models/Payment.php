@@ -14,6 +14,7 @@ class Payment extends Model
         'amount',
         'reference_number',
         'status',
+        'file_path',
     ];
 
     public function paidReview()

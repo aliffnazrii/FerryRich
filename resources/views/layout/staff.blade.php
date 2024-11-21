@@ -234,15 +234,16 @@
                                 </a>
                             </li>
 
-                            @if (Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin')
-                                <!-- Content Creator -->
-                                <li class="nav-item m-2">
-                                    <a href="{{ route('users.index') }}" class="nav-link">
-                                        <div class="parent-icon"><i class="material-icons-outlined">group</i></div>
-                                        <div class="menu-title d-flex align-items-center">Content Creator</div>
-                                    </a>
-                                </li>
 
+                            <!-- Content Creator -->
+                            <li class="nav-item m-2">
+                                <a href="{{ route('users.index') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">group</i></div>
+                                    <div class="menu-title d-flex align-items-center">Content Creator</div>
+                                </a>
+                            </li>
+                            
+                            @if (Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin')
                                 <!-- Video Queue -->
                                 <li class="nav-item m-2">
                                     <a href="{{ route('videos.index') }}" class="nav-link">

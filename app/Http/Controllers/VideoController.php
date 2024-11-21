@@ -75,6 +75,21 @@ class VideoController extends Controller
 
     // CUSTOM FUNCTION TO HANDLE VIDEO UPLOAD
 
+
+
+    public function uploadLink(Request $request, $id)
+    {
+
+        if ($request->video_link != '') {
+            $video = Video::findOrFail($id);
+            $video->update([
+                'video_link' => $request->input('video_link')
+            ]);
+            return redirect()->back()->with('success', 'Link Uploaded Successfully');
+        }
+        return redirect()->back()->with('failed', 'Link failed to upload');
+    }
+
     public function videoList()
     {
 

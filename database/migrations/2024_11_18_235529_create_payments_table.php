@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,7 +14,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('paid_review_id');
             $table->decimal('amount', 8, 2);
-            $table->string('receipt')->nullable();
+            $table->string('file_path')->nullable();
             $table->string('reference_number')->unique()->nullable();
             $table->enum('status', ['Pending', 'Completed', 'Failed'])->default('Pending');
             $table->timestamps();

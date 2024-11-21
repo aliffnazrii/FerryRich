@@ -202,12 +202,7 @@
                                                                         </select>
                                                                     </div>
 
-                                                                    {{-- <div class="col-md-12 my-3">
-                                                                        <label for="receipt_photo"
-                                                                            class="form-label">Receipt Photo</label>
-                                                                        <input type="file" name="receipt_photo"
-                                                                            class="form-control" id="receipt_photo">
-                                                                    </div> --}}
+                                                                 
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     @if (Auth::user()->role != 'Finance')

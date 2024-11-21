@@ -13,8 +13,8 @@ class ReviewSubmission extends Model
         'paid_review_id',
         'video_id',
         'post_date',
-        'link_video_tiktok',
-        'ad_code',
+        'video_link',
+
     ];
 
     public function paidReview()

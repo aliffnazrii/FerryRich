@@ -87,26 +87,35 @@ class PaymentController extends Controller
 
             'reference_number' => 'nullable|string',
             'status' => 'required|string',
+            'receipt' => 'nullable|mimes:pdf,jpeg,png|max:2048',
         ]);
 
         $payment = Payment::findOrFail($id);
         $PR_id = $payment->paid_review_id;
         $PR_payment = PaidReview::findOrFail($PR_id);
+        $receiptPath = null;
 
-        if ($request->hasFile('receipt')) {
+        if ($request->hasFile('receipt') && $request->file('receipt')->isValid()) {
             // Delete the old file if it exists
-            if ($payment->receipt && Storage::disk('public')->exists($payment->receipt)) {
-                Storage::disk('public')->delete($payment->receipt);
+            if ($payment->file_path && Storage::disk('public')->exists($payment->file_path)) {
+                Storage::disk('public')->delete($payment->file_path);
             }
 
             // Store the new file
-            $path = $request->file('receipt')->store('payment_receipt', 'public');
-
+            $receiptPath = $request->file('receipt')->store('payment_receipt', 'public');
             $payment->update([
-                'receipt' => $path,
+                'file_path' => $receiptPath, // The new path or the existing path
+                'updated_at' => now()->setTimezone('Asia/Kuala_Lumpur'),
             ]);
-
+    
+            $paidReviewReceipt = PaidReview::findOrFail($payment->paid_review_id);
+            $paidReviewReceipt->update([
+                'receipt_photo' => $receiptPath,
+            ]);
         }
+
+
+
 
         if ($request->reference_number != '') {
             // Update the payment
@@ -167,14 +176,17 @@ class PaymentController extends Controller
     {
         $payment = Payment::findOrFail($id);
 
-        $path = storage_path('app/public/' . $payment->receipt);
+        $path = storage_path('app/public/' . $payment->file_path); // Assuming 'receipt' is the column storing the file path
 
         if (!file_exists($path)) {
             abort(404);
         }
 
+        // Determine the content type based on the file extension
+        $mimeType = mime_content_type($path);
+
         return response()->file($path, [
-            'Content-Type' => 'application/pdf',
+            'Content-Type' => $mimeType, // Use the correct MIME type
             'Content-Disposition' => 'inline; filename="' . basename($path) . '"'
         ]);
     }

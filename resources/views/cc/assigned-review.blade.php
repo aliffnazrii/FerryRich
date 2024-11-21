@@ -69,7 +69,10 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form>
+                                                    <form method="post"
+                                                        action="{{ route('reviews.updateOrderStatus', $review->id) }}">
+                                                        @csrf
+                                                        @method('PUT')
                                                         <div class="mb-3">
                                                             <label for="product" class="form-label">Product</label>
                                                             <input type="text" class="form-control" id="product"
@@ -86,18 +89,48 @@
                                                             <input type="text" class="form-control" id="total_product"
                                                                 value="{{ $review->total_product }}" readonly>
                                                         </div>
-                                                        <div class="mb-3">
+
+                                                        <div class="col-md-12 my-3">
                                                             <label for="order_status" class="form-label">Order
                                                                 Status</label>
-                                                            <input type="text" class="form-control" id="order_status"
-                                                                value="{{ $review->order_status }}" readonly>
+                                                            <select name="order_status" class="form-control"
+                                                                id="order_status" required
+                                                                {{ isset($review) && $review->order_status == 'Delivered' ? 'disabled' : '' }}>
+                                                                <option value="Pending"
+                                                                    {{ isset($review) && $review->order_status == 'Pending' ? 'selected' : '' }}>
+                                                                    Pending</option>
+                                                                <option value="Delivered"
+                                                                    {{ isset($review) && $review->order_status == 'Delivered' ? 'selected' : '' }}>
+                                                                    Delivered</option>
+                                                                <option value="Cancelled"
+                                                                    {{ isset($review) && $review->order_status == 'Cancelled' ? 'selected' : '' }}>
+                                                                    Cancelled</option>
+                                                            </select>
                                                         </div>
-                                                    </form>
+                                                        <div class="col-md-12 my-3">
+                                                            <label for="product_received" class="form-label">Product
+                                                                Received</label>
+                                                            <select name="product_received" class="form-control"
+                                                                id="product_received"
+                                                                {{ isset($review) && $review->product_received == 1 ? 'Disabled ' : '' }}>
+                                                                <option value="1"
+                                                                    {{ isset($review) && $review->product_received ? 'selected' : '' }}>
+                                                                    Yes</option>
+                                                                <option value="0"
+                                                                    {{ isset($review) && !$review->product_received ? 'selected' : '' }}>
+                                                                    No</option>
+                                                            </select>
+                                                        </div>
                                                 </div>
                                                 <div class="modal-footer">
+                                                    @if ($review->product_received == 1 && $review->order_status == 'Delivered')
+                                                    @else
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    @endif
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
                                                 </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

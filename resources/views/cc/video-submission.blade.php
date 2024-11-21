@@ -26,6 +26,11 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    @if (session('failed'))
+                        <div class="alert alert-danger">
+                            {{ session('failed') }}
+                        </div>
+                    @endif
 
 
                     <div class="table-responsive">
@@ -45,7 +50,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
                                             @if ($video->file_path != '')
-                                                <a href="{{ route('videos.stream', $video->id) }}" target="_blank">View
+                                                <a href="{{ route('videos.stream', $video->id) }}" target="_blank">Open
                                                     Video</a>
                                             @else
                                                 N/A
@@ -64,18 +69,26 @@
                                         <td class="text-center">
 
                                             @if ($video->status != 'Approved')
-                                                <button class="btn btn-primary col-md-2" data-bs-toggle="modal"
-                                                    data-bs-target="#videoModal{{ $video->id }}">View</button>
-                                                <button class="btn btn-primary col-md-2" data-bs-toggle="modal"
-                                                    data-bs-target="#uploadVideo{{ $video->id }}">Upload</button>
+                                                <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
+                                                    data-bs-target="#videoModal{{ $video->id }}">
+                                                    <i class="bi bi-eye"></i> View
+                                                </button>
+                                                <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
+                                                    data-bs-target="#uploadVideo{{ $video->id }}">
+                                                    <i class="bi bi-upload"></i> Upload
+                                                </button>
                                             @else
-                                                <button class="btn btn-primary col-md-2" data-bs-toggle="modal"
-                                                    data-bs-target="#videoModal{{ $video->id }}">View</button>
-                                                <button class="btn btn-primary col-md-2" data-bs-toggle="modal"
-                                                    data-bs-target="#linkModal{{ $video->id }}">Link</button>
+                                                <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
+                                                    data-bs-target="#videoModal{{ $video->id }}">
+                                                    <i class="bi bi-eye"></i> View
+                                                </button>
+                                                <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
+                                                    data-bs-target="#linkModal{{ $video->id }}">
+                                                    <i class="bi bi-link-45deg"></i> Link
+                                                </button>
                                             @endif
 
-                                            <!-- Upload Video Modal -->
+                                            <!-- Upload Link Modal -->
                                             <div class="modal fade" id="linkModal{{ $video->id }}" tabindex="-1"
                                                 aria-labelledby="modalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -87,14 +100,14 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <form method="post"
-                                                                action="{{ route('reviews.update', $video->id) }}">
+                                                                action="{{ route('videos.uploadLink', $video->id) }}">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="mb-3">
-                                                                    <label for="upload" class="form-label">Upload
+                                                                    <label for="video_link" class="form-label">Upload
                                                                         Link</label>
-                                                                    <input type="file" name="file_path"
-                                                                        class="form-control" id="upload">
+                                                                    <input type="text" name="video_link"
+                                                                        class="form-control" id="video_link" value="{{ $video->video_link }}">
                                                                 </div>
 
 
@@ -159,11 +172,11 @@
                                                         <div class="mb-3">
                                                             <label for="status" class="form-label">Status</label>
                                                             <input type="text" class="form-control" id="status"
-                                                                value="{{ $video->status }}" readonly>
+                                                                value="{{ $video->status }}" readonly disabled>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="feedback" class="form-label">Feedback</label>
-                                                            <textarea class="form-control" id="feedback" rows="3" readonly>{{ $video->feedback ?? 'No Feedback' }}</textarea>
+                                                            <textarea class="form-control" id="feedback" rows="3" readonly disabled>{{ $video->feedback == '' ? 'No Feedback' : $video->feedback }}</textarea>
                                                         </div>
                                                     </form>
                                                 </div>

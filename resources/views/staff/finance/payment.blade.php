@@ -77,7 +77,8 @@
                                                     <div class="modal-body">
                                                         <div class="form-body">
                                                             <form class="row g-3" method="post"
-                                                                action="{{ route('payments.update', $payment->id) }}">
+                                                                action="{{ route('payments.update', $payment->id) }}"
+                                                                enctype="multipart/form-data">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="col-md-12 my-3">
@@ -126,29 +127,29 @@
                                                                             class="form-control" id="receipt_photo"
                                                                             accept=".jpg, .jpeg, .png, .pdf"
                                                                             {{ $payment->status != 'Pending' ? 'disabled' : '' }}>
-                                                                        <td>
-                                                                            @if ($pamyent->receipt)
-                                                                                <a href="{{ route('payments.viewReceipt', $pamyent->id) }}"
-                                                                                    target="_blank">View Receipt</a>
-                                                                            @else
-                                                                                N/A
-                                                                            @endif
-                                                                        </td>
+
+                                                                        @if ($payment->file_path != '')
+                                                                            <a class="btn btn-primary mt-3 ml-1"
+                                                                                href="{{ route('payments.viewReceipt', $payment->id) }}"
+                                                                                target="_blank">View Receipt</a>
+                                                                        @endif
+
                                                                     </div>
                                                                 @else
                                                                     <div class="col-md-12 my-3">
                                                                         <label for="receipt_photo"
                                                                             class="form-label">Receipt
                                                                         </label>
-                                                                        <input type="text" name="receipt"
+                                                                        <br>
+                                                                        {{-- <input type="text" name="receipt"
                                                                             class="form-control" id="receipt_photo"
-                                                                            value=""
-                                                                            {{ $payment->status != 'Pending' ? 'disabled' : '' }}>
-                                                                        @if ($pamyent->receipt)
-                                                                            <a href="{{ route('payments.viewReceipt', $pamyent->id) }}"
+                                                                            value="{{ $payment->file_path }}"
+                                                                            {{ $payment->status != 'Pending' ? 'disabled' : '' }}> --}}
+
+                                                                        @if ($payment->file_path != '')
+                                                                            <a class="btn btn-primary ml-1"
+                                                                                href="{{ route('payments.viewReceipt', $payment->id) }}"
                                                                                 target="_blank">View Receipt</a>
-                                                                        @else
-                                                                            N/A
                                                                         @endif
                                                                     </div>
                                                                 @endif

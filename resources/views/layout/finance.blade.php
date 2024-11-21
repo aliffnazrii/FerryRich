@@ -232,7 +232,8 @@
                                         <div class="menu-title d-flex align-items-center">Review</div>
                                     </a>
                                 </li>
-
+                            @endif
+                           
                                 <!-- Content Creator -->
                                 <li class="nav-item m-2">
                                     <a href="{{ route('users.index') }}" class="nav-link">
@@ -240,7 +241,9 @@
                                         <div class="menu-title d-flex align-items-center">Content Creator</div>
                                     </a>
                                 </li>
+                          
 
+                            @if(Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin')
                                 <!-- Video Queue -->
                                 <li class="nav-item m-2">
                                     <a href="{{ route('videos.index') }}" class="nav-link">
@@ -248,7 +251,9 @@
                                         <div class="menu-title d-flex align-items-center">Video Queue</div>
                                     </a>
                                 </li>
-                            @elseif (Auth::user()->role == 'Finance' || Auth::user()->role == 'Admin')
+                            @endif
+
+                            @if (Auth::user()->role == 'Finance' || Auth::user()->role == 'Admin')
                                 <!-- Payment -->
                                 <li class="nav-item m-2">
                                     <a href="{{ route('payments.index') }}" class="nav-link">
@@ -258,11 +263,6 @@
                                     </a>
                                 </li>
                             @endif
-
-
-
-
-
 
 
                             <!-- Profile -->

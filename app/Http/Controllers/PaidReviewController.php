@@ -55,7 +55,7 @@ class PaidReviewController extends Controller
         } else {
             return redirect()->back()->with('failed', 'Content Creator must be approved to create a paid review.');
         }
-        
+
     }
 
     public function show($id)
@@ -93,5 +93,14 @@ class PaidReviewController extends Controller
             ->where('content_creator_id', $cc)
             ->get();
         return view('cc.assigned-review', compact('assignedReviews'));
+    }
+
+
+    public function updateOrderStatus(Request $request, $id)
+    {
+        $review = PaidReview::findOrFail($id);
+
+        $review->update($request->all());
+        return redirect()->back()->with('success', 'Review updated successfully.');
     }
 }
