@@ -37,9 +37,9 @@ Route::resource('videos', VideoController::class);
 Route::resource('payments', PaymentController::class);
 
 
-Route::get('/profile', function () {
-    return view('staff/profile');
-});
+// Route::get('/profile', function () {
+//     return view('staff/profile');
+// });
 
 Route::get('/review', function () {
     return view('staff/list-review');

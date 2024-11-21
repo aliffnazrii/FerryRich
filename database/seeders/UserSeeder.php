@@ -24,8 +24,8 @@ class UserSeeder extends Seeder
             'email' => 'jane@example.com',
             'password' => Hash::make('password'),
             'phone' => '0198765432',
-            'role' => 'Staff',
-            'is_approved' => true,
+            'role' => 'Content Creator',
+            'is_approved' => false,
         ]);
 
         User::create([
@@ -41,6 +41,13 @@ class UserSeeder extends Seeder
             'email' => 'a@a',
             'password' => Hash::make('aliffnazrii'),
             'role' => 'Staff',
+            'is_approved' => true,
+        ]);
+        User::create([
+            'name' => 'azmin',
+            'email' => 'min@a',
+            'password' => Hash::make('aliffnazrii'),
+            'role' => 'Finance',
             'is_approved' => true,
         ]);
     }

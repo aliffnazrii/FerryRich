@@ -223,18 +223,16 @@
                                         <div class="menu-title d-flex align-items-center">Product</div>
                                     </a>
                                 </li>
-                            @endif
 
-                            <!-- Review -->
-                            <li class="nav-item m-2">
-                                <a href="{{ route('reviews.index') }}" class="nav-link">
-                                    <div class="parent-icon"><i class="material-icons-outlined">rate_review</i>
-                                    </div>
-                                    <div class="menu-title d-flex align-items-center">Review</div>
-                                </a>
-                            </li>
+                                <!-- Review -->
+                                <li class="nav-item m-2">
+                                    <a href="{{ route('reviews.index') }}" class="nav-link">
+                                        <div class="parent-icon"><i class="material-icons-outlined">rate_review</i>
+                                        </div>
+                                        <div class="menu-title d-flex align-items-center">Review</div>
+                                    </a>
+                                </li>
 
-                            @if (Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin')
                                 <!-- Content Creator -->
                                 <li class="nav-item m-2">
                                     <a href="{{ route('users.index') }}" class="nav-link">
@@ -250,9 +248,7 @@
                                         <div class="menu-title d-flex align-items-center">Video Queue</div>
                                     </a>
                                 </li>
-                            @endif
-
-                            @if (Auth::user()->role == 'Finance' || Auth::user()->role == 'Admin')
+                            @elseif (Auth::user()->role == 'Finance' || Auth::user()->role == 'Admin')
                                 <!-- Payment -->
                                 <li class="nav-item m-2">
                                     <a href="{{ route('payments.index') }}" class="nav-link">

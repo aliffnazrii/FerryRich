@@ -32,21 +32,30 @@ class PaidReviewController extends Controller
 
         // ]);
 
-        $paidReview = PaidReview::create($request->all());
+        $creatorId = $request->content_creator_id;
+        $cc = User::where('role', 'Content Creator')->where('id', $creatorId)->first();
 
-        $video = Video::create([
-            'uploaded_by' => $paidReview->content_creator_id,
+        if ($cc->is_approved == 1) {
 
-            // ... other video details (e.g., 'reviewed_by', 'reviewed_at', 'feedback')
-        ]);
+            $paidReview = PaidReview::create($request->all());
 
-        // Create the Payment record, associating it with the PaidReview
-        $payment = Payment::create([
-            'paid_review_id' => $paidReview->id,
-            'amount' => $paidReview->deal_rate,
-            'reference_number' => null,
-        ]);
-        return redirect()->back()->with('success', 'Paid Review created successfully.');
+            $video = Video::create([
+                'uploaded_by' => $paidReview->content_creator_id,
+
+                // ... other video details (e.g., 'reviewed_by', 'reviewed_at', 'feedback')
+            ]);
+
+            // Create the Payment record, associating it with the PaidReview
+            $payment = Payment::create([
+                'paid_review_id' => $paidReview->id,
+                'amount' => $paidReview->deal_rate,
+                'reference_number' => null,
+            ]);
+            return redirect()->back()->with('success', 'Paid Review created successfully.');
+        } else {
+            return redirect()->back()->with('failed', 'Content Creator must be approved to create a paid review.');
+        }
+        
     }
 
     public function show($id)

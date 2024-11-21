@@ -17,7 +17,7 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::with(['paidReview'])->get(); // Get all payments
-        return view('staff.payment', compact('payments')); // Return to the index view
+        return view('staff.finance.payment', compact('payments')); // Return to the index view
     }
 
     /**
@@ -70,17 +70,7 @@ class PaymentController extends Controller
         return view('payments.show', compact('payment')); // Show a single payment
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
-    {
-        $paidReviews = PaidReview::all(); // Get all paid reviews for the dropdown
-        return view('payments.edit', compact('payment', 'paidReviews')); // Return to edit view
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -89,50 +79,61 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, $id)
     {
         // Validate incoming request data
         $request->validate([
 
-            'reference_number' => 'required|string|unique:payments,reference_number,' . $payment->id,
+            'reference_number' => 'nullable|string',
+            // 'reference_number' => 'required|string|unique:payments,reference_number,' . $payment->id,
             'status' => 'required|string',
         ]);
 
-        // Update the payment
-        $payment->update([
+        $payment = Payment::findOrFail($id);
+        $PR_id = $payment->paid_review_id;
+        $PR_payment = PaidReview::findOrFail($PR_id);
 
-            'reference_number' => $request->reference_number,
-            'status' => $request->status,
-        ]);
+        if ($request->reference_number != '') {
+            // Update the payment
+            $payment->update([
 
-        // Redirect to the payments index page with success message
-        return redirect()->route('payments.index')->with('success', 'Payment updated successfully');
+                'reference_number' => $request->reference_number,
+                'status' => $request->status,
+            ]);
+
+
+            if ($request->status == 'Completed') {
+                $PR_payment->update([
+                    'payment_status' => 'Paid',
+                ]);
+            } else if ($request->status == 'Failed') {
+                $PR_payment->update([
+                    'payment_status' => 'Pending',
+                ]);
+            }
+
+            // Redirect to the payments index page with success message
+            return redirect()->back()->with('success', 'Payment updated successfully');
+        } else {
+
+            if ($request->status == 'Failed') {
+
+
+                $payment->update([
+
+                    'reference_number' => 'Payment Failed',
+                    'status' => $request->status,
+
+                ]);
+                return redirect()->back()->with('success', 'Payment updated successfully');
+            } else {
+                return redirect()->back()->with('failed', 'Reference number is required');
+            }
+        }
+
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        // Delete the payment
-        $payment->delete();
-
-        // Redirect to the payments index page with success message
-        return redirect()->route('payments.index')->with('success', 'Payment deleted successfully');
-    }
-
-    // public function PaymentList()
-    // {
-
-    //     $userId = auth()->user()->id;
-    //     $payments = PaidReview::with(['payments', 'contentCreator'])
-    //         // ->where('content_creator_id', $userId)  // Assuming this is the correct column name
-    //         ->get();
-    //     return view('cc.payment-history', compact('payments'));
-    // }
 
     public function PaymentList()
     {

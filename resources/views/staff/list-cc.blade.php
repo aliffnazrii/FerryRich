@@ -6,7 +6,7 @@
 @section('content')
     <main class="main-wrapper">
         <div class="main-content">
-             
+
 
             <h6 class="mb-0 text-uppercase">Content Creator List</h6>
             <hr>
@@ -53,11 +53,14 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role }}</td>
-                                        <td>{{ $user->is_approved ? 'Approved' : 'Pending' }}</td>
-                                        {{-- <td>
-                                    <a href="{{ route('users.edit', $user->id) }}">Edit</a>
-                                    <a href="{{ route('users.destroy', $user->id) }}">Delete</a>
-                                </td> --}}
+
+                                        <td><span
+                                                class="badge 
+                                {{ $user->is_approved === 1 ? 'bg-success' : 'bg-warning' }}">
+                                                {{-- {{ ucfirst($user->is_approved) }} --}}
+                                                {{ $user->is_approved ? 'Approved' : 'Pending' }}
+                                            </span></td>
+
                                         <td>
                                             <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#UpdateModal{{ $user->id }}">View</button>
@@ -95,7 +98,7 @@
 
                                                                     <div class="form-group mb-3">
                                                                         <label for="email">Email:</label>
-                                                                        <input type="email" class="form-control"  disabled
+                                                                        <input type="email" class="form-control" disabled
                                                                             name="email" value="{{ $user->email }}">
                                                                         @error('email')
                                                                             <span
@@ -115,13 +118,32 @@
 
                                                                     <div class="form-group mb-3">
                                                                         <label for="role">Role:</label>
-                                                                        {{-- <input type="text" class="form-control" name="role" value="{{$user->role == 'cc' ? 'Content Creator': 'Staff'}}" disabled> --}}
-
                                                                         <select class="form-control" id="role"
                                                                             name="role" disabled>
                                                                             <option
                                                                                 value=" {{ $user->role == 'Content Creator' ? 'Content Creator' : 'Staff' }}">
                                                                                 {{ $user->role == 'Content Creator' ? 'Content Creator' : 'Staff' }}
+                                                                            </option>
+
+                                                                        </select>
+                                                                        @error('role')
+                                                                            <span
+                                                                                class="text-danger">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="approval">Approval:</label>
+
+                                                                        <select class="form-control" id="approval"
+                                                                            name="is_approved">
+                                                                            <option value="1"
+                                                                                {{ $user->is_approved == 1 ? 'selected' : '' }}>
+                                                                                Approve
+                                                                            </option>
+                                                                            <option value="0"
+                                                                                {{ $user->is_approved != 1 ? 'selected' : '' }}>
+                                                                                Reject
                                                                             </option>
 
                                                                         </select>

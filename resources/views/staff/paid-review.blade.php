@@ -26,14 +26,24 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    <div class="row">
-                        <div class="col-10"></div>
-
-                        <div class="col  text-center">
-                            <button type="button" class="btn btn-primary px-4 m-3" data-bs-toggle="modal"
-                                data-bs-target="#addReview">Add</button>
+                    @if (session('failed'))
+                        <div class="alert alert-danger">
+                            {{ session('failed') }}
                         </div>
-                    </div>
+                    @endif
+
+
+
+                    @if (Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin')
+                        <div class="row">
+                            <div class="col-10"></div>
+
+                            <div class="col  text-center">
+                                <button type="button" class="btn btn-primary px-4 m-3" data-bs-toggle="modal"
+                                    data-bs-target="#addReview">Add</button>
+                            </div>
+                        </div>
+                    @endif
 
                     <div class="table-responsive">
                         <table id="example2" class="table table-striped table-border">
@@ -62,7 +72,7 @@
                                     {{ $review->order_status == 'Delivered' ? 'bg-success' : ($review->order_status == 'Cancelled' ? 'bg-danger' : 'bg-warning') }}">
                                                 {{ ucfirst($review->order_status) }}
                                             </span></td>
-                          
+
                                         <td><span
                                                 class="badge 
                                     {{ $review->payment_status == 'Paid' ? 'bg-success' : 'bg-warning' }}">
@@ -118,7 +128,7 @@
                                                                             value="{{ $review->deal_rate ?? '' }}"
                                                                             name="deal_rate" step="0.01"
                                                                             class="form-control" id="deal_rate"
-                                                                            placeholder="Deal Rate" required>
+                                                                            placeholder="Deal Rate" required disabled>
                                                                     </div>
 
                                                                     <div class="col-md-12 my-3">
@@ -135,7 +145,7 @@
                                                                         <label for="order_status" class="form-label">Order
                                                                             Status</label>
                                                                         <select name="order_status" class="form-control"
-                                                                            id="order_status" required>
+                                                                            id="order_status" required disabled>
                                                                             <option value="Pending"
                                                                                 {{ isset($paidReview) && $paidReview->order_status == 'Pending' ? 'selected' : '' }}>
                                                                                 Pending</option>
@@ -152,13 +162,16 @@
                                                                         <label for="payment_status"
                                                                             class="form-label">Payment Status</label>
                                                                         <select name="payment_status" class="form-control"
-                                                                            id="payment_status" required>
+                                                                            id="payment_status" required disabled>
                                                                             <option value="Pending"
                                                                                 {{ isset($paidReview) && $paidReview->payment_status == 'Pending' ? 'selected' : '' }}>
                                                                                 Pending</option>
                                                                             <option value="Paid"
                                                                                 {{ isset($paidReview) && $paidReview->payment_status == 'Paid' ? 'selected' : '' }}>
                                                                                 Paid</option>
+                                                                            <option value="Failed"
+                                                                                {{ isset($paidReview) && $paidReview->payment_status == 'Failed' ? 'selected' : '' }}>
+                                                                                Failed</option>
                                                                         </select>
                                                                     </div>
 
@@ -170,14 +183,16 @@
                                                                             name="shipment_tracking_number"
                                                                             class="form-control"
                                                                             id="shipment_tracking_number"
-                                                                            placeholder="Tracking Number">
+                                                                            placeholder="Tracking Number"
+                                                                            {{ Auth::user()->role == 'Finance' ? 'disabled' : '' }}>
                                                                     </div>
 
                                                                     <div class="col-md-12 my-3">
                                                                         <label for="product_received"
                                                                             class="form-label">Product Received</label>
                                                                         <select name="product_received"
-                                                                            class="form-control" id="product_received">
+                                                                            class="form-control" id="product_received"
+                                                                            disabled>
                                                                             <option value="1"
                                                                                 {{ isset($paidReview) && $paidReview->product_received ? 'selected' : '' }}>
                                                                                 Yes</option>
@@ -187,16 +202,18 @@
                                                                         </select>
                                                                     </div>
 
-                                                                    <div class="col-md-12 my-3">
+                                                                    {{-- <div class="col-md-12 my-3">
                                                                         <label for="receipt_photo"
                                                                             class="form-label">Receipt Photo</label>
                                                                         <input type="file" name="receipt_photo"
                                                                             class="form-control" id="receipt_photo">
-                                                                    </div>
+                                                                    </div> --}}
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Save</button>
+                                                                    @if (Auth::user()->role != 'Finance')
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Save</button>
+                                                                    @endif
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Close</button>
                                                                 </div>

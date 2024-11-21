@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if (Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin') {
+        if (Auth::user()->role == 'Staff' || Auth::user()->role == 'Admin' || Auth::user()->role == 'Finance') {
             return view('staff.profile', compact('user'));
         } else {
             return view('cc.profile-cc', compact('user'));

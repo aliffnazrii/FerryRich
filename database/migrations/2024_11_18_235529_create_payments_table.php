@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('paid_review_id');
             $table->decimal('amount', 8, 2);
-            $table->string('reference_number')->nullable();
+            $table->string('receipt')->nullable();
+            $table->string('reference_number')->unique()->nullable();
             $table->enum('status', ['Pending', 'Completed', 'Failed'])->default('Pending');
             $table->timestamps();
 

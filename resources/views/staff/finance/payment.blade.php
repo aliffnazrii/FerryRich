@@ -26,6 +26,11 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    @if (session('failed'))
+                        <div class="alert alert-danger">
+                            {{ session('failed') }}
+                        </div>
+                    @endif
 
 
                     <div class="table-responsive">
@@ -48,8 +53,13 @@
                                         <td>{{ $payment->paidReview->contentCreator->name }}</td>
                                         <td>{{ $payment->paid_review_id }}</td>
                                         <td>{{ $payment->amount }}</td>
-                                        <td>{{ $payment->status }}</td>
-                                        <td>{{ $payment->reference_number ?? 'N/A' }}</td>
+
+                                        <td><span
+                                                class="badge 
+                                    {{ $payment->status == 'Completed' ? 'bg-success' : ($payment->status == 'Failed' ? 'bg-danger' : 'bg-warning') }}">
+                                                {{ ucfirst($payment->status) }}
+                                            </span></td>
+                                        <td>{{ $payment->reference_number ? $payment->reference_number : 'N/A' }}</td>
                                         <td> <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#viewPayment{{ $payment->id }}">View</button>
                                         </td>
@@ -89,7 +99,8 @@
 
                                                                 <div class="col-md-12 my-3">
                                                                     <label for="amount" class="form-label">Amount
-                                                                        (RM)</label>
+                                                                        (RM)
+                                                                    </label>
                                                                     <input type="number"
                                                                         value="{{ $payment->amount ?? '' }}" name="amount"
                                                                         class="form-control" id="amount"
@@ -102,15 +113,38 @@
                                                                     <input type="text"
                                                                         value="{{ $payment->reference_number ?? '' }}"
                                                                         name="reference_number" class="form-control"
-                                                                        id="reference_number"
-                                                                        placeholder="Reference Number">
+                                                                        id="reference_number" placeholder="Reference Number"
+                                                                        {{ $payment->status == 'Failed' ? 'disabled' : '' }}>
                                                                 </div>
+
+                                                                @if ($payment->status == 'Pending')
+                                                                    <div class="col-md-12 my-3">
+                                                                        <label for="receipt_photo"
+                                                                            class="form-label">Receipt
+                                                                        </label>
+                                                                        <input type="file" name="receipt"
+                                                                            class="form-control" id="receipt_photo"
+                                                                            accept=".jpg, .jpeg, .png, .pdf"
+                                                                            {{ $payment->status != 'Pending' ? 'disabled' : '' }}>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="col-md-12 my-3">
+                                                                        <label for="receipt_photo"
+                                                                            class="form-label">Receipt
+                                                                        </label>
+                                                                        <input type="text" name="receipt"
+                                                                            class="form-control" id="receipt_photo"
+                                                                            value=""
+                                                                            {{ $payment->status != 'Pending' ? 'disabled' : '' }}>
+                                                                    </div>
+                                                                @endif
 
                                                                 <div class="col-md-12 my-3">
                                                                     <label for="status" class="form-label">Payment
                                                                         Status</label>
                                                                     <select name="status" class="form-control"
-                                                                        id="status">
+                                                                        id="status"
+                                                                        {{ $payment->status != 'Pending' ? 'disabled' : '' }}>
                                                                         <option value="Pending"
                                                                             {{ isset($payment) && $payment->status == 'Pending' ? 'selected' : '' }}>
                                                                             Pending</option>
@@ -123,8 +157,11 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Save</button>
+
+                                                                    @if ($payment->status != 'Failed')
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Save</button>
+                                                                    @endif
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Close</button>
                                                                 </div>

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('paid_review_id');
             $table->unsignedBigInteger('video_id')->nullable();
             $table->timestamp('post_date')->nullable();
-            $table->string('link_video_tiktok')->nullable();
-            $table->string('ad_code')->nullable();
+            $table->string('video_link')->nullable();
+            // $table->string('ad_code')->nullable();
             $table->timestamps();
 
             $table->foreign('paid_review_id')->references('id')->on('paid_reviews')->onDelete('cascade');
