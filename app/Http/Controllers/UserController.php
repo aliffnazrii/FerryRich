@@ -91,28 +91,28 @@ class UserController extends Controller
         $totalApprovedVideos = Video::where('status', 'Approved')->count();
         $totalPendingVideos = Video::where('status', 'Pending')->count();
         $totalContentCreators = User::where('role', 'Content Creator')->where('is_approved', true)->count();
-    
+
         // Review Status Data
         $pendingReviews = PaidReview::where('order_status', 'Pending')->count();
         $inProgressReviews = PaidReview::where('order_status', 'In Progress')->count();
         $completedReviews = PaidReview::where('order_status', 'Completed')->count();
         $totalReviews = PaidReview::count();
         $reviewCompletionRate = ($totalReviews > 0) ? ($completedReviews / $totalReviews) * 100 : 0;
-    
+
         // Monthly Video Stats
         $monthlyVideosApproved = Video::where('status', 'Approved')
             ->whereMonth('created_at', now()->month)
             ->count();
         $monthlyVideosTotal = Video::whereMonth('created_at', now()->month)->count();
         $monthlyVideoGrowth = ($monthlyVideosTotal > 0) ? ($monthlyVideosApproved / $monthlyVideosTotal) * 100 : 0;
-    
+
         // Yearly Payment Stats
         $yearlyPaymentsCompleted = Payment::where('status', 'Completed')
             ->whereYear('created_at', now()->year)
             ->sum('amount');
         $yearlyPaymentsTotal = Payment::whereYear('created_at', now()->year)->count();
         $yearlyPaymentGrowth = ($yearlyPaymentsTotal > 0) ? ($yearlyPaymentsCompleted / $yearlyPaymentsTotal) * 100 : 0;
-    
+
         // Pass data to the view
         return view('staff.dashboard', compact(
             'totalPayments',
@@ -132,7 +132,32 @@ class UserController extends Controller
             'yearlyPaymentGrowth'
         ));
     }
-    
+
+    public function contentCreatorDashboard()
+    {
+        $userId = auth()->id();
+
+        // Total earnings from completed payments
+        $totalEarnings = Payment::whereHas('paidReview', function ($query) use ($userId) {
+            $query->where('content_creator_id', $userId);
+        })->sum('amount');
+
+        // Assigned reviews count
+        $assignedReviewsCount = PaidReview::where('content_creator_id', $userId)->count();
+
+        // Approved videos count
+        $approvedVideosCount = Video::where('uploaded_by', $userId)->where('status', 'Approved')->count();
+
+        // Pending videos count
+        $pendingVideosCount = Video::where('uploaded_by', $userId)->where('status', 'Pending')->count();
+
+        return view('cc.dashboard-cc', compact(
+            'totalEarnings',
+            'assignedReviewsCount',
+            'approvedVideosCount',
+            'pendingVideosCount'
+        ));
+    }
 
 
 

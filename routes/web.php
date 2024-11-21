@@ -23,6 +23,7 @@ Route::get('/', function () {
 // });
 
 Route::get('/dashboard', [UserController::class, 'staffDashboard'])->name('staffDashboard');
+Route::get('/dashboard-cc', [UserController::class, 'contentCreatorDashboard'])->name('CCDashboard');
 
 
 // Route::get('/list-cc', function () {
@@ -62,9 +63,9 @@ Route::put('/review/update-order-status/{id}', [PaidReviewController::class, 'up
 
 Route::get('/payment/viewReceipt/{id}', [PaymentController::class, 'viewReceipt'])->name('payments.viewReceipt');
 
-Route::get('/dashboard-cc', function () {
-    return view('cc/dashboard-cc');
-});
+// Route::get('/dashboard-cc', function () {
+//     return view('cc/dashboard-cc');
+// });
 Route::get('/profile-cc', function () {
     return view('cc/profile-cc');
 });
