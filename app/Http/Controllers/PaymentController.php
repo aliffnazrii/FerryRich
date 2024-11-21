@@ -6,6 +6,7 @@ use App\Models\Payment;
 use App\Models\PaidReview;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
@@ -85,13 +86,27 @@ class PaymentController extends Controller
         $request->validate([
 
             'reference_number' => 'nullable|string',
-            // 'reference_number' => 'required|string|unique:payments,reference_number,' . $payment->id,
             'status' => 'required|string',
         ]);
 
         $payment = Payment::findOrFail($id);
         $PR_id = $payment->paid_review_id;
         $PR_payment = PaidReview::findOrFail($PR_id);
+
+        if ($request->hasFile('receipt')) {
+            // Delete the old file if it exists
+            if ($payment->receipt && Storage::disk('public')->exists($payment->receipt)) {
+                Storage::disk('public')->delete($payment->receipt);
+            }
+
+            // Store the new file
+            $path = $request->file('receipt')->store('payment_receipt', 'public');
+
+            $payment->update([
+                'receipt' => $path,
+            ]);
+
+        }
 
         if ($request->reference_number != '') {
             // Update the payment
@@ -130,7 +145,7 @@ class PaymentController extends Controller
                 return redirect()->back()->with('failed', 'Reference number is required');
             }
         }
-
+        return redirect()->back()->with('success', 'Payment updated successfully');
 
     }
 
@@ -145,6 +160,23 @@ class PaymentController extends Controller
             ->get();
 
         return view('cc.payment-history', compact('payments'));
+    }
+
+
+    public function viewReceipt($id)
+    {
+        $payment = Payment::findOrFail($id);
+
+        $path = storage_path('app/public/' . $payment->receipt);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . basename($path) . '"'
+        ]);
     }
 
 }

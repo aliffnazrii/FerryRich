@@ -126,6 +126,14 @@
                                                                             class="form-control" id="receipt_photo"
                                                                             accept=".jpg, .jpeg, .png, .pdf"
                                                                             {{ $payment->status != 'Pending' ? 'disabled' : '' }}>
+                                                                        <td>
+                                                                            @if ($pamyent->receipt)
+                                                                                <a href="{{ route('payments.viewReceipt', $pamyent->id) }}"
+                                                                                    target="_blank">View Receipt</a>
+                                                                            @else
+                                                                                N/A
+                                                                            @endif
+                                                                        </td>
                                                                     </div>
                                                                 @else
                                                                     <div class="col-md-12 my-3">
@@ -136,6 +144,12 @@
                                                                             class="form-control" id="receipt_photo"
                                                                             value=""
                                                                             {{ $payment->status != 'Pending' ? 'disabled' : '' }}>
+                                                                        @if ($pamyent->receipt)
+                                                                            <a href="{{ route('payments.viewReceipt', $pamyent->id) }}"
+                                                                                target="_blank">View Receipt</a>
+                                                                        @else
+                                                                            N/A
+                                                                        @endif
                                                                     </div>
                                                                 @endif
 

@@ -44,6 +44,7 @@ Route::resource('payments', PaymentController::class);
 Route::get('/review', function () {
     return view('staff/list-review');
 });
+
 Route::get('/review-list', [PaidReviewController::class, 'assignedReview'])->name('assignedReviews');
 Route::get('/video-submission', [VideoController::class, 'videoList'])->name('videos.submission');
 Route::put('/update-video-status/{id}', [VideoController::class, 'updateStatus'])->name('videos.updateStatus');
@@ -53,6 +54,8 @@ Route::get('/payment-history', [PaymentController::class, 'PaymentList'])->name(
 //CONTENT CREATOR SIDE SECTION
 
 Route::get('/videos/stream/{id}', [VideoController::class, 'streamVideo'])->name('videos.stream');
+
+Route::get('/payment/viewReceipt/{id}', [PaymentController::class, 'viewReceipt'])->name('payments.viewReceipt');
 
 Route::get('/dashboard-cc', function () {
     return view('cc/dashboard-cc');

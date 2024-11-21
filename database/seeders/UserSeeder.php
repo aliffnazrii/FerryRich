@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-    public function run():void
+    public function run(): void
     {
         User::create([
             'name' => 'alepZ',
@@ -19,14 +19,6 @@ class UserSeeder extends Seeder
             'is_approved' => true,
         ]);
 
-        User::create([
-            'name' => 'Jane Smith',
-            'email' => 'jane@example.com',
-            'password' => Hash::make('password'),
-            'phone' => '0198765432',
-            'role' => 'Content Creator',
-            'is_approved' => false,
-        ]);
 
         User::create([
             'name' => 'Admin User',
@@ -35,7 +27,7 @@ class UserSeeder extends Seeder
             'role' => 'Admin',
             'is_approved' => true,
         ]);
-        
+
         User::create([
             'name' => 'alepnaz',
             'email' => 'a@a',
