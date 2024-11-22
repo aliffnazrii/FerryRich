@@ -4,20 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Video;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('Staff')->only([
+
+            'index',
+            'store',
+        ]);
+
+        $this->middleware('CC')->only([
+            'uploadLink',
+            'videoList',
+
+        ]);
+
+        $this->middleware('login')->only([
+           
+            'streamVideo',
+            'updateStatus',
+
+        ]);
+
+        
+
+
+
+    }
     public function index()
     {
         $videos = Video::all();
         return view('staff.video-review', compact('videos'));
     }
 
-    public function create()
-    {
-        return view('videos.create');
-    }
+
 
     public function store(Request $request)
     {
@@ -31,17 +56,7 @@ class VideoController extends Controller
         return redirect()->route('videos.index')->with('success', 'Video created successfully.');
     }
 
-    public function show($id)
-    {
-        $video = Video::findOrFail($id);
-        return view('videos.show', compact('video'));
-    }
 
-    public function edit($id)
-    {
-        $video = Video::findOrFail($id);
-        return view('videos.edit', compact('video'));
-    }
 
     public function update(Request $request, $id)
     {
@@ -93,7 +108,7 @@ class VideoController extends Controller
     public function videoList()
     {
 
-        $userId = auth()->user()->id;
+        $userId = Auth::id();
         $videos = Video::where('uploaded_by', $userId)->get();
         return view('cc.video-submission', compact('videos'));
     }
@@ -132,5 +147,4 @@ class VideoController extends Controller
             'Content-Disposition' => 'inline; filename="' . basename($path) . '"',
         ]);
     }
-
 }

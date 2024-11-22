@@ -11,6 +11,26 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('Staff')->only([
+            
+            'staffDashboard',
+        ]);
+        
+        $this->middleware('CC')->only([
+            'contentCreatorDashboard',
+
+        ]);
+        
+        $this->middleware('login')->only([
+            'index',
+            'show',
+            'update',
+
+        ]);
+    }
     public function index()
     {
 
@@ -26,10 +46,6 @@ class UserController extends Controller
     }
 
 
-    public function create()
-    {
-        return view('users.create');
-    }
 
     public function store(Request $request)
     {
@@ -56,11 +72,7 @@ class UserController extends Controller
         }
     }
 
-    public function edit($id)
-    {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
-    }
+
 
     public function update(Request $request, $id)
     {

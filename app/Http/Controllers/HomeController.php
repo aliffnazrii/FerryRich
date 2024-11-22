@@ -24,9 +24,9 @@ class HomeController extends Controller
             $role = Auth::user()->role;
 
             if ($role === 'Admin' || $role === 'Staff' || $role === 'Finance') {
-                $this->middleware('Staff')->except('logout');
+                $this->middleware('Staff');
             } elseif ($role === 'Content Creator') {
-                $this->middleware('Content Creator')->except('logout');
+                $this->middleware('Content Creator');
             }
         }
 
@@ -41,11 +41,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            return redirect()->intended('dashboard'); // or any other route
+        if (Auth::check() && Auth::user()->role === 'Content Creator') {
+
+            return redirect()->route('CCDashboard'); // or any other route
+
+        } elseif (Auth::check() && (Auth::user()->role === 'Staff' || Auth::user()->role === 'Admin' || Auth::user()->role === 'Finance')) {
+
+            return redirect()->route('staffDashboard'); // or any other route
+
+        } else {
+
+            return view('auth.login'); // Return the login view
         }
 
         return view('auth.login'); // Return the login view
+
+
 
     }
 }

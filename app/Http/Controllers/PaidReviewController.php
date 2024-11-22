@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\ReviewSubmission;
@@ -13,6 +14,24 @@ use App\Models\Payment;
 
 class PaidReviewController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('Staff')->only([
+            'index',
+            'store',
+            'update',
+        ]);
+        $this->middleware('CC')->only([
+            'assignedReview',
+       
+        ]);
+
+        $this->middleware('login')->only([
+            'updateOrderStatus',
+       
+        ]);
+    }
     public function index()
     {
         $paidReviews = PaidReview::with(['contentCreator', 'product', 'reviewSubmissions', 'payments'])->get();
@@ -21,10 +40,6 @@ class PaidReviewController extends Controller
         return view('staff.paid-review', compact('paidReviews', 'products', 'contentcreators'));
     }
 
-    public function create()
-    {
-        return view('paid_reviews.create');
-    }
 
     public function store(Request $request)
     {
@@ -55,19 +70,6 @@ class PaidReviewController extends Controller
         } else {
             return redirect()->back()->with('failed', 'Content Creator must be approved to create a paid review.');
         }
-
-    }
-
-    public function show($id)
-    {
-        $paidReview = PaidReview::findOrFail($id);
-        return view('paid_reviews.show', compact('paidReview'));
-    }
-
-    public function edit($id)
-    {
-        $paidReview = PaidReview::findOrFail($id);
-        return view('paid_reviews.edit', compact('paidReview'));
     }
 
     public function update(Request $request, $id)

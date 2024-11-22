@@ -6,6 +6,7 @@ use App\Models\Payment;
 use App\Models\PaidReview;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
@@ -15,22 +16,31 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('Staff')->only([
+            'index',
+            'store',
+            'update',
+        ]);
+        $this->middleware('CC')->only([
+            'PaymentList',
+
+        ]);
+        
+        $this->middleware('login')->only([
+            'viewReceipt',
+
+        ]);
+    }
     public function index()
     {
         $payments = Payment::with(['paidReview'])->get(); // Get all payments
         return view('staff.finance.payment', compact('payments')); // Return to the index view
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $paidReviews = PaidReview::all(); // Get all paid reviews for the dropdown
-        return view('payments.create', compact('paidReviews')); // Return to create view
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -58,17 +68,6 @@ class PaymentController extends Controller
 
         // Redirect to the payments index page with success message
         return redirect()->route('payments.index')->with('success', 'Payment created successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Payment $payment)
-    {
-        return view('payments.show', compact('payment')); // Show a single payment
     }
 
 
@@ -107,7 +106,7 @@ class PaymentController extends Controller
                 'file_path' => $receiptPath, // The new path or the existing path
                 'updated_at' => now()->setTimezone('Asia/Kuala_Lumpur'),
             ]);
-    
+
             $paidReviewReceipt = PaidReview::findOrFail($payment->paid_review_id);
             $paidReviewReceipt->update([
                 'receipt_photo' => $receiptPath,
@@ -155,13 +154,12 @@ class PaymentController extends Controller
             }
         }
         return redirect()->back()->with('success', 'Payment updated successfully');
-
     }
 
 
     public function PaymentList()
     {
-        $userId = auth()->user()->id;
+        $userId = Auth::id();
 
         // Fetch PaidReviews for the authenticated Content Creator with related payments
         $payments = PaidReview::with('payments')
@@ -190,5 +188,4 @@ class PaymentController extends Controller
             'Content-Disposition' => 'inline; filename="' . basename($path) . '"'
         ]);
     }
-
 }

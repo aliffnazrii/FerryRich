@@ -11,18 +11,18 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Middleware\RoleMiddleware;
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
-Route::get('/dashboard', [UserController::class, 'staffDashboard'])->name('staffDashboard')->middleware('Staff');
+Route::get('/dashboard', [UserController::class, 'staffDashboard'])->name('staffDashboard');
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard-cc', [UserController::class, 'contentCreatorDashboard'])->name('CCDashboard')->middleware('CC');
+Route::get('/dashboard-cc', [UserController::class, 'contentCreatorDashboard'])->name('CCDashboard');
 
 
 
@@ -40,14 +40,14 @@ Route::get('/review', function () {
     return view('staff/list-cc');
 });
 
-Route::get('/review-list', [PaidReviewController::class, 'assignedReview'])->name('assignedReviews');
-Route::get('/video-submission', [VideoController::class, 'videoList'])->name('videos.submission');
 Route::put('/update-video-status/{id}', [VideoController::class, 'updateStatus'])->name('videos.updateStatus');
-Route::get('/payment-history', [PaymentController::class, 'PaymentList'])->name('payments.history');
 
 
 //CONTENT CREATOR SIDE SECTION
 
+Route::get('/review-list', [PaidReviewController::class, 'assignedReview'])->name('assignedReviews');
+Route::get('/video-submission', [VideoController::class, 'videoList'])->name('videos.submission');
+Route::get('/payment-history', [PaymentController::class, 'PaymentList'])->name('payments.history');
 Route::get('/videos/stream/{id}', [VideoController::class, 'streamVideo'])->name('videos.stream');
 Route::put('/videos/upload-link/{id}', [VideoController::class, 'uploadLink'])->name('videos.uploadLink');
 Route::put('/review/update-order-status/{id}', [PaidReviewController::class, 'updateOrderStatus'])->name('reviews.updateOrderStatus');

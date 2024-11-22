@@ -7,15 +7,20 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('Staff')->only([
+            'index',
+            'store',
+            'update',
+        ]);
+    }
+
     public function index()
     {
         $products = Product::all();
         return view('staff.product', compact('products'));
-    }
-
-    public function create()
-    {
-        return view('products.create');
     }
 
     public function store(Request $request)
@@ -37,12 +42,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         return view('products.show', compact('product'));
-    }
-
-    public function edit($id)
-    {
-        $product = Product::findOrFail($id);
-        return view('products.edit', compact('product'));
     }
 
     public function update(Request $request, $id)
