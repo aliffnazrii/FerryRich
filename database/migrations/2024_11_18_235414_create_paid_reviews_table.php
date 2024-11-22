@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('total_product')->default(1);
             $table->enum('order_status', ['Pending', 'Delivered', 'Cancelled'])->default('Pending');
             $table->enum('payment_status', ['Pending', 'Paid', 'Failed'])->default('Pending');
-            $table->date('payment_date_advance')->nullable();
-            $table->date('payment_date_final')->nullable();
+            // $table->date('payment_date_advance')->nullable();
+            // $table->date('payment_date_final')->nullable();
             $table->string('shipment_tracking_number')->nullable();
             $table->boolean('product_received')->default(false);
             $table->string('receipt_photo')->nullable();
