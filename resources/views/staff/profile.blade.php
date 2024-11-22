@@ -7,30 +7,16 @@
     <!--start main wrapper-->
     <main class="main-wrapper">
         <div class="main-content">
-            <!--breadcrumb-->
-            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                <div class="breadcrumb-title pe-3">Profile</div>
-                <div class="ps-3">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
-                            <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">Staff Profile</li>
-                        </ol>
-                    </nav>
-                </div>
-
-            </div>
-            <!--end breadcrumb-->
+   
 
 
             <div class="card rounded-4">
                 <div class="card-body p-4">
                     <div class="position-relative mb-5">
-                        <img src="assets/images/gallery/profile-cover.png" class="img-fluid rounded-4 shadow"
+                        <img src="{{ asset('assets/images/gallery/profile-cover.png') }}" class="img-fluid rounded-4 shadow"
                             alt="">
                         <div class="profile-avatar position-absolute top-100 start-50 translate-middle">
-                            <img src="{{ asset('assets/images/avatars/01.png') }}"
+                            <img src="{{ asset('assets/images/avatars/11.png') }}"
                                 class="img-fluid rounded-circle p-1 bg-grd-danger shadow" width="170" height="170"
                                 alt="">
 
@@ -102,7 +88,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-12">
+                                {{-- <div class="col-md-12">
                                     <label for="tiktok_username" class="form-label">TikTok Username</label>
                                     <input type="text" value="{{ $user->tiktok_username ?? '' }}" name="tiktok_username"
                                         class="form-control" id="tiktok_username" placeholder="TikTok Username">
@@ -113,7 +99,7 @@
                                     <input type="url" value="{{ $user->tiktok_profile_link ?? '' }}"
                                         name="tiktok_profile_link" class="form-control" id="tiktok_profile_link"
                                         placeholder="TikTok Profile Link">
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-12">
                                     <label for="ic_number" class="form-label">IC Number</label>
@@ -121,7 +107,7 @@
                                         class="form-control" id="ic_number" placeholder="IC Number">
                                 </div>
 
-                                <div class="col-md-12">
+                                {{-- <div class="col-md-12">
                                     <label for="bank_name" class="form-label">Bank Name</label>
                                     <input type="text" value="{{ $user->bank_name ?? '' }}" name="bank_name"
                                         class="form-control" id="bank_name" placeholder="Bank Name">
@@ -149,7 +135,7 @@
                                         <option value="0"
                                             {{ isset($user) && !$user->is_approved ? 'selected' : '' }}>Pending</option>
                                     </select>
-                                </div>
+                                </div> --}}
 
 
 
@@ -188,14 +174,14 @@
                                             class="material-icons-outlined">code</span>
                                         <p class="mb-0">Role: {{ $user->role }}</p>
                                     </div>
-                                    <div class="info-list-item d-flex align-items-center gap-3"><span
+                                    {{-- <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">flag</span>
                                         <p class="mb-0">Country: {{ $user->country ?? 'No Details' }}</p>
                                     </div>
                                     <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">language</span>
                                         <p class="mb-0">Language: {{ $user->language ?? 'No Details' }}</p>
-                                    </div>
+                                    </div> --}}
                                     <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">send</span>
                                         <p class="mb-0">Email: {{ $user->email }}</p>
@@ -204,7 +190,7 @@
                                             class="material-icons-outlined">call</span>
                                         <p class="mb-0">Phone: {{ $user->phone ?? 'No Details' }}</p>
                                     </div>
-                                    <div class="info-list-item d-flex align-items-center gap-3"><span
+                                    {{-- <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">tiktok</span>
                                         <p class="mb-0">TikTok Username: {{ $user->tiktok_username ?? 'No Details' }}
                                         </p>
@@ -214,12 +200,12 @@
                                         <p class="mb-0">TikTok Profile Link: <a
                                                 href="{{ $user->tiktok_profile_link ?? '#' }}"
                                                 target="_blank">{{ $user->tiktok_profile_link ?? 'No Details' }}</a></p>
-                                    </div>
+                                    </div> --}}
                                     <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">credit_card</span>
                                         <p class="mb-0">IC Number: {{ $user->ic_number ?? 'No Details' }}</p>
                                     </div>
-                                    <div class="info-list-item d-flex align-items-center gap-3"><span
+                                    {{-- <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">account_balance</span>
                                         <p class="mb-0">Bank Name: {{ $user->bank_name ?? 'No Details' }}</p>
                                     </div>
@@ -237,7 +223,7 @@
                                             class="material-icons-outlined">verified</span>
                                         <p class="mb-0">Approval Status:
                                             {{ $user->is_approved ? 'Approved' : 'Pending' }}</p>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

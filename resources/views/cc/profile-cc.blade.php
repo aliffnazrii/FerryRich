@@ -7,30 +7,16 @@
     <!--start main wrapper-->
     <main class="main-wrapper">
         <div class="main-content">
-            <!--breadcrumb-->
-            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                <div class="breadcrumb-title pe-3">Profile</div>
-                <div class="ps-3">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
-                            <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">Staff Profile</li>
-                        </ol>
-                    </nav>
-                </div>
-
-            </div>
-            <!--end breadcrumb-->
 
 
-            <div class="card rounded-4">
+
+            <div class="card rounded-4 mt-5">
                 <div class="card-body p-4">
                     <div class="position-relative mb-5">
-                        <img src="assets/images/gallery/profile-cover.png" class="img-fluid rounded-4 shadow"
+                        <img src="{{ asset('assets/images/gallery/profile-cover.png') }}" class="img-fluid rounded-4 shadow"
                             alt="">
                         <div class="profile-avatar position-absolute top-100 start-50 translate-middle">
-                            <img src="assets/images/avatars/01.png"
+                            <img src="{{ asset('assets/images/avatars/11.png') }}"
                                 class="img-fluid rounded-circle p-1 bg-grd-danger shadow" width="170" height="170"
                                 alt="">
                         </div>
@@ -185,14 +171,14 @@
                                             class="material-icons-outlined">code</span>
                                         <p class="mb-0">Role: {{ $user->role }}</p>
                                     </div>
-                                    <div class="info-list-item d-flex align-items-center gap-3"><span
+                                    {{-- <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">flag</span>
                                         <p class="mb-0">Country: {{ $user->country ?? 'No Details' }}</p>
                                     </div>
                                     <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">language</span>
                                         <p class="mb-0">Language: {{ $user->language ?? 'No Details' }}</p>
-                                    </div>
+                                    </div> --}}
                                     <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">send</span>
                                         <p class="mb-0">Email: {{ $user->email }}</p>
@@ -240,91 +226,91 @@
                         </div>
                     </div>
                     <!-- <div class="card rounded-4">
-                            <div class="card-body">
-                                <div class="d-flex align-items-start justify-content-between mb-3">
-                                    <div class="">
-                                        <h5 class="mb-0 fw-bold">Accounts</h5>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start justify-content-between mb-3">
+                                        <div class="">
+                                            <h5 class="mb-0 fw-bold">Accounts</h5>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle"
+                                                data-bs-toggle="dropdown">
+                                                <span class="material-icons-outlined fs-5">more_vert</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="javascript:;">Action</a></li>
+                                                <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
+                                                <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="dropdown">
-                                        <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle"
-                                            data-bs-toggle="dropdown">
-                                            <span class="material-icons-outlined fs-5">more_vert</span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                                            <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                                            <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                                        </ul>
+
+                                    <div class="account-list d-flex flex-column gap-4">
+                                        <div class="account-list-item d-flex align-items-center gap-3">
+                                            <img src="assets/images/apps/05.png" width="35" alt="">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0">Google</h6>
+                                                <p class="mb-0">Events and Reserch</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                            </div>
+                                        </div>
+                                        <div class="account-list-item d-flex align-items-center gap-3">
+                                            <img src="assets/images/apps/02.png" width="35" alt="">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0">Skype</h6>
+                                                <p class="mb-0">Events and Reserch</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                            </div>
+                                        </div>
+                                        <div class="account-list-item d-flex align-items-center gap-3">
+                                            <img src="assets/images/apps/03.png" width="35" alt="">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0">Slack</h6>
+                                                <p class="mb-0">Communication</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                            </div>
+                                        </div>
+                                        <div class="account-list-item d-flex align-items-center gap-3">
+                                            <img src="assets/images/apps/06.png" width="35" alt="">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0">Instagram</h6>
+                                                <p class="mb-0">Social Network</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                            </div>
+                                        </div>
+                                        <div class="account-list-item d-flex align-items-center gap-3">
+                                            <img src="assets/images/apps/17.png" width="35" alt="">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0">Facebook</h6>
+                                                <p class="mb-0">Social Network</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                            </div>
+                                        </div>
+                                        <div class="account-list-item d-flex align-items-center gap-3">
+                                            <img src="assets/images/apps/11.png" width="35" alt="">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0">Paypal</h6>
+                                                <p class="mb-0">Social Network</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                            </div>
+                                        </div>
                                     </div>
+
+
+
                                 </div>
-
-                                <div class="account-list d-flex flex-column gap-4">
-                                    <div class="account-list-item d-flex align-items-center gap-3">
-                                        <img src="assets/images/apps/05.png" width="35" alt="">
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-0">Google</h6>
-                                            <p class="mb-0">Events and Reserch</p>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" checked>
-                                        </div>
-                                    </div>
-                                    <div class="account-list-item d-flex align-items-center gap-3">
-                                        <img src="assets/images/apps/02.png" width="35" alt="">
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-0">Skype</h6>
-                                            <p class="mb-0">Events and Reserch</p>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" checked>
-                                        </div>
-                                    </div>
-                                    <div class="account-list-item d-flex align-items-center gap-3">
-                                        <img src="assets/images/apps/03.png" width="35" alt="">
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-0">Slack</h6>
-                                            <p class="mb-0">Communication</p>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" checked>
-                                        </div>
-                                    </div>
-                                    <div class="account-list-item d-flex align-items-center gap-3">
-                                        <img src="assets/images/apps/06.png" width="35" alt="">
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-0">Instagram</h6>
-                                            <p class="mb-0">Social Network</p>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" checked>
-                                        </div>
-                                    </div>
-                                    <div class="account-list-item d-flex align-items-center gap-3">
-                                        <img src="assets/images/apps/17.png" width="35" alt="">
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-0">Facebook</h6>
-                                            <p class="mb-0">Social Network</p>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" checked>
-                                        </div>
-                                    </div>
-                                    <div class="account-list-item d-flex align-items-center gap-3">
-                                        <img src="assets/images/apps/11.png" width="35" alt="">
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-0">Paypal</h6>
-                                            <p class="mb-0">Social Network</p>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" checked>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-                        </div> -->
+                            </div> -->
 
                 </div>
             </div><!--end row-->
