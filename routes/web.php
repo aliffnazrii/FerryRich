@@ -10,10 +10,15 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\PaymentController;
 
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 
+Route::middleware(['auth', 'staff'])->group(function () {
+ 
+    Route::get('/dashboard', [UserController::class, 'staffDashboard'])->name('staffDashboard');
+});
 
 Route::get('/', function () {
     return view('auth.login');
@@ -22,7 +27,6 @@ Route::get('/', function () {
 //     return view('staff/dashboard');
 // });
 
-Route::get('/dashboard', [UserController::class, 'staffDashboard'])->name('staffDashboard');
 Route::get('/dashboard-cc', [UserController::class, 'contentCreatorDashboard'])->name('CCDashboard');
 
 
