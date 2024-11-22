@@ -7,23 +7,21 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class RoleMiddleware
+class CCMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
 
-   
-            if (Auth::check() && (Auth::user()->role === 'Staff' || Auth::user()->role === 'Admin' || Auth::user()->role === 'Finance')) { 
-                return $next($request);
-            }
-            
-        
-        // Redirect unauthorized access
+        if (Auth::check() && Auth::user()->role === 'Content Creator') {
+
+
+            return $next($request);
+        }
         return redirect()->route('home')->with('failed', 'Unauthorized Access, Please Login as an Authorized User to Continue');
     }
 }

@@ -6,6 +6,12 @@
     <!--authentication-->
 
     <div class="section-authentication-cover">
+
+        @if (session('failed'))
+            <div class="alert alert-danger">
+                {{ session('failed') }}
+            </div>
+        @endif
         <div class="">
             <div class="row g-0">
 
@@ -29,7 +35,7 @@
                             <h4 class="fw-bold">Get Started Now</h4>
                             <p class="mb-0">Enter your credentials to login your account</p>
 
-                           
+
 
                             <div class="form-body mt-4">
                                 <form class="row g-3" method="POST" action="{{ route('login') }}">

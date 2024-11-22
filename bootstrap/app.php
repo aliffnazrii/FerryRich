@@ -13,7 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->append('role',RoleMiddleware::class);
+        $middleware->alias([
+            'Staff' => \App\Http\Middleware\RoleMiddleware::class,
+            'CC' => \App\Http\Middleware\CCMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

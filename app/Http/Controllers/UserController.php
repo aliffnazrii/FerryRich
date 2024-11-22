@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $id = Auth::user()->id;
+        $id = Auth::id();
 
         if (Auth::user()->role == 'Content Creator') {
             $user = User::where('role', 'Content Creator')->findOrFail($id);
@@ -135,7 +135,7 @@ class UserController extends Controller
 
     public function contentCreatorDashboard()
     {
-        $userId = auth()->id();
+        $userId = Auth::id();
 
         // Total earnings from completed payments
         $totalEarnings = Payment::whereHas('paidReview', function ($query) use ($userId) {
@@ -158,8 +158,4 @@ class UserController extends Controller
             'pendingVideosCount'
         ));
     }
-
-
-
-
 }
