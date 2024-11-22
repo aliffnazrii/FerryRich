@@ -10,7 +10,7 @@
    
 
 
-            <div class="card rounded-4">
+            <div class="card rounded-4 mt-5">
                 <div class="card-body p-4">
                     <div class="position-relative mb-5">
                         <img src="{{ asset('assets/images/gallery/profile-cover.png') }}" class="img-fluid rounded-4 shadow"
