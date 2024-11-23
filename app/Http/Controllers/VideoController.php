@@ -147,4 +147,6 @@ class VideoController extends Controller
             'Content-Disposition' => 'inline; filename="' . basename($path) . '"',
         ]);
     }
+
+   
 }

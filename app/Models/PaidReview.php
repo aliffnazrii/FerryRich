@@ -42,4 +42,8 @@ class PaidReview extends Model
     {
         return $this->hasMany(Payment::class, 'paid_review_id');
     }
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
+    }
 }

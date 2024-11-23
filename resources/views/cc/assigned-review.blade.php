@@ -90,23 +90,7 @@
                                                                 value="{{ $review->total_product }}" readonly>
                                                         </div>
 
-                                                        <div class="col-md-12 my-3">
-                                                            <label for="order_status" class="form-label">Order
-                                                                Status</label>
-                                                            <select name="order_status" class="form-control"
-                                                                id="order_status" required
-                                                                {{ isset($review) && $review->order_status == 'Delivered' ? 'disabled' : '' }}>
-                                                                <option value="Pending"
-                                                                    {{ isset($review) && $review->order_status == 'Pending' ? 'selected' : '' }}>
-                                                                    Pending</option>
-                                                                <option value="Delivered"
-                                                                    {{ isset($review) && $review->order_status == 'Delivered' ? 'selected' : '' }}>
-                                                                    Delivered</option>
-                                                                <option value="Cancelled"
-                                                                    {{ isset($review) && $review->order_status == 'Cancelled' ? 'selected' : '' }}>
-                                                                    Cancelled</option>
-                                                            </select>
-                                                        </div>
+                                                        
                                                         <div class="col-md-12 my-3">
                                                             <label for="product_received" class="form-label">Product
                                                                 Received</label>
@@ -120,6 +104,12 @@
                                                                     {{ isset($review) && !$review->product_received ? 'selected' : '' }}>
                                                                     No</option>
                                                             </select>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="shipment_tracking_number" class="form-label">Tracking Number</label>
+                                                            <input type="text" class="form-control" id="shipment_tracking_number"
+                                                                value="{{ $review->shipment_tracking_number }}" readonly disabled>
                                                         </div>
                                                 </div>
                                                 <div class="modal-footer">

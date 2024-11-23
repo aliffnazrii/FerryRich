@@ -69,19 +69,19 @@
                                         <td class="text-center">
 
                                             @if ($video->status != 'Approved')
-                                                <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
+                                                {{-- <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
                                                     data-bs-target="#videoModal{{ $video->id }}">
                                                     <i class="bi bi-eye"></i> View
-                                                </button>
+                                                </button> --}}
                                                 <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
                                                     data-bs-target="#uploadVideo{{ $video->id }}">
                                                     <i class="bi bi-upload"></i> Upload
                                                 </button>
                                             @else
-                                                <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
+                                                {{-- <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
                                                     data-bs-target="#videoModal{{ $video->id }}">
                                                     <i class="bi bi-eye"></i> View
-                                                </button>
+                                                </button> --}}
                                                 <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
                                                     data-bs-target="#linkModal{{ $video->id }}">
                                                     <i class="bi bi-link-45deg"></i> Link
@@ -107,7 +107,15 @@
                                                                     <label for="video_link" class="form-label">Upload
                                                                         Link</label>
                                                                     <input type="text" name="video_link"
-                                                                        class="form-control" id="video_link" value="{{ $video->video_link }}">
+                                                                        class="form-control" id="video_link"
+                                                                        value="{{ $video->video_link }}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="code_ad" class="form-label">Upload
+                                                                        Code Ad</label>
+                                                                    <input type="text" name="code_ad"
+                                                                        class="form-control" id="code_ad"
+                                                                        value="{{ $video->code_ad }}">
                                                                 </div>
 
 

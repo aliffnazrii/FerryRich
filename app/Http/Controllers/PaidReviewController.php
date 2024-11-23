@@ -109,6 +109,7 @@ class PaidReviewController extends Controller
     public function updateOrderStatus(Request $request, $id)
     {
 
+
         if (isset(request()->product_received)) {
             $status = $request->order_status = 'Delivered';
             $review = PaidReview::findOrFail($id);
@@ -116,14 +117,25 @@ class PaidReviewController extends Controller
                 'product_received' => 1,
                 'order_status' => $status,
             ]);
-        }else{
+        } else {
             $review = PaidReview::findOrFail($id);
-    
+
             $review->update($request->all());
             return redirect()->back()->with('success', 'Review updated successfully.');
-
         }
 
         return redirect()->back()->with('failed', 'Review Cannot be Updated');
+    }
+
+    public function ad_code()
+    {
+        // Get all paid reviews for content creators with their associated content creators and videos
+        $reviews = PaidReview::with(['contentCreator', 'video'])
+            ->whereHas('contentCreator', function ($query) {
+                $query->where('role', 'Content Creator');
+            })
+            ->get();
+        // Return the view with the paid reviews
+        return view('staff.code-ad', compact('reviews'));
     }
 }

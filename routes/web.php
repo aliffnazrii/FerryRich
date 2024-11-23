@@ -55,6 +55,10 @@ Route::put('/review/update-order-status/{id}', [PaidReviewController::class, 'up
 Route::get('/payment/viewReceipt/{id}', [PaymentController::class, 'viewReceipt'])->name('payments.viewReceipt');
 
 
+#STAFF SIDE SECTION (CUSTOM ROUTE)
+
+Route::get('/code-ad', [PaidReviewController::class, 'ad_code'])->name('reviews.code-ad');
+
 Route::get('/profile-cc', function () {
     return view('cc/profile-cc');
 });

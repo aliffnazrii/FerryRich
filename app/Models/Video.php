@@ -34,4 +34,9 @@ class Video extends Model
     {
         return $this->hasOne(ReviewSubmission::class, 'video_id');
     }
+
+    public function paidReviews()
+{
+    return $this->hasMany(PaidReview::class);
+}
 }

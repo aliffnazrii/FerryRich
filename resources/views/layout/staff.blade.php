@@ -144,7 +144,13 @@
                             @endif
 
 
-
+                            <!-- Ad Code -->
+                            <li class="nav-item m-2">
+                                <a href="{{ route('reviews.code-ad') }}" class="nav-link">
+                                    <div class="parent-icon"><i class="material-icons-outlined">ads_click</i></div>
+                                    <div class="menu-title d-flex align-items-center">Ad Code</div>
+                                </a>
+                            </li>
 
 
 
