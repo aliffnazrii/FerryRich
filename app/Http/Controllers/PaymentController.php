@@ -28,7 +28,7 @@ class PaymentController extends Controller
             'PaymentList',
 
         ]);
-        
+
         $this->middleware('login')->only([
             'viewReceipt',
 
@@ -36,7 +36,9 @@ class PaymentController extends Controller
     }
     public function index()
     {
-        $payments = Payment::with(['paidReview'])->get(); // Get all payments
+        $payments = Payment::with(['paidReview'])->whereHas('paidReview', function ($query) {
+            $query->where('validation', 'Completed');
+        })->get();
         return view('staff.finance.payment', compact('payments')); // Return to the index view
     }
 

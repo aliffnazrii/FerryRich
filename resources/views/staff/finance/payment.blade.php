@@ -37,6 +37,7 @@
                         <table id="example2" class="table table-striped table-border">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Content Creator</th>
                                     <th>Paid Review ID</th>
                                     <th>Amount (RM)</th>
@@ -50,6 +51,7 @@
 
                                 @foreach ($payments as $payment)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $payment->paidReview->contentCreator->name }}</td>
                                         <td>{{ $payment->paid_review_id }}</td>
                                         <td>{{ $payment->amount }}</td>

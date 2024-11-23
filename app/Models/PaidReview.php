@@ -12,15 +12,15 @@ class PaidReview extends Model
     protected $fillable = [
         'content_creator_id',
         'product_id',
+        'video_id',
         'deal_rate',
         'total_product',
         'order_status',
         'payment_status',
-        'payment_date_advance',
-        'payment_date_final',
         'shipment_tracking_number',
         'product_received',
         'receipt_photo',
+        'validation',
     ];
 
     public function contentCreator()

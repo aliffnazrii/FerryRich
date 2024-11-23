@@ -39,6 +39,7 @@
                         <table id="example2" class="table table-striped table-border">
                             <thead>
                                 <tr>
+                                    <td>No</td>
                                     <th>Product Name</th>
                                     <th>Description</th>
                                     <th>Price (RM)</th>
@@ -50,6 +51,7 @@
 
                                 @foreach ($products as $product)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->description }}</td>
                                         <td>{{ $product->price }}</td>
@@ -72,18 +74,18 @@
                                                                 @csrf
                                                                 @method('PUT')
 
-                                                                <div class="col-md-12 m-4">
+                                                                <div class="col m-4">
                                                                     <label for="input1" class="form-label">Name</label>
                                                                     <input type="text" value="{{ $product->name }}"
                                                                         class="form-control" id="input1" name="name">
                                                                 </div>
-                                                                <div class="col-md-12 m-4">
+                                                                <div class="col m-4">
                                                                     <label for="input2"
                                                                         class="form-label">Description</label>
                                                                     <textarea class="form-control" value="" id="input2" placeholder="Description" rows="3"
                                                                         name="description">{{ $product->description }}</textarea>
                                                                 </div>
-                                                                <div class="col-md-12 m-4">
+                                                                <div class="col m-4">
                                                                     <label for="input3" class="form-label">Price</label>
                                                                     <input type="number" class="form-control"
                                                                         value="{{ $product->price }}" id="input3"
@@ -114,7 +116,6 @@
 
 
 
-        <!-- Modal -->
         <div class="modal fade modal-xl" id="AddProduct">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -129,16 +130,16 @@
                             <form class="row g-3" method="post" action="{{ route('products.store') }}">
                                 @csrf
                                 <div class="modal-body">
-                                    <div class="col-md-12 m-3">
+                                    <div class="col m-4">
                                         <label for="input1" class="form-label">Name</label>
                                         <input type="text" class="form-control" placeholder="name" id="input1"
                                             name="name">
                                     </div>
-                                    <div class="col-md-12 m-3">
+                                    <div class="col m-4">
                                         <label for="input2" class="form-label">Description</label>
                                         <textarea class="form-control" id="input2" placeholder="Description" rows="3" name="description"></textarea>
                                     </div>
-                                    <div class="col-md-12 m-3">
+                                    <div class="col m-4">
                                         <label for="input3" class="form-label">Price</label>
                                         <input type="number" class="form-control" id="input3" placeholder="123.45"
                                             name="price" step="0.01" placeholder="Price">
@@ -155,7 +156,6 @@
                 </div>
             </div>
         </div>
-        <!-- Modal -->
 
 
 

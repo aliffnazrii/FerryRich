@@ -76,11 +76,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'nullable|string|max:20',
-        ]);
-
+  
         $user = User::findOrFail($id);
         $user->update($request->all());
         return redirect()->back()->with('success', 'Information  updated successfully.');

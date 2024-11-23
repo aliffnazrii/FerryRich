@@ -39,7 +39,8 @@
                         <table id="example2" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Full Name</th>
+                                    <th>No</th>
+                                    <th>Tiktok ID</th>
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Approval Status</th>
@@ -50,7 +51,8 @@
                             <tbody>
                                 @foreach ($users as $user)
                                     <tr>
-                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->tiktok_username != '' ? $user->tiktok_username : $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role }}</td>
 
@@ -246,6 +248,9 @@
                                                                                                 id="approval"
                                                                                                 name="is_approved"
                                                                                                 {{ Auth::user()->role == 'Finance' ? 'disabled' : '' }}>
+                                                                                                <option value=""
+                                                                                                    {{ $user->is_approved == null ? 'selected' : '' }}>
+                                                                                                    Select</option>
                                                                                                 <option value="1"
                                                                                                     {{ $user->is_approved == 1 ? 'selected' : '' }}>
                                                                                                     Approve</option>
@@ -296,7 +301,6 @@
                 </div>
             </div>
         </div>
-
 
 
         <!--bootstrap js-->

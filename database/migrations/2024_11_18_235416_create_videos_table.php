@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('uploaded_by')->nullable();
             $table->timestamp('upload_date')->nullable();
             $table->string('video_link')->nullable();
+            $table->string('ad_code')->nullable();
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
             $table->unsignedBigInteger('reviewed_by')->nullable();
             $table->timestamp('reviewed_at')->nullable();

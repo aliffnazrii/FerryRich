@@ -1,6 +1,6 @@
 @extends('layout.cc')
 
-@section('title', 'Product List')
+@section('title', 'Assigned Review')
 
 
 @section('content')

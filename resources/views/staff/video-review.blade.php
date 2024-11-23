@@ -31,6 +31,7 @@
                         <table id="example2" class="table table-striped table-border">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Content Creator</th>
                                     <th>File Path</th>
                                     <th>Status</th>
@@ -43,6 +44,8 @@
 
                                 @foreach ($videos as $video)
                                     <tr>
+                                        
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $video->uploader->name }}</td>
                                         <td>
                                             @if ($video->file_path != '')
@@ -66,7 +69,7 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header py-2 ">
-                                                        <h5 class="modal-title">Product Information</h5>
+                                                        <h5 class="modal-title">Video Information</h5>
                                                         <a href="javascript:;" class="primaery-menu-close"
                                                             data-bs-dismiss="modal">
                                                             <i class="material-icons-outlined">close</i>

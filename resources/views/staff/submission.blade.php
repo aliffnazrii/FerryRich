@@ -39,6 +39,7 @@
                         <table id="example2" class="table table-striped table-border">
                             <thead>
                                 <tr>
+                                    <td>No</td>
                                     <th>Content Creator</th>
                                     <th>TikTok Link</th>
                                     <th>Ad Code</th>
@@ -51,6 +52,7 @@
 
                                 @foreach ($submissions as $submission)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $submission->paidReview->contentCreator->name }}</td>
                                         <td><a href="{{ $submission->link_video_tiktok }}" target="_blank">View TikTok</a>
                                         </td>

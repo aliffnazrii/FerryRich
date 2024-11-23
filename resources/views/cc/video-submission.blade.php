@@ -1,6 +1,6 @@
 @extends('layout.cc')
 
-@section('title', 'Product List')
+@section('title', 'Video List')
 
 
 @section('content')
@@ -8,7 +8,7 @@
         <div class="main-content">
 
 
-            <h6 class="mb-0 text-uppercase">Product List</h6>
+            <h6 class="mb-0 text-uppercase">Video List</h6>
             <hr>
             <div class="card">
                 <div class="card-body">

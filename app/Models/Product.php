@@ -22,6 +22,6 @@ class Product extends Model
 
     public function guidelines()
     {
-        return $this->hasOne(Guideline::class, 'product_id');
+        return $this->hasMany(ProductGuideline::class);
     }
 }

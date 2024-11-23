@@ -24,12 +24,12 @@ class PaidReviewController extends Controller
         ]);
         $this->middleware('CC')->only([
             'assignedReview',
-       
+
         ]);
 
         $this->middleware('login')->only([
             'updateOrderStatus',
-       
+
         ]);
     }
     public function index()
@@ -74,13 +74,21 @@ class PaidReviewController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([]);
+        //update tracking number
+        if (isset($request->shipment_tracking_number)) {
 
-        $paidReview = PaidReview::with(['contentCreator', 'product', 'reviewSubmissions', 'payments'])->findOrFail($id);
+            $delivered = 'Ready To Ship';
+            $paidReview = PaidReview::findOrFail($id);
+            $paidReview->update([
+                'shipment_tracking_number' => $request->shipment_tracking_number,
+                'order_status' => $delivered,
+            ]);
+            return redirect()->back()->with('success', 'Tracking Number updated successfully.');
+        }
+        $paidReview = PaidReview::findOrFail($id);
         $paidReview->update($request->all());
         return redirect()->back()->with('success', 'Paid Review updated successfully.');
     }
-
     public function destroy($id)
     {
         PaidReview::destroy($id);
@@ -100,9 +108,22 @@ class PaidReviewController extends Controller
 
     public function updateOrderStatus(Request $request, $id)
     {
-        $review = PaidReview::findOrFail($id);
 
-        $review->update($request->all());
-        return redirect()->back()->with('success', 'Review updated successfully.');
+        if (isset(request()->product_received)) {
+            $status = $request->order_status = 'Delivered';
+            $review = PaidReview::findOrFail($id);
+            $review->update([
+                'product_received' => 1,
+                'order_status' => $status,
+            ]);
+        }else{
+            $review = PaidReview::findOrFail($id);
+    
+            $review->update($request->all());
+            return redirect()->back()->with('success', 'Review updated successfully.');
+
+        }
+
+        return redirect()->back()->with('failed', 'Review Cannot be Updated');
     }
 }

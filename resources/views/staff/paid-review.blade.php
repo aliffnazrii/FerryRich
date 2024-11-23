@@ -4,6 +4,11 @@
 
 
 @section('content')
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
+
     <main class="main-wrapper">
         <div class="main-content">
 
@@ -49,6 +54,7 @@
                         <table id="example2" class="table table-striped table-border">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Content Creator</th>
                                     <th>Product</th>
                                     <th>Deal Rate (RM)</th>
@@ -63,6 +69,8 @@
 
                                 @foreach ($paidReviews as $review)
                                     <tr>
+
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $review->contentCreator->name }}</td>
                                         <td>{{ $review->product->name }}</td>
                                         <td>{{ $review->deal_rate }}</td>
@@ -82,7 +90,7 @@
                                             <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#viewReview{{ $review->id }}">View</button>
                                         </td>
-
+ 
                                         <div class="modal fade modal-xl" id="viewReview{{ $review->id }}">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
@@ -202,7 +210,7 @@
                                                                         </select>
                                                                     </div>
 
-                                                                 
+
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     @if (Auth::user()->role != 'Finance')
@@ -240,6 +248,7 @@
                             <i class="material-icons-outlined">close</i>
                         </a>
                     </div>
+
                     <div class="modal-body">
                         <div class="form-body">
                             <form class="row g-3" method="post" action="{{ route('reviews.store') }}">
@@ -247,7 +256,7 @@
                                 <div class="modal-body">
                                     <div class="col-md-12 my-3">
                                         <label for="content_creator_id" class="form-label">Content Creator</label>
-                                        <select name="content_creator_id" class="form-control" id="content_creator_id"
+                                        <select name="content_creator_id" class="form-select" id="single-select-field"
                                             required>
                                             <option>Select</option>
                                             @foreach ($contentcreators as $cc)
@@ -257,6 +266,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+
+                                  
+                               
 
                                     <div class="col-md-12 my-3">
                                         <label for="product_id" class="form-label">Product</label>
@@ -270,6 +282,9 @@
                                         </select>
                                     </div>
 
+
+
+
                                     <div class="col-md-12 my-3">
                                         <label for="deal_rate" class="form-label">Deal Rate (RM)</label>
                                         <input type="number" value="" step="0.01" name="deal_rate"
@@ -282,40 +297,7 @@
                                             id="total_product" placeholder="Total Products" required>
                                     </div>
 
-                                    {{-- <div class="col-md-12 my-3">
-                                        <label for="order_status" class="form-label">Order Status</label>
-                                        <select name="order_status" class="form-control" id="order_status" required>
-                                            <option>Select</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Delivered">Delivered</option>
-                                            <option value="Cancelled">Cancelled</option>
-                                        </select>
-                                    </div>
 
-                                    <div class="col-md-12 my-3">
-                                        <label for="payment_status" class="form-label">Payment Status</label>
-                                        <select name="payment_status" class="form-control" id="payment_status" required>
-                                            <option>Select</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Paid">Paid</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-12 my-3">
-                                        <label for="shipment_tracking_number" class="form-label">Tracking Number</label>
-                                        <input type="text" value="" name="shipment_tracking_number"
-                                            class="form-control" id="shipment_tracking_number"
-                                            placeholder="Tracking Number">
-                                    </div>
-
-                                    <div class="col-md-12 my-3">
-                                        <label for="product_received" class="form-label">Product Received</label>
-                                        <select name="product_received" class="form-control" id="product_received">
-                                            <option>Select</option>
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        </select>
-                                    </div> --}}
 
                                 </div>
                                 <div class="modal-footer">
@@ -343,6 +325,9 @@
         <script src="assets/plugins/metismenu/metisMenu.min.js"></script>
         <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
         <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="assets/plugins/select2/js/select2-custom.js"></script>
+
         <script>
             $(document).ready(function() {
                 $('#example').DataTable();
