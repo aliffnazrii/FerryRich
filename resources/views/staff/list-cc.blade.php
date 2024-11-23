@@ -52,7 +52,7 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->tiktok_username != '' ? $user->tiktok_username : $user->name }}</td>
+                                        <td>{{ $user->tiktok_username != '' ? $user->tiktok_username : $user->name. ' (Name)' }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role }}</td>
 

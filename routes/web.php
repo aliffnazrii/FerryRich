@@ -58,6 +58,7 @@ Route::get('/payment/viewReceipt/{id}', [PaymentController::class, 'viewReceipt'
 #STAFF SIDE SECTION (CUSTOM ROUTE)
 
 Route::get('/code-ad', [PaidReviewController::class, 'ad_code'])->name('reviews.code-ad');
+Route::get('/product-guideline/{id}', [ProductController::class, 'guidelineIndex'])->name('products.guidelines');
 
 Route::get('/profile-cc', function () {
     return view('cc/profile-cc');

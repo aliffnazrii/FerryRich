@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductGuideline;
 
 class ProductController extends Controller
 {
@@ -36,6 +37,15 @@ class ProductController extends Controller
 
         Product::create($request->all());
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
+    }
+
+    public function guidelineIndex($id)
+    {
+        $productGuidelines = ProductGuideline::with('product')->whereHas('product', function ($query) use ($id) {
+            $query->where('product_id', $id);
+        })->get();
+        return view('staff.product-guideline-show', compact('productGuidelines'));
+
     }
 
     public function show($id)

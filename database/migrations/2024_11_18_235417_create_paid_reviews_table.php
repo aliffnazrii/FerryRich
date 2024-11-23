@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('content_creator_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('video_id');
+            $table->unsignedBigInteger('video_id')->nullable();
             $table->decimal('deal_rate', 10, 2);
             $table->integer('total_product')->default(1);
             $table->string('shipment_tracking_number')->nullable();

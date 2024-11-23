@@ -16,6 +16,7 @@ class PaidReviewSeeder extends Seeder
             'total_product' => 1,
             'order_status' => 'Pending',
             'payment_status' => 'Pending',
+            'video_id' => 1,
         ]);
 
         PaidReview::create([
@@ -25,6 +26,7 @@ class PaidReviewSeeder extends Seeder
             'total_product' => 2,
             'order_status' => 'Delivered',
             'payment_status' => 'Pending',
+            'video_id' => 1,
         ]);
 
         PaidReview::create([
@@ -34,6 +36,7 @@ class PaidReviewSeeder extends Seeder
             'total_product' => 1,
             'order_status' => 'Delivered',
             'payment_status' => 'Paid',
+            'video_id' => 1,
         ]);
     }
 }

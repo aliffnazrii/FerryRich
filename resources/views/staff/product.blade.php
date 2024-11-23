@@ -43,6 +43,7 @@
                                     <th>Product Name</th>
                                     <th>Description</th>
                                     <th>Price (RM)</th>
+                                    <th>Guideline</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -55,6 +56,7 @@
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->description }}</td>
                                         <td>{{ $product->price }}</td>
+                                        <td><a href="" target="_blank" rel="noopener noreferrer">View Guideline</a></td>
                                         <td> <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#ViewProduct{{ $product->id }}">View</button></td>
                                         <div class="modal fade modal-xl" id="ViewProduct{{ $product->id }}">
