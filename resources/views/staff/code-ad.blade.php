@@ -43,7 +43,7 @@
                                     <th>Tiktok ID</th>
                                     <th>Code Ad</th>
                                     <th>Video Link</th>
-                                    <th>Actions</th>
+                                    {{-- <th>Actions</th> --}}
                                 </tr>
                             </thead>
 
@@ -51,13 +51,13 @@
                                 @foreach ($reviews as $reviews)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $reviews->contentCreator->tiktok_username }}</td> <!-- Assuming you have a tiktok_id field -->
+                                        <td>{{ $reviews->contentCreator->name }}</td> <!-- Assuming you have a tiktok_id field -->
                                         <td>{{ $reviews->video->ad_code }}</td>
-                                        <td><a href="{{ $reviews->video->video_link }}" target="_blank">View Video</a></td> <!-- Link to the video -->
-                                        <td>
+                                        <td><a href="{{ optional($reviews->video)->video_link }}" target="_blank">View Video</a></td> <!-- Link to the video -->
+                                        {{-- <td>
                                             <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#UpdateModal{{ $reviews->id }}">View</button>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

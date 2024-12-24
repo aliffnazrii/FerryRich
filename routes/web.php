@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GuidelineController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
@@ -66,6 +67,9 @@ Route::get('/profile-cc', function () {
 Route::get('/task-cc', function () {
     return view('cc/task-cc');
 });
+
+Route::get('/guidelines/manage/{id}', [GuidelineController::class, 'view'])->name('guideline.manage');
+
 
 
 #NOT USED ROUTES

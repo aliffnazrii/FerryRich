@@ -134,7 +134,13 @@ class PaidReviewController extends Controller
             ->whereHas('contentCreator', function ($query) {
                 $query->where('role', 'Content Creator');
             })
+          
+            ->distinct() // Ensures unique rows
             ->get();
+        // dd($reviews);
+
+
+
         // Return the view with the paid reviews
         return view('staff.code-ad', compact('reviews'));
     }
