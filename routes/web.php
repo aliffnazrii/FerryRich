@@ -34,6 +34,7 @@ Route::resource('reviews', PaidReviewController::class);
 Route::resource('submissions', ReviewSubmissionController::class);
 Route::resource('videos', VideoController::class);
 Route::resource('payments', PaymentController::class);
+Route::resource('guidelines', GuidelineController::class);
 
 
 
@@ -69,14 +70,16 @@ Route::get('/task-cc', function () {
 });
 
 Route::get('/guidelines/manage/{id}', [GuidelineController::class, 'view'])->name('guideline.manage');
+Route::get('/guidelines/view/{id}', [GuidelineController::class, 'viewGuideline'])->name('guideline.view');
 
 
 
 #NOT USED ROUTES
 
-// Route::get('/dashboard', function () {
-//     return view('staff/dashboard');
-// });
+Route::get('/testing', function () {
+    return view('staff/testing
+    ');
+});
 // Route::get('/list-cc', function () {
 //     return view('staff/list-cc');
 // });
