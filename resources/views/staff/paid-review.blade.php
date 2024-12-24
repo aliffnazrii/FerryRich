@@ -9,6 +9,14 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
 
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Select2 Bootstrap Theme (Optional for better styling with Bootstrap 5) -->
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
+
+
     <main class="main-wrapper">
         <div class="main-content">
 
@@ -90,7 +98,7 @@
                                             <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#viewReview{{ $review->id }}">View</button>
                                         </td>
- 
+
                                         <div class="modal fade modal-xl" id="viewReview{{ $review->id }}">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
@@ -202,10 +210,10 @@
                                                                             class="form-control" id="product_received"
                                                                             disabled>
                                                                             <option value="1"
-                                                                                {{ isset($paidReview) && $paidReview->product_received ? 'selected' : '' }}>
+                                                                                {{ isset($paidReview) && $paidReview->product_received == 1 ? 'selected' : '' }}>
                                                                                 Yes</option>
                                                                             <option value="0"
-                                                                                {{ isset($paidReview) && !$paidReview->product_received ? 'selected' : '' }}>
+                                                                                {{ isset($paidReview) && $paidReview->product_received == 0  ? 'selected' : '' }}>
                                                                                 No</option>
                                                                         </select>
                                                                     </div>
@@ -254,21 +262,21 @@
                             <form class="row g-3" method="post" action="{{ route('reviews.store') }}">
                                 @csrf
                                 <div class="modal-body">
-                                    <div class="col-md-12 my-3">
+                                    <!-- Searchable Dropdown -->
+                                    <div class="mb-3">
                                         <label for="content_creator_id" class="form-label">Content Creator</label>
-                                        <select name="content_creator_id" class="form-select" id="single-select-field"
-                                            required>
-                                            <option>Select</option>
+                                        <select name="content_creator_id" class="form-select select2"
+                                            id="single-select-field" required>
+                                            <option value="">Select</option>
                                             @foreach ($contentcreators as $cc)
-                                                <option value="{{ $cc->id }}">
-                                                    {{ $cc->name }}
-                                                </option>
+                                                <option value="{{ $cc->id }}">{{ $cc->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
-                                  
-                               
+
+
+
 
                                     <div class="col-md-12 my-3">
                                         <label for="product_id" class="form-label">Product</label>
@@ -344,8 +352,33 @@
                     .appendTo('#example2_wrapper .col-md-6:eq(0)');
             });
         </script>
+        <script>
+            $(document).ready(function() {
+                $('#single-select-field').select2({
+                    theme: 'bootstrap-5', // Matches the Bootstrap 5 theme
+                    placeholder: "Select a content creator", // Optional placeholder
+                    allowClear: true, // Allows a clear button to reset the dropdown
+                    dropdownParent: $('#addReview') // Replace with the ID of your modal
+                });
+            });
+        </script>
+
         <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
         <script src="assets/js/main.js"></script>
+
+        <!-- Select2 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <!-- Select2 Bootstrap Theme (Optional) -->
+        <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+            rel="stylesheet" />
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Select2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
     </main>
 @endsection

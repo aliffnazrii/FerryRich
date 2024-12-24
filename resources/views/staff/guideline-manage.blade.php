@@ -55,7 +55,7 @@
                                     <th>Product</th>
                                     <th>Title</th>
                                     <th>Remark</th>
-                                    <th>Actions</th>
+                                    <th class="col-3">Actions</th>
                                 </tr>
                             </thead>
 
@@ -70,7 +70,8 @@
                                             <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#viewGuideline{{ $guideline->id }}">View</button>
 
-                                            <a href="{{route('guideline.view',$guideline->id) }}" target="blank" class="btn btn-primary px-4">Open</a>
+                                            <a href="{{ route('guideline.view', $guideline->id) }}" target="blank"
+                                                class="btn btn-primary px-4">Open</a>
                                         </td>
 
                                         <!-- View Modal -->
@@ -92,6 +93,8 @@
                                                                 @csrf
                                                                 @method('PUT')
 
+                                                                <input type="hidden" name="product_id"
+                                                                    value="{{ $product_id }}">
                                                                 <div class="modal-body">
                                                                     <div class="col-md-12 my-3">
                                                                         <label for="product_id"
@@ -117,34 +120,42 @@
                                                                         <input type="text"
                                                                             value="{{ $guideline->file_type }}"
                                                                             name="file_type" class="form-control"
-                                                                            id="file_type" placeholder="File Type" required>
+                                                                            id="file_type" placeholder="File Type" required
+                                                                            disabled>
                                                                     </div>
 
                                                                     <div class="col-md-12 my-3">
                                                                         <label for="remark"
                                                                             class="form-label">Remark</label>
-                                                                        <textarea name="remark" class="form-control" id="remark" placeholder="Optional">{{ $guideline->remark }}</textarea>
+                                                                        <textarea name="remark" class="form-control" id="remark" placeholder="Remark">{{ $guideline->remark }}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Save</button>
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                </div>
+
+                                                            </form>
+
+                                                            <form action="{{ route('guidelines.destroy', $guideline) }}"
+                                                                method="POST" style="display:inline;">
+                                                                @csrf
+                                                                @method('DELETE') <!-- Spoof the DELETE method -->
+                                                                <button type="submit" class="btn btn-danger"
+                                                                    onclick="return confirm('Are you sure you want to delete this guideline?')">
+                                                                    Delete
+                                                                </button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
                     </div>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
         </div>
 
         <!-- Add Modal -->
@@ -164,7 +175,6 @@
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body">
-
                                     <input type="hidden" name="product_id" value="{{ $product_id }}">
                                     <div class="col-md-12 my-3">
                                         <label for="title" class="form-label">Title</label>
@@ -194,7 +204,7 @@
                 </div>
             </div>
         </div>
-        modal
+      
 
         <!-- Scripts -->
         <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
