@@ -40,7 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Tiktok ID</th>
+                                    <th>Tiktok Username</th>
                                     <th>Code Ad</th>
                                     <th>Video Link</th>
                                     {{-- <th>Actions</th> --}}
@@ -53,7 +53,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $reviews->contentCreator->name }}</td>
                                         <!-- Assuming you have a tiktok_id field -->
-                                        @if ($reviews->video->ad_code != '')
+                                        {{-- @if ($reviews->video->ad_code)
                                             <td>{{ $reviews->video->ad_code }}</td>
                                         @else
                                             <td>N/A</td>
@@ -64,11 +64,9 @@
                                             </td> <!-- Link to the video -->
                                         @else
                                             <td>N/A</td> <!-- Link to the video -->
-                                        @endif
-                                        {{-- <td>
-                                            <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
-                                                data-bs-target="#UpdateModal{{ $reviews->id }}">View</button>
-                                        </td> --}}
+                                        @endif --}}
+
+                                 
                                     </tr>
                                 @endforeach
                             </tbody>

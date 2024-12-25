@@ -140,7 +140,7 @@ class PaidReviewController extends Controller
                 $query->where('role', 'Content Creator');
             })
           
-            ->distinct() // Ensures unique rows
+            // ->distinct() // Ensures unique rows
             ->get();
         // dd($reviews);
 

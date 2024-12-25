@@ -26,7 +26,7 @@
         <div class="row justify-content-center col-8 m-auto">
             <!-- Welcome Card -->
             <div class="col-12 d-flex justify-content-center mb-4">
-                <div class="card rounded-4 w-auto bg-gradient-primary text-white text-center py-3 px-4">
+                <div class="card rounded-4 w-auto bg-gradient-primary text-center py-3 px-4">
                     <div class="card-body">
                         <h4 class="mb-0">Welcome Back, {{ auth()->user()->name }}!</h4>
                         <p>Here’s a quick overview of the system's performance</p>

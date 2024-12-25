@@ -24,7 +24,7 @@ class GuidelineController extends Controller
         $validated = $request->validate([
             'product_id' => 'required|integer', // Ensure product_id is an integer
             'title' => 'required|string|max:255',
-            'file_path' => 'required|file|mimes:pdf,docx,txt,jpg,png,jpeg', // Validate file upload
+            'file_path' => 'required|file|mimes:pdf,docx,txt,jpg,png,jpeg,mp4,mov,heic', // Validate file upload
 
             'remark' => 'nullable|string',
         ]);

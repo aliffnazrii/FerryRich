@@ -48,16 +48,18 @@ class PaymentController extends Controller
         // })
         // ->get();
         $payments = Payment::with(['paidReview.video'])
-            ->whereHas('paidReview', function ($query) {
-                $query->where('order_status', 'delivered')
-                    ->whereHas('video', function ($query) {
-                        $query->where('status', 'Approved');
-                        $query->whereNotNull('ad_code');
-                        $query->whereNotNull('video_link');
-                    });
-
-
-            })->get();
+            ->whereHas(
+                'paidReview',
+                function ($query) {
+                    $query->where('order_status', 'delivered');
+                    // ->whereHas('video', function ($query) {
+                    //     $query->where('status', 'Approved');
+                    //     $query->whereNotNull('ad_code');
+                    //     $query->whereNotNull('video_link');
+                    // });
+        
+                }
+            )->get();
         return view('staff.finance.payment', compact('payments')); // Return to the index view
     }
 
@@ -134,7 +136,7 @@ class PaymentController extends Controller
             ]);
         }
 
-
+    
 
 
         if ($request->reference_number != '') {
@@ -142,9 +144,9 @@ class PaymentController extends Controller
             $payment->update([
 
                 'reference_number' => $request->reference_number,
-                // 'status' => $request->status,
+                'status' => $request->status,
             ]);
-
+        }
 
             if ($request->status == 'Completed') {
                 if ($payment->file_path != '' && $payment->reference_number != '') {
@@ -153,23 +155,21 @@ class PaymentController extends Controller
                         'payment_status' => 'Paid',
                         'validation' => 'Completed',
                     ]);
-                }else{
+                    $payment->update([
+                        'status' => 'Completed',
+                    ]);
+                } else {
                     return redirect()->back()->with('failed', 'Receipt and Reference Number Required');
                 }
-            } else if ($request->status == 'Failed') {
-                $PR_payment->update([
-                    'payment_status' => 'Pending',
-                    'validation' => 'Pending',
-                ]);
-            }
-
-            // Redirect to the payments index page with success message
-            return redirect()->back()->with('success', 'Payment updated successfully');
-        } else {
+            } 
+     
 
             if ($request->status == 'Failed') {
 
-
+                $PR_payment->update([
+                    'payment_status' => 'Paid',
+                    'validation' => 'Completed',
+                ]);
                 $payment->update([
 
                     'reference_number' => 'Payment Failed',
@@ -180,7 +180,7 @@ class PaymentController extends Controller
             } else {
                 return redirect()->back()->with('failed', 'Reference number is required');
             }
-        }
+        
         return redirect()->back()->with('success', 'Payment updated successfully');
     }
 
