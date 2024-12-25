@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\PaidReview;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Guideline;
 use App\Models\Video;
 use App\Models\Payment;
 
@@ -99,9 +100,13 @@ class PaidReviewController extends Controller
     {
         $cc = Auth::user()->id;
 
-        $assignedReviews = PaidReview::with(['product', 'reviewSubmissions'])
+        $assignedReviews = PaidReview::with(['product.guidelines'])
             ->where('content_creator_id', $cc)
             ->get();
+
+            // $guideline = Guideline::with(['product'])
+            // ->where('product_id','')
+            // ->get();
         return view('cc.assigned-review', compact('assignedReviews'));
     }
 
