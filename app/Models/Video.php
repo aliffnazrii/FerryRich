@@ -14,6 +14,7 @@ class Video extends Model
         'uploaded_by',
         'upload_date',
         'video_link',
+        'ad_code', // for ads
         'status',
         'reviewed_by',
         'reviewed_at',

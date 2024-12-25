@@ -161,7 +161,7 @@
                                                                         Status</label>
                                                                     <select name="status" class="form-control"
                                                                         id="status"
-                                                                        {{ $payment->status != 'Pending' ? 'disabled' : '' }}>
+                                                                        {{ $payment->status != 'Completed' ? '' : 'disabled' }}>
                                                                         <option value="Pending"
                                                                             {{ isset($payment) && $payment->status == 'Pending' ? 'selected' : '' }}>
                                                                             Pending</option>
@@ -175,7 +175,7 @@
                                                                 </div>
                                                                 <div class="modal-footer">
 
-                                                                    @if ($payment->status != 'Failed')
+                                                                    @if ($payment->status == 'Pending' || $payment->status == 'Failed')
                                                                         <button type="submit"
                                                                             class="btn btn-primary">Save</button>
                                                                     @endif

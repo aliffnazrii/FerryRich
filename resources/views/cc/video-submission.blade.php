@@ -65,7 +65,8 @@
                                             </span>
 
                                         </td>
-                                        <td>{{ $video->feedback == '' ? 'N/A' : $video->feedback }}</td>
+                                        <td>{{ $video->status == 'Approved' ? 'Approved' : ($video->feedback == '' ? 'N/A' : $video->feedback) }}</td>
+
                                         <td class="text-center">
 
                                             @if ($video->status != 'Approved')
@@ -111,11 +112,11 @@
                                                                         value="{{ $video->video_link }}">
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label for="code_ad" class="form-label">Upload
+                                                                    <label for="video_link" class="form-label">Upload
                                                                         Code Ad</label>
                                                                     <input type="text" name="code_ad"
                                                                         class="form-control" id="code_ad"
-                                                                        value="{{ $video->code_ad }}">
+                                                                        value="{{ $video->ad_code }}">
                                                                 </div>
 
 

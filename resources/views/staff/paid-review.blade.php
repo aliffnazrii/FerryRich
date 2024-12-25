@@ -163,13 +163,13 @@
                                                                         <select name="order_status" class="form-control"
                                                                             id="order_status" required disabled>
                                                                             <option value="Pending"
-                                                                                {{ isset($paidReview) && $paidReview->order_status == 'Pending' ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->order_status == 'Pending' ? 'selected' : '' }}>
                                                                                 Pending</option>
                                                                             <option value="Delivered"
-                                                                                {{ isset($paidReview) && $paidReview->order_status == 'Delivered' ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->order_status == 'Delivered' ? 'selected' : '' }}>
                                                                                 Delivered</option>
                                                                             <option value="Cancelled"
-                                                                                {{ isset($paidReview) && $paidReview->order_status == 'Cancelled' ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->order_status == 'Cancelled' ? 'selected' : '' }}>
                                                                                 Cancelled</option>
                                                                         </select>
                                                                     </div>
@@ -180,13 +180,13 @@
                                                                         <select name="payment_status" class="form-control"
                                                                             id="payment_status" required disabled>
                                                                             <option value="Pending"
-                                                                                {{ isset($paidReview) && $paidReview->payment_status == 'Pending' ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->payment_status == 'Pending' ? 'selected' : '' }}>
                                                                                 Pending</option>
                                                                             <option value="Paid"
-                                                                                {{ isset($paidReview) && $paidReview->payment_status == 'Paid' ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->payment_status == 'Paid' ? 'selected' : '' }}>
                                                                                 Paid</option>
                                                                             <option value="Failed"
-                                                                                {{ isset($paidReview) && $paidReview->payment_status == 'Failed' ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->payment_status == 'Failed' ? 'selected' : '' }}>
                                                                                 Failed</option>
                                                                         </select>
                                                                     </div>
@@ -210,10 +210,10 @@
                                                                             class="form-control" id="product_received"
                                                                             disabled>
                                                                             <option value="1"
-                                                                                {{ isset($paidReview) && $paidReview->product_received == 1 ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->product_received == 1 ? 'selected' : '' }}>
                                                                                 Yes</option>
                                                                             <option value="0"
-                                                                                {{ isset($paidReview) && $paidReview->product_received == 0  ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->product_received == 0  ? 'selected' : '' }}>
                                                                                 No</option>
                                                                         </select>
                                                                     </div>
@@ -280,8 +280,8 @@
 
                                     <div class="col-md-12 my-3">
                                         <label for="product_id" class="form-label">Product</label>
-                                        <select name="product_id" class="form-control" id="product_id" required>
-                                            <option>Select</option>
+                                        <select name="product_id" class="form-select select2" id="product-list" required>
+                                            <option value="">Select</option>
                                             @foreach ($products as $product)
                                                 <option value="{{ $product->id }}">
                                                     {{ $product->name }}
@@ -357,6 +357,12 @@
                 $('#single-select-field').select2({
                     theme: 'bootstrap-5', // Matches the Bootstrap 5 theme
                     placeholder: "Select a content creator", // Optional placeholder
+                    allowClear: true, // Allows a clear button to reset the dropdown
+                    dropdownParent: $('#addReview') // Replace with the ID of your modal
+                });
+                $('#product-list').select2({
+                    theme: 'bootstrap-5', // Matches the Bootstrap 5 theme
+                    placeholder: "Select a product", // Optional placeholder
                     allowClear: true, // Allows a clear button to reset the dropdown
                     dropdownParent: $('#addReview') // Replace with the ID of your modal
                 });

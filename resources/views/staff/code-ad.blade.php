@@ -8,7 +8,7 @@
         <div class="main-content">
 
 
-            <h6 class="mb-0 text-uppercase">Content Creator List</h6>
+            <h6 class="mb-0 text-uppercase">Code Ad List</h6>
             <hr>
             <div class="card">
                 <div class="card-body">
@@ -51,9 +51,20 @@
                                 @foreach ($reviews as $reviews)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $reviews->contentCreator->name }}</td> <!-- Assuming you have a tiktok_id field -->
-                                        <td>{{ $reviews->video->ad_code }}</td>
-                                        <td><a href="{{ optional($reviews->video)->video_link }}" target="_blank">View Video</a></td> <!-- Link to the video -->
+                                        <td>{{ $reviews->contentCreator->name }}</td>
+                                        <!-- Assuming you have a tiktok_id field -->
+                                        @if ($reviews->video->ad_code != '')
+                                            <td>{{ $reviews->video->ad_code }}</td>
+                                        @else
+                                            <td>N/A</td>
+                                        @endif
+
+                                        @if ($reviews->video->video_link != '')
+                                            <td><a href="{{ $reviews->video->video_link }}" target="_blank">View Video</a>
+                                            </td> <!-- Link to the video -->
+                                        @else
+                                            <td>N/A</td> <!-- Link to the video -->
+                                        @endif
                                         {{-- <td>
                                             <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
                                                 data-bs-target="#UpdateModal{{ $reviews->id }}">View</button>

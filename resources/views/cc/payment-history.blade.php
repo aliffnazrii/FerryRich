@@ -98,7 +98,7 @@
                                                                     readonly>
                                                             </div>
 
-                                                            @if ($payment->file_path)
+                                                            @if ($payment->file_path && $payment->status == 'Completed')
                                                                 <div class="mb-3">
                                                                     <label for="reference_number" class="form-label">Receipt
                                                                     </label>

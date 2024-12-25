@@ -141,7 +141,7 @@
                                 <div class="col-md-12">
                                     <div class="d-md-flex d-grid align-items-center gap-3">
                                         <button type="submit" class="btn btn-primary px-4">Save</button>
-                                        <button type="button" class="btn btn-light px-4">Reset</button>
+                                        {{-- <button type="button" class="btn btn-light px-4">Reset</button> --}}
                                     </div>
                                 </div>
                             </form>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\PaidReview;
+use App\Models\Video;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,9 +37,27 @@ class PaymentController extends Controller
     }
     public function index()
     {
-        $payments = Payment::with(['paidReview'])->whereHas('paidReview', function ($query) {
-            $query->where('validation', 'Completed');
-        })->get();
+
+
+        // $payments = PaidReview::with(['video', 'payments'])
+        // ->where('order_status','Delivered')
+        // ->whereHas('video', function($query){
+        //     $query->where('status','Approved');
+        //     $query->whereNotNull('ad_code');
+        //     $query->whereNotNull('video_link');
+        // })
+        // ->get();
+        $payments = Payment::with(['paidReview.video'])
+            ->whereHas('paidReview', function ($query) {
+                $query->where('order_status', 'delivered')
+                    ->whereHas('video', function ($query) {
+                        $query->where('status', 'Approved');
+                        $query->whereNotNull('ad_code');
+                        $query->whereNotNull('video_link');
+                    });
+
+
+            })->get();
         return view('staff.finance.payment', compact('payments')); // Return to the index view
     }
 
@@ -84,12 +103,12 @@ class PaymentController extends Controller
     public function update(Request $request, $id)
     {
         // Validate incoming request data
-        $request->validate([
+        // $request->validate([
 
-            'reference_number' => 'nullable|string',
-            'status' => 'required|string',
-            'receipt' => 'nullable|mimes:pdf,jpeg,png|max:2048',
-        ]);
+        //     'reference_number' => 'nullable|string',
+        //     'status' => 'required|string',
+        //     'receipt' => 'nullable|mimes:pdf,jpeg,png|max:2048',
+        // ]);
 
         $payment = Payment::findOrFail($id);
         $PR_id = $payment->paid_review_id;
@@ -123,17 +142,24 @@ class PaymentController extends Controller
             $payment->update([
 
                 'reference_number' => $request->reference_number,
-                'status' => $request->status,
+                // 'status' => $request->status,
             ]);
 
 
             if ($request->status == 'Completed') {
-                $PR_payment->update([
-                    'payment_status' => 'Paid',
-                ]);
+                if ($payment->file_path != '' && $payment->reference_number != '') {
+
+                    $PR_payment->update([
+                        'payment_status' => 'Paid',
+                        'validation' => 'Completed',
+                    ]);
+                }else{
+                    return redirect()->back()->with('failed', 'Receipt and Reference Number Required');
+                }
             } else if ($request->status == 'Failed') {
                 $PR_payment->update([
                     'payment_status' => 'Pending',
+                    'validation' => 'Pending',
                 ]);
             }
 

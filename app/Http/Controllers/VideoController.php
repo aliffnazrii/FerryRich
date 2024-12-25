@@ -25,13 +25,13 @@ class VideoController extends Controller
         ]);
 
         $this->middleware('login')->only([
-           
+
             'streamVideo',
             'updateStatus',
 
         ]);
 
-        
+
 
 
 
@@ -98,7 +98,9 @@ class VideoController extends Controller
         if ($request->video_link != '') {
             $video = Video::findOrFail($id);
             $video->update([
-                'video_link' => $request->input('video_link')
+                'video_link' => $request->input('video_link'),
+                'ad_code' => $request->input('code_ad'),
+                // 'ad_code' => $request->$code,
             ]);
             return redirect()->back()->with('success', 'Link Uploaded Successfully');
         }
@@ -148,5 +150,5 @@ class VideoController extends Controller
         ]);
     }
 
-   
+
 }
