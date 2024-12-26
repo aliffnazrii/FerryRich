@@ -118,7 +118,7 @@
                                                     </div>
                                                 </div>
                                             @elseif($review && $review->validate == '1')
-                                                <button type="button" class="btn btn-success" disabled>
+                                                <button type="button" class="btn btn-primary" disabled>
                                                     Validated
                                                 </button>
                                             @else
