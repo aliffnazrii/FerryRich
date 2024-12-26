@@ -33,10 +33,6 @@ class PaidReview extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function reviewSubmissions()
-    {
-        return $this->hasMany(ReviewSubmission::class, 'paid_review_id');
-    }
 
     public function payments()
     {

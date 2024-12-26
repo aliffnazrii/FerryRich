@@ -71,15 +71,16 @@ Route::get('/task-cc', function () {
 
 Route::get('/guidelines/manage/{id}', [GuidelineController::class, 'view'])->name('guideline.manage');
 Route::get('/guidelines/view/{id}', [GuidelineController::class, 'viewGuideline'])->name('guideline.view');
+Route::put('/video/validation/{id}', [VideoController::class, 'validateAdCode'])->name('video.validateAdCode');
 
 
 
 #NOT USED ROUTES
 
-Route::get('/testing', function () {
-    return view('staff/testing
-    ');
-});
+// Route::get('/testing', function () {
+//     return view('staff/testing
+//     ');
+// });
 // Route::get('/list-cc', function () {
 //     return view('staff/list-cc');
 // });

@@ -104,9 +104,9 @@ class PaidReviewController extends Controller
             ->where('content_creator_id', $cc)
             ->get();
 
-            // $guideline = Guideline::with(['product'])
-            // ->where('product_id','')
-            // ->get();
+        // $guideline = Guideline::with(['product'])
+        // ->where('product_id','')
+        // ->get();
         return view('cc.assigned-review', compact('assignedReviews'));
     }
 
@@ -135,14 +135,19 @@ class PaidReviewController extends Controller
     public function ad_code()
     {
         // Get all paid reviews for content creators with their associated content creators and videos
-        $reviews = PaidReview::with(['contentCreator', 'video'])
-            ->whereHas('contentCreator', function ($query) {
+        // In your controller or wherever you are querying
+        $reviews = Video::with(['paidReviews', 'uploader'])
+            ->whereHas('uploader', function ($query) {
                 $query->where('role', 'Content Creator');
             })
-          
-            // ->distinct() // Ensures unique rows
             ->get();
-        // dd($reviews);
+        // $reviews = PaidReview::with(['contentCreator', 'video'])
+        //     ->whereHas('contentCreator', function ($query) {
+        //         $query->where('role', 'Content Creator');
+        //     })
+        //     ->get();
+
+
 
 
 

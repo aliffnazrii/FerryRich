@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Guideline;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -13,8 +14,9 @@ class GuidelineController extends Controller
     {
         $guidelines = Guideline::where('product_id', $id)->get();
         $product_id = $id;
+        $pName = Product::findOrFail($id)->name;
 
-        return view('staff.guideline-manage', compact('guidelines', 'product_id'));
+        return view('staff.guideline-manage', compact('guidelines', 'pName', 'product_id'));
     }
 
 

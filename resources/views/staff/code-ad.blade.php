@@ -26,6 +26,11 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    @if (session('failed'))
+                        <div class="alert alert-danger">
+                            {{ session('failed') }}
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-10"></div>
 
@@ -43,30 +48,86 @@
                                     <th>Tiktok Username</th>
                                     <th>Code Ad</th>
                                     <th>Video Link</th>
-                                    {{-- <th>Actions</th> --}}
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($reviews as $reviews)
+                                @foreach ($reviews as $review)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $reviews->contentCreator->name }}</td>
-                                        <!-- Assuming you have a tiktok_id field -->
-                                        {{-- @if ($reviews->video->ad_code)
-                                            <td>{{ $reviews->video->ad_code }}</td>
+                                        <td class="col-1">{{ $loop->iteration }}</td>
+                                        @if ($review->uploader->tiktok_username)
+                                        <td>{{ $review->uploader->tiktok_username }}</td>
                                         @else
+                                            <td>{{ $review->uploader->name }} (Name)</td>
+                                        @endif
+
+                                        @if ($review)
+                                            <td>{{ $review->ad_code ?? 'N/A' }}</td>
+                                            <td>
+                                                @if ($review->video_link)
+                                                    <a href="{{ $review->video_link }}" target="_blank">View
+                                                        Video</a>
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                        @else
+                                            <td>N/A</td>
                                             <td>N/A</td>
                                         @endif
 
-                                        @if ($reviews->video->video_link != '')
-                                            <td><a href="{{ $reviews->video->video_link }}" target="_blank">View Video</a>
-                                            </td> <!-- Link to the video -->
-                                        @else
-                                            <td>N/A</td> <!-- Link to the video -->
-                                        @endif --}}
+                                        <td>
+                                            @if ($review && ($review->ad_code && $review->video_link && $review->validate == 0))
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#validate{{ $review->id }}">
+                                                    Validate
+                                                </button>
 
-                                 
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="validate{{ $review->id }}" tabindex="-1"
+                                                    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-center" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalTitleId">
+                                                                    Validate Ad Code
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure to validate this ad code?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form
+                                                                    action="{{ route('video.validateAdCode', $review->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Validate</button>
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        Cancel
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @elseif($review && $review->validate == '1')
+                                                <button type="button" class="btn btn-success" disabled>
+                                                    Validated
+                                                </button>
+                                            @else
+                                                <!-- Disabled button if no video link and ad code -->
+                                                <button type="button" class="btn btn-secondary" disabled>
+                                                    Validate
+                                                </button>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

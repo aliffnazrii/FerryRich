@@ -16,6 +16,7 @@ class Video extends Model
         'video_link',
         'ad_code', // for ads
         'status',
+        'validate',
         'reviewed_by',
         'reviewed_at',
         'feedback',
@@ -31,10 +32,7 @@ class Video extends Model
         return $this->belongsTo(User::class, 'reviewed_by');
     }
 
-    public function reviewSubmission()
-    {
-        return $this->hasOne(ReviewSubmission::class, 'video_id');
-    }
+
 
     public function paidReviews()
 {

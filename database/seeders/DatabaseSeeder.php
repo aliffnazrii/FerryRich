@@ -25,8 +25,6 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             VideoSeeder::class,
             PaidReviewSeeder::class,
-            ReviewSubmissionSeeder::class,
-
             PaymentSeeder::class,
         ]);
 

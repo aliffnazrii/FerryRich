@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('guidelines', function (Blueprint $table) {
-            $table->id(); // Primary key
-            $table->unsignedBigInteger('product_id'); // Foreign key to the products table
-            $table->string('title'); // Title of the guideline
-            $table->string('file_path'); // Path to the uploaded file
-            $table->string('file_type')->nullable(); // File type (e.g., pdf, docx, txt)
-            $table->text('remark')->nullable(); // Optional remark for the guideline
-            $table->timestamps(); // Created and updated timestamps
+            $table->id(); 
+            $table->unsignedBigInteger('product_id'); 
+            $table->string('title'); 
+            $table->string('file_path');
+            $table->string('file_type')->nullable(); 
+            $table->text('remark')->nullable(); 
+            $table->timestamps(); 
 
             // Foreign key constraint to link with products table
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

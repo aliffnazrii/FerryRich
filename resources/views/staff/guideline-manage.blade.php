@@ -1,6 +1,6 @@
 @extends('layout.staff')
 
-@section('title', 'Guideline Management')
+@section('title', 'Product Guideline Management')
 
 @section('content')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -12,7 +12,7 @@
     <main class="main-wrapper">
         <div class="main-content">
 
-            <h6 class="mb-0 text-uppercase">Guideline Management</h6>
+            <h6 class="mb-0 text-uppercase">{{ $pName }} Guideline Management</h6>
             <hr>
             <div class="card">
                 <div class="card-body">

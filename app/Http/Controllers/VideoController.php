@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Middleware\ValidatePostSize;
 use Illuminate\Http\Request;
 use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +82,7 @@ class VideoController extends Controller
                 'file_path' => $path,
                 'status' => 'Pending',
                 'feedback' => '',
+                'upload_date' => date('Y-m-d H:i:s'),
             ]);
             return redirect()->back()->with('success', 'Video Uploaded successfully.');
         }
@@ -125,6 +127,36 @@ class VideoController extends Controller
         ]);
 
         return back()->with('success', 'Information updated successfully.');
+    }
+
+
+    public function validateAdCode(Request $request, $id)
+    {
+        // Attempt to find the video by ID
+        $video = Video::find($id);
+
+        // Check if the video exists
+        if (!$video) {
+            return redirect()->back()->with('failed', 'Video not found.');
+        }
+
+        // Check if the video is already validated
+        if ($video->validate === '1') { // Assuming '1' is the validated state
+            return redirect()->back()->with('failed', 'Video has already been validated.');
+        }
+
+        // Get the authenticated user ID
+        $userId = Auth::id();
+
+        // Update the video validation status
+        $video->update([
+            'validate' => '1', // Set to '1' to mark as validated
+            'reviewed_by' => $userId,
+            'reviewed_at' => now(), // Use now() for current timestamp
+        ]);
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Successfully validated video with Ad Code.');
     }
 
     public function streamVideo($id)
