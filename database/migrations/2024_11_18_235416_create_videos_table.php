@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('video_link')->nullable();
             $table->string('ad_code')->nullable();
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
-            $table->enum('validate', ['1', '0'])->default('0');
+            $table->enum('validate', ['1', '0', '2'])->default('0');
             $table->unsignedBigInteger('reviewed_by')->nullable();
             $table->timestamp('reviewed_at')->nullable();
             $table->text('feedback')->nullable();

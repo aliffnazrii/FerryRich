@@ -17,6 +17,7 @@ class VideoController extends Controller
 
             'index',
             'store',
+            'validateAdCode',
         ]);
 
         $this->middleware('CC')->only([

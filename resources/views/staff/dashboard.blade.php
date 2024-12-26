@@ -30,8 +30,8 @@
                     <div class="card-body">
                         <h4 class="mb-0">Welcome Back, {{ auth()->user()->name }}!</h4>
                         <p>Here’s a quick overview of the system's performance</p>
-                        <h3 class="mt-3">RM {{ number_format($totalPayments, 2) }}</h3>
-                        <p>Total Payments Processed</p>
+                        <h3 class="mt-3">RM {{ number_format($totalPaidPayments, 2) }}</h3>
+                        <p>Total Paid Payments</p>
                     </div>
                 </div>
             </div>

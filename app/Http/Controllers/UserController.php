@@ -15,15 +15,15 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('Staff')->only([
-            
+
             'staffDashboard',
         ]);
-        
+
         $this->middleware('CC')->only([
             'contentCreatorDashboard',
 
         ]);
-        
+
         $this->middleware('login')->only([
             'index',
             'show',
@@ -76,7 +76,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-  
+
         $user = User::findOrFail($id);
         $user->update($request->all());
         return redirect()->back()->with('success', 'Information  updated successfully.');
@@ -94,6 +94,7 @@ class UserController extends Controller
     public function staffDashboard()
     {
         // General Stats
+        $totalPaidPayments = Payment::where('status', 'Completed')->sum('amount');
         $totalPayments = Payment::sum('amount');
         $totalAssignedReviews = PaidReview::count();
         $totalApprovedVideos = Video::where('status', 'Approved')->count();
@@ -137,7 +138,8 @@ class UserController extends Controller
             'monthlyVideoGrowth',
             'yearlyPaymentsCompleted',
             'yearlyPaymentsTotal',
-            'yearlyPaymentGrowth'
+            'yearlyPaymentGrowth',
+            'totalPaidPayments'
         ));
     }
 
@@ -146,6 +148,10 @@ class UserController extends Controller
         $userId = Auth::id();
 
         // Total earnings from completed payments
+        $totalPaidEarnings = Payment::whereHas('paidReview', function ($query) use ($userId) {
+            $query->where('content_creator_id', $userId)->where('payment_status','Paid');
+        })->sum('amount');
+
         $totalEarnings = Payment::whereHas('paidReview', function ($query) use ($userId) {
             $query->where('content_creator_id', $userId);
         })->sum('amount');
@@ -163,7 +169,8 @@ class UserController extends Controller
             'totalEarnings',
             'assignedReviewsCount',
             'approvedVideosCount',
-            'pendingVideosCount'
+            'pendingVideosCount',
+            'totalPaidEarnings'
         ));
     }
 }

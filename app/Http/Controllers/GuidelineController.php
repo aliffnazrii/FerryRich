@@ -10,6 +10,22 @@ use Illuminate\Support\Facades\File;
 
 class GuidelineController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('Staff')->only([
+            'view',
+            'store',
+            'destroy',
+            'viewGuideline',
+        ]);
+        $this->middleware('CC')->only([
+            'viewGuideline',
+
+        ]);
+
+     
+    }
     public function view(Request $request, $id)
     {
         $guidelines = Guideline::where('product_id', $id)->get();

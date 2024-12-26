@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\ReviewSubmission;
+
 use Illuminate\Http\Request;
 use App\Models\PaidReview;
 use App\Models\Product;
@@ -22,6 +22,7 @@ class PaidReviewController extends Controller
             'index',
             'store',
             'update',
+            'ad_code',
         ]);
         $this->middleware('CC')->only([
             'assignedReview',
@@ -35,7 +36,7 @@ class PaidReviewController extends Controller
     }
     public function index()
     {
-        $paidReviews = PaidReview::with(['contentCreator', 'product', 'reviewSubmissions', 'payments'])->get();
+        $paidReviews = PaidReview::with(['contentCreator', 'product', 'payments'])->get();
         $products = Product::all();
         $contentcreators = User::where('role', 'Content Creator')->get();
         return view('staff.paid-review', compact('paidReviews', 'products', 'contentcreators'));
