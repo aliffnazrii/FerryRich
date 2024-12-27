@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Middleware\ValidatePostSize;
 use Illuminate\Http\Request;
 use App\Models\Video;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -144,6 +145,51 @@ class VideoController extends Controller
         // Check if the video is already validated
         if ($video->validate === '1') { // Assuming '1' is the validated state
             return redirect()->back()->with('failed', 'Video has already been validated.');
+        }
+
+        if ($request->validate == '2') {
+
+            $userId = Auth::id();
+
+            // Update the video validation status
+            $video->update([
+                'validate' => '0', // Set to '1' to mark as validated
+                'reviewed_by' => $userId,
+                'reviewed_at' => now(), // Use now() for current timestamp
+            ]);
+
+            $cc = User::find($video->uploaded_by);
+            $data = [
+                'title' => 'Ad Code not valid',
+                'message' => 'Ad Code is not valid. Please upload a new Ad Code',
+                'url' => '/video-submission',
+            ];
+
+            $userController = new UserController();
+            $userController->sendNotification($cc, $data);
+
+            return redirect()->back()->with('success', 'Invalidate Ad Code Succeed.');
+        }elseif ($request->validate == '1') {
+            $userId = Auth::id();
+
+            // Update the video validation status
+            $video->update([
+                'validate' => '1', // Set to '1' to mark as validated
+                'reviewed_by' => $userId,
+                'reviewed_at' => now(), // Use now() for current timestamp
+            ]);
+
+            $cc = User::find($video->uploaded_by);
+            $data = [
+                'title' => 'Congratulations !',
+                'message' => 'Ad Code successfuly validated. Payment is being processed',
+                'url' => '/payment-history',
+            ];
+
+            $userController = new UserController();
+            $userController->sendNotification($cc, $data);
+
+            return redirect()->back()->with('success', 'Ad Code Validated.');
         }
 
         // Get the authenticated user ID

@@ -8,6 +8,7 @@ use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Notifications\CustomNotification;
 
 class UserController extends Controller
 {
@@ -149,7 +150,7 @@ class UserController extends Controller
 
         // Total earnings from completed payments
         $totalPaidEarnings = Payment::whereHas('paidReview', function ($query) use ($userId) {
-            $query->where('content_creator_id', $userId)->where('payment_status','Paid');
+            $query->where('content_creator_id', $userId)->where('payment_status', 'Paid');
         })->sum('amount');
 
         $totalEarnings = Payment::whereHas('paidReview', function ($query) use ($userId) {
@@ -173,4 +174,12 @@ class UserController extends Controller
             'totalPaidEarnings'
         ));
     }
+
+
+    public function sendNotification(User $user, array $data)
+    {
+        $user->notify(new CustomNotification($data));
+
+    }
+
 }

@@ -99,13 +99,29 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 Are you sure to validate this ad code?
+
+                                                                <form
+                                                                action="{{ route('video.validateAdCode', $review->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                
+
+                                                                <div class="form-check mt-3">
+                                                                    <input class="form-check-input" value="1" type="radio" name="validate" />
+                                                                    <label class="form-check-label" > Validate </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" value="2" type="radio" name="validate" />
+                                                                    <label class="form-check-label" > Invalidate </label>
+                                                                </div>
+                                                               
+                                                                
+                                                               
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <form
-                                                                    action="{{ route('video.validateAdCode', $review->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('PUT')
+                                                               
+                                                                    
                                                                     <button type="submit"
                                                                         class="btn btn-primary">Validate</button>
                                                                     <button type="button" class="btn btn-secondary"

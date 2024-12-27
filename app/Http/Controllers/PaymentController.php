@@ -158,6 +158,20 @@ class PaymentController extends Controller
                     $payment->update([
                         'status' => 'Completed',
                     ]);
+
+        
+
+        
+                    $pr_id = PaidReview::findOrFail($payment->paid_review_id);
+                    $cc = User::find($pr_id->content_creator_id);
+                    $data = [
+                        'title' => 'Payment Succeed !',
+                        'message' => 'Your payment has been successfully completed.',
+                        'url' => '/payment-history',
+                    ];
+        
+                    $userController = new UserController();
+                    $userController->sendNotification($cc, $data);
                 } else {
                     return redirect()->back()->with('failed', 'Receipt and Reference Number Required');
                 }
@@ -177,8 +191,6 @@ class PaymentController extends Controller
 
                 ]);
                 return redirect()->back()->with('success', 'Payment updated successfully');
-            } else {
-                return redirect()->back()->with('failed', 'Reference number is required');
             }
         
         return redirect()->back()->with('success', 'Payment updated successfully');

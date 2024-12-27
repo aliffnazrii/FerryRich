@@ -68,6 +68,18 @@ class PaidReviewController extends Controller
                 'amount' => $paidReview->deal_rate,
                 'reference_number' => null,
             ]);
+
+            $notiId = User::findOrFail($creatorId);
+            $data = [
+                'title' => 'You have been assigned to a review !',
+                'message' => 'Check your review page to see more info.',
+                'url' => '/review-list',
+            ];
+
+            $userController = new UserController();
+            $userController->sendNotification($notiId, $data);
+
+
             return redirect()->back()->with('success', 'Paid Review created successfully.');
         } else {
             return redirect()->back()->with('failed', 'Content Creator must be approved to create a paid review.');
