@@ -32,7 +32,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Content Creator</th>
+                                    <th>Tiktok Username</th>
                                     <th>File Path</th>
                                     <th>Status</th>
                                     <th>Feedback</th>
@@ -46,7 +46,13 @@
                                     <tr>
                                         
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $video->uploader->name }}</td>
+                                      
+
+                                        @if ($video->uploader->tiktok_username)
+                                        <td>{{ $video->uploader->tiktok_username }}</td>
+                                    @else
+                                        <td>{{ $video->uploader->name }} (Name)</td>
+                                    @endif
                                         <td>
                                             @if ($video->file_path != '')
                                                 <a href="{{ route('videos.stream', $video->id) }}" target="_blank">View

@@ -40,7 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Tiktok ID</th>
+                                    <th>Tiktok Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Approval Status</th>
@@ -52,7 +52,11 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->tiktok_username != '' ? $user->tiktok_username : $user->name. ' (Name)' }}</td>
+                                        @if ($user->tiktok_username)
+                                            <td>{{ $user->tiktok_username }}</td>
+                                        @else
+                                            <td>{{ $user->name }} (Name)</td>
+                                        @endif
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role }}</td>
 

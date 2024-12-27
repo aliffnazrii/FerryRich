@@ -48,6 +48,7 @@
                                     <th>Tiktok Username</th>
                                     <th>Code Ad</th>
                                     <th>Video Link</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -57,7 +58,7 @@
                                     <tr>
                                         <td class="col-1">{{ $loop->iteration }}</td>
                                         @if ($review->uploader->tiktok_username)
-                                        <td>{{ $review->uploader->tiktok_username }}</td>
+                                            <td>{{ $review->uploader->tiktok_username }}</td>
                                         @else
                                             <td>{{ $review->uploader->name }} (Name)</td>
                                         @endif
@@ -76,7 +77,11 @@
                                             <td>N/A</td>
                                             <td>N/A</td>
                                         @endif
-
+                                        <td><span
+                                                class="badge 
+                                {{ $review->validate == '1' ? 'bg-success' : 'bg-warning' }}">
+                                                {{ ucfirst($review->validate == '1' ? 'Validated' : 'Pending') }}
+                                            </span></td>
                                         <td>
                                             @if ($review && ($review->ad_code && $review->video_link && $review->validate == 0))
                                                 <!-- Button trigger modal -->
@@ -101,33 +106,35 @@
                                                                 Are you sure to validate this ad code?
 
                                                                 <form
-                                                                action="{{ route('video.validateAdCode', $review->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                
+                                                                    action="{{ route('video.validateAdCode', $review->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('PUT')
 
-                                                                <div class="form-check mt-3">
-                                                                    <input class="form-check-input" value="1" type="radio" name="validate" />
-                                                                    <label class="form-check-label" > Validate </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" value="2" type="radio" name="validate" />
-                                                                    <label class="form-check-label" > Invalidate </label>
-                                                                </div>
-                                                               
-                                                                
-                                                               
+
+                                                                    <div class="form-check mt-3">
+                                                                        <input class="form-check-input" value="1"
+                                                                            type="radio" name="validate" />
+                                                                        <label class="form-check-label"> Validate </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" value="2"
+                                                                            type="radio" name="validate" />
+                                                                        <label class="form-check-label"> Invalidate </label>
+                                                                    </div>
+
+
+
                                                             </div>
                                                             <div class="modal-footer">
-                                                               
-                                                                    
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Validate</button>
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">
-                                                                        Cancel
-                                                                    </button>
+
+
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Validate</button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    Cancel
+                                                                </button>
                                                                 </form>
                                                             </div>
                                                         </div>

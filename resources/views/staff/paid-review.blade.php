@@ -63,7 +63,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Content Creator</th>
+                                    <th>Tiktok Username</th>
                                     <th>Product</th>
                                     <th>Deal Rate (RM)</th>
                                     <th>Total Products</th>
@@ -79,7 +79,11 @@
                                     <tr>
 
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $review->contentCreator->name }}</td>
+                                        @if ($review->contentCreator->tiktok_username)
+                                            <td>{{ $review->contentCreator->tiktok_username }}</td>
+                                        @else
+                                            <td>{{ $review->contentCreator->name }} (Name)</td>
+                                        @endif
                                         <td>{{ $review->product->name }}</td>
                                         <td>{{ $review->deal_rate }}</td>
                                         <td>{{ $review->total_product }}</td>
@@ -213,7 +217,7 @@
                                                                                 {{ isset($review) && $review->product_received == 1 ? 'selected' : '' }}>
                                                                                 Yes</option>
                                                                             <option value="0"
-                                                                                {{ isset($review) && $review->product_received == 0  ? 'selected' : '' }}>
+                                                                                {{ isset($review) && $review->product_received == 0 ? 'selected' : '' }}>
                                                                                 No</option>
                                                                         </select>
                                                                     </div>
