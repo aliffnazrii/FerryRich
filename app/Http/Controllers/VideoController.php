@@ -8,6 +8,9 @@ use App\Models\Video;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\CustomNotification;
+use Illuminate\Support\Facades\Notification;
+
 
 class VideoController extends Controller
 {
@@ -86,6 +89,22 @@ class VideoController extends Controller
                 'feedback' => '',
                 'upload_date' => date('Y-m-d H:i:s'),
             ]);
+
+            $uploader = User::findOrFail($video->uploaded_by);
+
+            $data = [
+                'title' => 'There is a video from ' . $uploader->tiktok_username . ' need to be review ',
+                'message' => 'There is a Content Creator that need to be validate',
+                'url' => route('videos.index'),
+            ];
+
+
+            $userController = new UserController();
+            $userController->sendNotificationToRole('Staff', $data);
+            $userController->sendNotificationToRole('Admin', $data);
+
+
+
             return redirect()->back()->with('success', 'Video Uploaded successfully.');
         }
         return redirect()->back()->with('error', 'No file uploaded.');
@@ -106,6 +125,21 @@ class VideoController extends Controller
                 'ad_code' => $request->input('code_ad'),
                 // 'ad_code' => $request->$code,
             ]);
+
+            $uploader = User::findOrFail($video->uploaded_by);
+
+            $data = [
+                'title' => 'There is a code ad need to be validate ',
+                'message' => 'There is a code ad from ' . $uploader->tiktok_username . ' that need to be validate',
+                'url' => '/code-ad',
+            ];
+
+
+            $userController = new UserController();
+            $userController->sendNotificationToRole('Staff', $data);
+            $userController->sendNotificationToRole('Admin', $data);
+
+
             return redirect()->back()->with('success', 'Link Uploaded Successfully');
         }
         return redirect()->back()->with('failed', 'Link failed to upload');
@@ -121,12 +155,32 @@ class VideoController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $video = Video::findOrFail($id);
+        $video = Video::with('paidReviews')->findOrFail($id);
 
         $video->update([
             'feedback' => $request->input('feedback'),
             'status' => $request->input('status'),
         ]);
+
+        $cc = User::find($video->uploaded_by);
+
+        if ($video->status == 'Approved') {
+            $data = [
+                'title' => 'Video has been Approved ',
+                'message' => 'Please upload the video link and the code ad',
+                'url' => '/video-submission',
+            ];
+        }
+        if ($video->status == 'Rejected') {
+            $data = [
+                'title' => 'Video has been rejected ',
+                'message' => 'Please upload a new video for the review',
+                'url' => '/video-submission',
+            ];
+        }
+
+        $userController = new UserController();
+        $userController->sendNotification($cc, $data);
 
         return back()->with('success', 'Information updated successfully.');
     }
@@ -147,7 +201,7 @@ class VideoController extends Controller
             return redirect()->back()->with('failed', 'Video has already been validated.');
         }
 
-        if ($request->validate == '2') {
+        if ($request->validate == '2') { //invalid == 2
 
             $userId = Auth::id();
 
@@ -159,6 +213,8 @@ class VideoController extends Controller
             ]);
 
             $cc = User::find($video->uploaded_by);
+
+            // notify cc
             $data = [
                 'title' => 'Ad Code not valid',
                 'message' => 'Ad Code is not valid. Please upload a new Ad Code',
@@ -169,7 +225,7 @@ class VideoController extends Controller
             $userController->sendNotification($cc, $data);
 
             return redirect()->back()->with('success', 'Invalidate Ad Code Succeed.');
-        }elseif ($request->validate == '1') {
+        } elseif ($request->validate == '1') {
             $userId = Auth::id();
 
             // Update the video validation status
@@ -180,30 +236,46 @@ class VideoController extends Controller
             ]);
 
             $cc = User::find($video->uploaded_by);
+
+             // notify cc
             $data = [
-                'title' => 'Congratulations !',
-                'message' => 'Ad Code successfuly validated. Payment is being processed',
+                'title' => 'Code Ad has been validated',
+                'message' => 'Code Ad has been validated. Payment will be made within 7-14 working days',
                 'url' => '/payment-history',
             ];
 
             $userController = new UserController();
             $userController->sendNotification($cc, $data);
 
+
+            // Get the authenticated user ID
+            $userId = Auth::id();
+
+            // Update the video validation status
+            $video->update([
+                'validate' => '1', // Set to '1' to mark as validated
+                'reviewed_by' => $userId,
+                'reviewed_at' => now(), // Use now() for current timestamp
+            ]);
+
+            //notify finance
+
+            $data = [
+                'title' => 'New payment',
+                'message' => 'There is a payment that need to be processed',
+                'url' => route('payments.index'),
+            ];
+
+
+            $userController = new UserController();
+            $userController->sendNotificationToRole('Finance', $data);
+
             return redirect()->back()->with('success', 'Ad Code Validated.');
         }
 
-        // Get the authenticated user ID
-        $userId = Auth::id();
-
-        // Update the video validation status
-        $video->update([
-            'validate' => '1', // Set to '1' to mark as validated
-            'reviewed_by' => $userId,
-            'reviewed_at' => now(), // Use now() for current timestamp
-        ]);
 
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Successfully validated video with Ad Code.');
+        return redirect()->back()->with('failed', 'validate failed');
     }
 
     public function streamVideo($id)

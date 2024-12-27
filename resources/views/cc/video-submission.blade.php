@@ -65,7 +65,8 @@
                                             </span>
 
                                         </td>
-                                        <td>{{ $video->status == 'Approved' ? 'Approved' : ($video->feedback == '' ? 'N/A' : $video->feedback) }}</td>
+                                        <td>{{ $video->status == 'Approved' ? 'Approved' : ($video->feedback == '' ? 'N/A' : $video->feedback) }}
+                                        </td>
 
                                         <td class="text-center">
 
@@ -83,10 +84,18 @@
                                                     data-bs-target="#videoModal{{ $video->id }}">
                                                     <i class="bi bi-eye"></i> View
                                                 </button> --}}
-                                                <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
-                                                    data-bs-target="#linkModal{{ $video->id }}">
-                                                    <i class="bi bi-link-45deg"></i> Link
-                                                </button>
+
+                                                @if ($video->validate == 1)
+                                                    <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
+                                                        data-bs-target="#linkModal{{ $video->id }}" disabled>
+                                                        <i class="bi bi-link-45deg"></i> Validated
+                                                    </button>
+                                                @else
+                                                    <button class="btn btn-primary col-md-3" data-bs-toggle="modal"
+                                                        data-bs-target="#linkModal{{ $video->id }}">
+                                                        <i class="bi bi-link-45deg"></i> Link
+                                                    </button>
+                                                @endif
                                             @endif
 
                                             <!-- Upload Link Modal -->

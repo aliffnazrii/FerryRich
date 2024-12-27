@@ -59,7 +59,12 @@ class PaidReviewController extends Controller
             $video = Video::create([
                 'uploaded_by' => $paidReview->content_creator_id,
 
+
                 // ... other video details (e.g., 'reviewed_by', 'reviewed_at', 'feedback')
+            ]);
+
+            $paidReview->update([
+                'video_id'=> $video->id,
             ]);
 
             // Create the Payment record, associating it with the PaidReview
@@ -91,12 +96,24 @@ class PaidReviewController extends Controller
         //update tracking number
         if (isset($request->shipment_tracking_number)) {
 
-            $delivered = 'Ready To Ship';
+            $delivered = 'Ready To Ship'; 
             $paidReview = PaidReview::findOrFail($id);
             $paidReview->update([
                 'shipment_tracking_number' => $request->shipment_tracking_number,
                 'order_status' => $delivered,
             ]);
+
+            $notiId = User::findOrFail($paidReview->content_creator_id);
+            $data = [
+                'title' => 'Your review item is ready to be shipped!',
+                'message' => 'Check your review page to see more info.',
+                'url' => '/review-list',
+            ];
+
+            $userController = new UserController();
+            $userController->sendNotification($notiId, $data);
+
+            
             return redirect()->back()->with('success', 'Tracking Number updated successfully.');
         }
         $paidReview = PaidReview::findOrFail($id);

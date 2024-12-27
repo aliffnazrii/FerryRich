@@ -24,9 +24,37 @@
 
         <!-- Simplified Dashboard Content -->
         <div class="row justify-content-center col-8 m-auto">
+
+            <!-- Notifications -->
+            <div class="col-12 d-flex mb-4">
+                <div class="card rounded-4 w-100">
+                    <div class="card-body">
+                        <h4 class="mb-4">Notifications</h4>
+                        <div class="notification-list" style="max-height: 300px; overflow-y: auto;">
+                            @if (auth()->user()->notifications->count() > 0)
+                                @foreach (auth()->user()->notifications->take(15) as $notification)
+                                    <div class="notification-item d-flex justify-content-between align-items-start mb-3 p-3 border rounded">
+                                        <div>
+                                            <strong>{{ $notification->data['title'] }}</strong>
+                                            <p class="mb-1">{{ $notification->data['message'] }}</p>
+                                            <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                        </div>
+                                        <a href="{{ $notification->data['url'] }}" class="btn btn-primary btn-lg">View</a>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="text-center">
+                                    <strong>No notifications</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Welcome Card -->
-            <div class="col-12 d-flex justify-content-center mb-4">
-                <div class="card rounded-4 w-auto bg-gradient-primary text-center py-3 px-4">
+            <div class="col-12 col-md-12 d-flex  mb-4">
+                <div class="card rounded-4 w-100 bg-gradient-primary text-center py-3 px-4">
                     <div class="card-body">
                         <h4 class="mb-0">Welcome Back, {{ auth()->user()->name }}!</h4>
                         <p>Here’s a quick overview of the system's performance</p>
@@ -36,6 +64,7 @@
                 </div>
             </div>
 
+          
             <!-- First Row Cards -->
             <div class="col-12 col-md-4 d-flex justify-content-center mb-4">
                 <div class="card rounded-4 w-100 border-start border-4 border-primary text-center py-3 px-4">
@@ -82,6 +111,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
         <!--end row-->
 

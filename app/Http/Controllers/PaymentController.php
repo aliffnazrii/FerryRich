@@ -165,7 +165,7 @@ class PaymentController extends Controller
                     $pr_id = PaidReview::findOrFail($payment->paid_review_id);
                     $cc = User::find($pr_id->content_creator_id);
                     $data = [
-                        'title' => 'Payment Succeed !',
+                        'title' => 'Payment Successfully Processed !',
                         'message' => 'Your payment has been successfully completed.',
                         'url' => '/payment-history',
                     ];
@@ -181,8 +181,8 @@ class PaymentController extends Controller
             if ($request->status == 'Failed') {
 
                 $PR_payment->update([
-                    'payment_status' => 'Paid',
-                    'validation' => 'Completed',
+                    'payment_status' => 'Failed',
+                    'validation' => 'Pending',
                 ]);
                 $payment->update([
 

@@ -55,10 +55,23 @@ class UserController extends Controller
             'email' => 'required|string|email|unique:users,email', // Check for unique email
             'password' => 'required|string|min:8|confirmed', // Require confirmation
             'phone' => 'nullable|string|max:20', // Allow phone to be optional
-            'role' => 'required|string|in:admin,user', // Ensure role is valid
+
         ]);
 
-        User::create($request->all());
+       User::create($request->all());
+
+
+        $data = [
+            'title' => 'Validate Content Creator ',
+            'message' => 'There is a Content Creator that need to be validate',
+            'url' => route('users.index'),
+        ];
+
+
+        $userController = new UserController();
+        $userController->sendNotificationToRole('Staff', $data);
+        $userController->sendNotificationToRole('Admin', $data);
+
         return redirect()->route('users.index')->with('success', 'User  created successfully.');
     }
 
@@ -181,5 +194,17 @@ class UserController extends Controller
         $user->notify(new CustomNotification($data));
 
     }
+
+    public function sendNotificationToRole(string $role, array $data)
+    {
+        // Fetch users with the specified role``
+        $users = User::where('role', $role)->get();
+
+        // Send notification to each user
+        foreach ($users as $user) {
+            $user->notify(new CustomNotification($data));
+        }
+    }
+
 
 }
