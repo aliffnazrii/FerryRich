@@ -17,14 +17,14 @@ class GuidelineController extends Controller
             'view',
             'store',
             'destroy',
-            'viewGuideline',
+           
         ]);
         $this->middleware('CC')->only([
-            'viewGuideline',
+          
 
         ]);
 
-     
+
     }
     public function view(Request $request, $id)
     {

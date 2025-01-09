@@ -66,7 +66,7 @@ Route::get('/profile-cc', function () {
     return view('cc/profile-cc');
 });
 Route::get('/task-cc', function () {
-    return view('cc/task-cc');
+    return view('cc/task-cc'); 
 });
 
 Route::get('/guidelines/manage/{id}', [GuidelineController::class, 'view'])->name('guideline.manage');

@@ -52,13 +52,18 @@ class PaymentController extends Controller
                 'paidReview',
                 function ($query) {
                     $query->where('order_status', 'delivered');
-                    // ->whereHas('video', function ($query) {
-                    //     $query->where('status', 'Approved');
-                    //     $query->whereNotNull('ad_code');
-                    //     $query->whereNotNull('video_link');
-                    // });
-        
+                    
                 }
+            )
+            ->whereHas(
+                'paidReview.video',
+                function ($query) {
+                    $query->where('status', 'Approved');
+                    $query->whereNotNull('ad_code');
+                    $query->whereNotNull('video_link');
+                    $query->where('validate', 1);
+                }
+
             )->get();
         return view('staff.finance.payment', compact('payments')); // Return to the index view
     }
@@ -136,7 +141,7 @@ class PaymentController extends Controller
             ]);
         }
 
-    
+
 
 
         if ($request->reference_number != '') {
@@ -148,51 +153,51 @@ class PaymentController extends Controller
             ]);
         }
 
-            if ($request->status == 'Completed') {
-                if ($payment->file_path != '' && $payment->reference_number != '') {
-
-                    $PR_payment->update([
-                        'payment_status' => 'Paid',
-                        'validation' => 'Completed',
-                    ]);
-                    $payment->update([
-                        'status' => 'Completed',
-                    ]);
-
-        
-
-        
-                    $pr_id = PaidReview::findOrFail($payment->paid_review_id);
-                    $cc = User::find($pr_id->content_creator_id);
-                    $data = [
-                        'title' => 'Payment Successfully Processed !',
-                        'message' => 'Your payment has been successfully completed.',
-                        'url' => '/payment-history',
-                    ];
-        
-                    $userController = new UserController();
-                    $userController->sendNotification($cc, $data);
-                } else {
-                    return redirect()->back()->with('failed', 'Receipt and Reference Number Required');
-                }
-            } 
-     
-
-            if ($request->status == 'Failed') {
+        if ($request->status == 'Completed') {
+            if ($payment->file_path != '' && $payment->reference_number != '') {
 
                 $PR_payment->update([
-                    'payment_status' => 'Failed',
-                    'validation' => 'Pending',
+                    'payment_status' => 'Paid',
+                    'validation' => 'Completed',
                 ]);
                 $payment->update([
-
-                    'reference_number' => 'Payment Failed',
-                    'status' => $request->status,
-
+                    'status' => 'Completed',
                 ]);
-                return redirect()->back()->with('success', 'Payment updated successfully');
+
+
+
+
+                $pr_id = PaidReview::findOrFail($payment->paid_review_id);
+                $cc = User::find($pr_id->content_creator_id);
+                $data = [
+                    'title' => 'Payment Successfully Processed !',
+                    'message' => 'Your payment has been successfully completed.',
+                    'url' => '/payment-history',
+                ];
+
+                $userController = new UserController();
+                $userController->sendNotification($cc, $data);
+            } else {
+                return redirect()->back()->with('failed', 'Receipt and Reference Number Required');
             }
-        
+        }
+
+
+        if ($request->status == 'Failed') {
+
+            $PR_payment->update([
+                'payment_status' => 'Failed',
+                'validation' => 'Pending',
+            ]);
+            $payment->update([
+
+                'reference_number' => 'Payment Failed',
+                'status' => $request->status,
+
+            ]);
+            return redirect()->back()->with('success', 'Payment updated successfully');
+        }
+
         return redirect()->back()->with('success', 'Payment updated successfully');
     }
 

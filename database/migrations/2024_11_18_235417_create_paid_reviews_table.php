@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->integer('total_product')->default(1);
             $table->string('shipment_tracking_number')->nullable();
             $table->boolean('product_received')->default(false);
-            $table->enum('order_status', ['Pending', 'Ready To Ship', 'Delivered'])->default('Pending');
+            $table->enum('order_status', ['Pending', 'Shipped', 'Delivered'])->default('Pending');
             $table->enum('payment_status', ['Pending', 'Paid', 'Failed'])->default('Pending');
             $table->enum('validation', ['Pending', 'Validated', 'Completed'])->default('Pending');
             $table->string('receipt_photo')->nullable();

@@ -96,7 +96,7 @@ class PaidReviewController extends Controller
         //update tracking number
         if (isset($request->shipment_tracking_number)) {
 
-            $delivered = 'Ready To Ship'; 
+            $delivered = 'Shipped'; 
             $paidReview = PaidReview::findOrFail($id);
             $paidReview->update([
                 'shipment_tracking_number' => $request->shipment_tracking_number,

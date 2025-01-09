@@ -37,18 +37,18 @@
                         <table id="example2" class="table table-striped table-border">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Video File</th>
-                                    <th>Status</th>
-                                    <th>Feedback</th>
-                                    <th>Actions</th>
+                                    <th style="width: 10px;">#</th>
+                                    <th style="width: 70px;">Video File</th>
+                                    <th style="width:70px;">Status</th>
+                                    <th style="width: 250px;">Feedback</th>
+                                    <th style="width: 150px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($videos as $video)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>
+                                        <td class="col-2">
                                             @if ($video->file_path != '')
                                                 <a href="{{ route('videos.stream', $video->id) }}" target="_blank">Open
                                                     Video</a>
@@ -65,7 +65,7 @@
                                             </span>
 
                                         </td>
-                                        <td>{{ $video->status == 'Approved' ? 'Approved' : ($video->feedback == '' ? 'N/A' : $video->feedback) }}
+                                        <td class="col-3">{{ $video->feedback == '' ? 'N/A' : $video->feedback }}
                                         </td>
 
                                         <td class="text-center">
