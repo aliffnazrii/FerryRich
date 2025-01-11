@@ -225,6 +225,7 @@ class VideoController extends Controller
             $userController->sendNotification($cc, $data);
 
             return redirect()->back()->with('success', 'Invalidate Ad Code Succeed.');
+            
         } elseif ($request->validate == '1') {
             $userId = Auth::id();
 

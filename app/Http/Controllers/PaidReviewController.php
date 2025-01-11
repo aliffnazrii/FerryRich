@@ -146,7 +146,8 @@ class PaidReviewController extends Controller
 
 
         if (isset(request()->product_received)) {
-            $status = $request->order_status = 'Delivered';
+            
+            $status = $request()->order_status = 'Delivered';
             $review = PaidReview::findOrFail($id);
             $review->update([
                 'product_received' => 1,
