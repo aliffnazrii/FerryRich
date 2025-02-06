@@ -47,6 +47,7 @@ class PaymentController extends Controller
         //     $query->whereNotNull('video_link');
         // })
         // ->get();
+
         $payments = Payment::with(['paidReview.video'])
             ->whereHas(
                 'paidReview',
@@ -65,6 +66,7 @@ class PaymentController extends Controller
                 }
 
             )->get();
+
         return view('staff.finance.payment', compact('payments')); // Return to the index view
     }
 

@@ -38,7 +38,7 @@ class PaidReviewController extends Controller
     {
         $paidReviews = PaidReview::with(['contentCreator', 'product', 'payments'])->get();
         $products = Product::all();
-        $contentcreators = User::where('role', 'Content Creator')->get();
+        $contentcreators = User::where('role', 'Content Creator')->where('is_approved', 1)->get();
         return view('staff.paid-review', compact('paidReviews', 'products', 'contentcreators'));
     }
 
@@ -49,45 +49,61 @@ class PaidReviewController extends Controller
 
         // ]);
 
-        $creatorId = $request->content_creator_id;
-        $cc = User::where('role', 'Content Creator')->where('id', $creatorId)->first();
-
-        if ($cc->is_approved == 1) {
-
-            $paidReview = PaidReview::create($request->all());
-
-            $video = Video::create([
-                'uploaded_by' => $paidReview->content_creator_id,
-
-
-                // ... other video details (e.g., 'reviewed_by', 'reviewed_at', 'feedback')
-            ]);
-
-            $paidReview->update([
-                'video_id'=> $video->id,
-            ]);
-
-            // Create the Payment record, associating it with the PaidReview
-            $payment = Payment::create([
-                'paid_review_id' => $paidReview->id,
-                'amount' => $paidReview->deal_rate,
-                'reference_number' => null,
-            ]);
-
-            $notiId = User::findOrFail($creatorId);
-            $data = [
-                'title' => 'You have been assigned to a review !',
-                'message' => 'Check your review page to see more info.',
-                'url' => '/review-list',
-            ];
-
-            $userController = new UserController();
-            $userController->sendNotification($notiId, $data);
-
-
-            return redirect()->back()->with('success', 'Paid Review created successfully.');
+        $invalidRecords = User::whereNull('name')
+            ->orWhereNull('phone')
+            ->orWhereNull('role')
+            ->orWhereNull('tiktok_username')
+            ->orWhereNull('tiktok_profile_link')
+            ->orWhereNull('ic_number')
+            ->orWhereNull('bank_name')
+            ->orWhereNull('cardholder_name')
+            ->orWhereNull('bank_account_number')
+            ->orWhereNull('is_approved')
+            ->exists();
+        if ($invalidRecords) {
+            return redirect()->back()->with('failed', 'Content Creator must fill all details before assigning any reviews.');
         } else {
-            return redirect()->back()->with('failed', 'Content Creator must be approved to create a paid review.');
+
+            $creatorId = $request->content_creator_id;
+            $cc = User::where('role', 'Content Creator')->where('id', $creatorId)->first();
+
+            if ($cc->is_approved == 1) {
+
+                $paidReview = PaidReview::create($request->all());
+
+                $video = Video::create([
+                    'uploaded_by' => $paidReview->content_creator_id,
+
+
+                    // ... other video details (e.g., 'reviewed_by', 'reviewed_at', 'feedback')
+                ]);
+
+                $paidReview->update([
+                    'video_id' => $video->id,
+                ]);
+
+                // Create the Payment record, associating it with the PaidReview
+                $payment = Payment::create([
+                    'paid_review_id' => $paidReview->id,
+                    'amount' => $paidReview->deal_rate,
+                    'reference_number' => null,
+                ]);
+
+                $notiId = User::findOrFail($creatorId);
+                $data = [
+                    'title' => 'You have been assigned to a review !',
+                    'message' => 'Check your review page to see more info.',
+                    'url' => '/review-list',
+                ];
+
+                $userController = new UserController();
+                $userController->sendNotification($notiId, $data);
+
+
+                return redirect()->back()->with('success', 'Paid Review created successfully.');
+            } else {
+                return redirect()->back()->with('failed', 'Content Creator must be approved to create a paid review.');
+            }
         }
     }
 
@@ -96,7 +112,7 @@ class PaidReviewController extends Controller
         //update tracking number
         if (isset($request->shipment_tracking_number)) {
 
-            $delivered = 'Shipped'; 
+            $delivered = 'Shipped';
             $paidReview = PaidReview::findOrFail($id);
             $paidReview->update([
                 'shipment_tracking_number' => $request->shipment_tracking_number,
@@ -113,7 +129,7 @@ class PaidReviewController extends Controller
             $userController = new UserController();
             $userController->sendNotification($notiId, $data);
 
-            
+
             return redirect()->back()->with('success', 'Tracking Number updated successfully.');
         }
         $paidReview = PaidReview::findOrFail($id);
@@ -146,7 +162,7 @@ class PaidReviewController extends Controller
 
 
         if (isset(request()->product_received) == 1) {
-            
+
             $review = PaidReview::findOrFail($id);
             $review->update([
                 'product_received' => $request->product_received,
@@ -176,11 +192,6 @@ class PaidReviewController extends Controller
         //         $query->where('role', 'Content Creator');
         //     })
         //     ->get();
-
-
-
-
-
         // Return the view with the paid reviews
         return view('staff.code-ad', compact('reviews'));
     }
