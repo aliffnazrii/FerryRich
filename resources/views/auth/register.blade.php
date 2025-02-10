@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="d-grid">
-                                        <button type="submit" class="btn btn-grd-primary">Register</button>
+                                        <button type="submit" class="btn btn-primary">Register</button>
                                     </div>
                                 </div>
                                
