@@ -113,7 +113,7 @@ class VideoController extends Controller
     public function uploadLink(Request $request, $id)
     {
         $vid = Video::findOrFail($id);
-        $user = User::findOrFail($vid);
+        $user = User::findOrFail($vid->uploaded_by);
 
         $check = User::whereNull('name')
             ->orWhereNull('phone')
@@ -123,13 +123,12 @@ class VideoController extends Controller
             ->orWhereNull('bank_name')
             ->orWhereNull('cardholder_name')
             ->orWhereNull('bank_account_number')
-            ->where('id', $user)
+            ->where('id', $user->id)
             ->exists();
 
         if ($check) {
             return redirect()->back()->with('failed', 'Please fill in all the required information');
         } else {
-
 
             if ($request->video_link != '') {
 
