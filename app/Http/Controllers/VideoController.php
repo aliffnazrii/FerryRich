@@ -126,7 +126,7 @@ class VideoController extends Controller
             ->orWhereNull('bank_account_number')
             ->exists();
 
-        if ($check) {
+        if (!$check) {
             return redirect()->back()->with('failed', 'Please fill in all the required information');
         } else {
 
