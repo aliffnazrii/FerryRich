@@ -31,12 +31,10 @@ Route::get('/dashboard-cc', [UserController::class, 'contentCreatorDashboard'])-
 Route::resource('products', ProductController::class);
 Route::resource('users', UserController::class);
 Route::resource('reviews', PaidReviewController::class);
-Route::resource('submissions', ReviewSubmissionController::class);
+// Route::resource('submissions', ReviewSubmissionController::class);
 Route::resource('videos', VideoController::class);
 Route::resource('payments', PaymentController::class);
 Route::resource('guidelines', GuidelineController::class);
-
-
 
 Route::get('/review', function () {
     return view('staff/list-cc');
@@ -72,8 +70,6 @@ Route::get('/task-cc', function () {
 Route::get('/guidelines/manage/{id}', [GuidelineController::class, 'view'])->name('guideline.manage');
 Route::get('/guidelines/view/{id}', [GuidelineController::class, 'viewGuideline'])->name('guideline.view');
 Route::put('/video/validation/{id}', [VideoController::class, 'validateAdCode'])->name('video.validateAdCode');
-
-
 
 #NOT USED ROUTES
 

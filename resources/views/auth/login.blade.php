@@ -84,7 +84,7 @@
                                     @endif
                                     <div class="col-12">
                                         <div class="d-grid">
-                                            <button type="submit" class="btn btn-grd-primary">Login</button>
+                                            <button type="submit" class="btn btn-primary">Login</button>
                                         </div>
                                     </div>
                                     <div class="col-12">
