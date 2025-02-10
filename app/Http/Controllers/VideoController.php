@@ -115,7 +115,8 @@ class VideoController extends Controller
         $vid = Video::findOrFail($id);
         $user = User::findOrFail($vid->uploaded_by);
 
-        $check = User::whereNull('name')
+        $check = User::where('id', $user->id)
+            ->whereNull('name')
             ->orWhereNull('phone')
             ->orWhereNull('tiktok_username')
             ->orWhereNull('tiktok_profile_link')
@@ -123,7 +124,6 @@ class VideoController extends Controller
             ->orWhereNull('bank_name')
             ->orWhereNull('cardholder_name')
             ->orWhereNull('bank_account_number')
-            ->where('id', $user->id)
             ->exists();
 
         if ($check) {
@@ -158,6 +158,7 @@ class VideoController extends Controller
             }
             return redirect()->back()->with('failed', 'Link failed to upload');
         }
+        return redirect()->back()->with('failed', 'Link failed to upload');
     }
 
     public function videoList()
