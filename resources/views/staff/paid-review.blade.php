@@ -125,7 +125,7 @@
                                                                         <label for="content_creator_id"
                                                                             class="form-label">Content Creator</label>
                                                                         <input type="text"
-                                                                            value="{{ $review->contentCreator->name ?? '' }}"
+                                                                            value="{{ $review->contentCreator->tiktok_username != '' ? $review->contentCreator->tiktok_username : $review->contentCreator->name }}"
                                                                             disabled name="content_creator_id"
                                                                             class="form-control" id="content_creator_id"
                                                                             required>
@@ -273,7 +273,9 @@
                                             id="single-select-field" required>
                                             <option value="">Select</option>
                                             @foreach ($contentcreators as $cc)
-                                                <option value="{{ $cc->id }}">{{ $cc->name }}</option>
+                                                <option value="{{ $cc->id }}">
+                                                    {{ $cc->tiktok_username != '' ? $cc->tiktok_username : $cc->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>

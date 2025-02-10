@@ -49,20 +49,20 @@ class PaidReviewController extends Controller
 
         // ]);
 
-        $invalidRecords = User::whereNull('name')
-            ->orWhereNull('phone')
-            ->orWhereNull('role')
-            ->orWhereNull('tiktok_username')
-            ->orWhereNull('tiktok_profile_link')
-            ->orWhereNull('ic_number')
-            ->orWhereNull('bank_name')
-            ->orWhereNull('cardholder_name')
-            ->orWhereNull('bank_account_number')
-            ->orWhereNull('is_approved')
-            ->exists();
-        if ($invalidRecords) {
-            return redirect()->back()->with('failed', 'Content Creator must fill all details before assigning any reviews.');
-        } else {
+        // $invalidRecords = User::whereNull('name')
+        //     ->orWhereNull('phone')
+        //     ->orWhereNull('role')
+        //     ->orWhereNull('tiktok_username')
+        //     ->orWhereNull('tiktok_profile_link')
+        //     ->orWhereNull('ic_number')
+        //     ->orWhereNull('bank_name')
+        //     ->orWhereNull('cardholder_name')
+        //     ->orWhereNull('bank_account_number')
+        //     ->orWhereNull('is_approved')
+        //     ->exists();
+        // if ($invalidRecords) {
+        //     return redirect()->back()->with('failed', 'Content Creator must fill all details before assigning any reviews.');
+        // } else {
 
             $creatorId = $request->content_creator_id;
             $cc = User::where('role', 'Content Creator')->where('id', $creatorId)->first();
@@ -104,7 +104,7 @@ class PaidReviewController extends Controller
             } else {
                 return redirect()->back()->with('failed', 'Content Creator must be approved to create a paid review.');
             }
-        }
+        
     }
 
     public function update(Request $request, $id)

@@ -36,11 +36,6 @@ class VideoController extends Controller
             'updateStatus',
 
         ]);
-
-
-
-
-
     }
     public function index()
     {
@@ -117,32 +112,53 @@ class VideoController extends Controller
 
     public function uploadLink(Request $request, $id)
     {
+        $vid = Video::findOrFail($id);
+        $user = User::findOrFail($vid);
 
-        if ($request->video_link != '') {
-            $video = Video::findOrFail($id);
-            $video->update([
-                'video_link' => $request->input('video_link'),
-                'ad_code' => $request->input('code_ad'),
-                // 'ad_code' => $request->$code,
-            ]);
+        $check = User::whereNull('name')
+            ->orWhereNull('phone')
+            ->orWhereNull('tiktok_username')
+            ->orWhereNull('tiktok_profile_link')
+            ->orWhereNull('ic_number')
+            ->orWhereNull('bank_name')
+            ->orWhereNull('cardholder_name')
+            ->orWhereNull('bank_account_number')
+            ->where('id', $user)
+            ->exists();
 
-            $uploader = User::findOrFail($video->uploaded_by);
-
-            $data = [
-                'title' => 'There is a code ad need to be validate ',
-                'message' => 'There is a code ad from ' . $uploader->tiktok_username . ' that need to be validate',
-                'url' => '/code-ad',
-            ];
-
-
-            $userController = new UserController();
-            $userController->sendNotificationToRole('Staff', $data);
-            $userController->sendNotificationToRole('Admin', $data);
+        if ($check) {
+            return redirect()->back()->with('failed', 'Please fill in all the required information');
+        } else {
 
 
-            return redirect()->back()->with('success', 'Link Uploaded Successfully');
+            if ($request->video_link != '') {
+
+
+                $video = Video::findOrFail($id);
+                $video->update([
+                    'video_link' => $request->input('video_link'),
+                    'ad_code' => $request->input('code_ad'),
+                    // 'ad_code' => $request->$code,
+                ]);
+
+                $uploader = User::findOrFail($video->uploaded_by);
+
+                $data = [
+                    'title' => 'There is a code ad need to be validate ',
+                    'message' => 'There is a code ad from ' . $uploader->tiktok_username . ' that need to be validate',
+                    'url' => '/code-ad',
+                ];
+
+
+                $userController = new UserController();
+                $userController->sendNotificationToRole('Staff', $data);
+                $userController->sendNotificationToRole('Admin', $data);
+
+
+                return redirect()->back()->with('success', 'Link Uploaded Successfully');
+            }
+            return redirect()->back()->with('failed', 'Link failed to upload');
         }
-        return redirect()->back()->with('failed', 'Link failed to upload');
     }
 
     public function videoList()
@@ -225,7 +241,6 @@ class VideoController extends Controller
             $userController->sendNotification($cc, $data);
 
             return redirect()->back()->with('success', 'Invalidate Ad Code Succeed.');
-            
         } elseif ($request->validate == '1') {
             $userId = Auth::id();
 
@@ -238,7 +253,7 @@ class VideoController extends Controller
 
             $cc = User::find($video->uploaded_by);
 
-             // notify cc
+            // notify cc
             $data = [
                 'title' => 'Code Ad has been validated',
                 'message' => 'Code Ad has been validated. Payment will be made within 7-14 working days',
@@ -301,6 +316,4 @@ class VideoController extends Controller
             'Content-Disposition' => 'inline; filename="' . basename($path) . '"',
         ]);
     }
-
-
 }
