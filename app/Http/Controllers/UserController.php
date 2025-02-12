@@ -8,7 +8,7 @@ use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Notifications\CustomNotification;
+use App\Notifications\customNotification;
 
 class UserController extends Controller
 {

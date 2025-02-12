@@ -72,6 +72,13 @@
                                         id="input3" placeholder="Phone">
                                 </div>
 
+
+                                <div class="col-md-12">
+                                    <label for="input3" class="form-label">Address</label>
+                                   
+                                        <textarea name="address" id="input5" class="form-control" placeholder="Jalan Kuala Lumpur" cols="30" rows="5">{{ $user->address }}</textarea>
+                                </div>
+
                                 <div class="col-md-12">
                                     <label for="role" class="form-label">Role</label>
                                     <select name="role" class="form-control" id="role" required disabled>
@@ -97,6 +104,8 @@
                                         name="tiktok_profile_link" class="form-control" id="tiktok_profile_link"
                                         placeholder="TikTok Profile Link">
                                 </div>
+
+                                
 
                                 <div class="col-md-12">
                                     <label for="ic_number" class="form-label">IC Number</label>
@@ -186,6 +195,10 @@
                                     <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">call</span>
                                         <p class="mb-0">Phone: {{ $user->phone ?? 'No Details' }}</p>
+                                    </div>
+                                    <div class="info-list-item d-flex align-items-center gap-3"><span
+                                            class="material-icons-outlined">home</span>
+                                        <p class="mb-0">Address: {{ $user->address ?? 'No Details' }}</p>
                                     </div>
                                     <div class="info-list-item d-flex align-items-center gap-3"><span
                                             class="material-icons-outlined">tiktok</span>

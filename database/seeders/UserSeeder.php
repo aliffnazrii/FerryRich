@@ -11,36 +11,50 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'alepZ',
-            'email' => 'z@z',
-            'password' => Hash::make('aliffnazrii'),
-            'phone' => '0123456789',
-            'role' => 'Content Creator',
+            'name' => 'nurazmin',
+            'email' => 'nurazmin@frsb.com',
+            'password' => Hash::make('frsbcreators'),
+            'role' => 'Admin',
+            'is_approved' => true,
+        ]);
+        User::create([
+            'name' => 'mmazim',
+            'email' => 'mazim@frsb.com',
+            'password' => Hash::make('frsbcreators'),
+            'role' => 'Admin',
+            'is_approved' => true,
+        ]);
+        User::create([
+            'name' => 'Finance',
+            'email' => 'finance@frsb.com',
+            'password' => Hash::make('frsbcreators'),
+            'role' => 'Finance',
+            'is_approved' => true,
+        ]);
+        User::create([
+            'name' => 'ainn',
+            'email' => 'ainrahim@frsb.com',
+            'password' => Hash::make('frsbcreators'),
+            'role' => 'Finance',
             'is_approved' => true,
         ]);
 
 
         User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('aliffnazrii'),
+            'name' => 'Admin',
+            'email' => 'admin@frsb.com',
+            'password' => Hash::make('frsbcreators'),
             'role' => 'Admin',
             'is_approved' => true,
         ]);
 
         User::create([
-            'name' => 'alepnaz',
+            'name' => 'alep',
             'email' => 'a@a',
             'password' => Hash::make('aliffnazrii'),
-            'role' => 'Staff',
+            'role' => 'Content Creator',
             'is_approved' => true,
         ]);
-        User::create([
-            'name' => 'azmin',
-            'email' => 'min@a',
-            'password' => Hash::make('aliffnazrii'),
-            'role' => 'Finance',
-            'is_approved' => true,
-        ]);
+
     }
 }

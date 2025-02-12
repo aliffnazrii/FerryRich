@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'address',
         'role',
         'tiktok_username',
         'tiktok_profile_link',

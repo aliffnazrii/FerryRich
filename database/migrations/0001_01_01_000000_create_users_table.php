@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone')->unique()->nullable();
+            $table->string('address')->nullable();
             $table->enum('role', ['Content Creator', 'Finance', 'Staff', 'Admin'])->default('Content Creator');
             $table->string('tiktok_username')->nullable();
             $table->string('tiktok_profile_link')->nullable();

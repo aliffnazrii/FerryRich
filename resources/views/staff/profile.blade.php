@@ -68,11 +68,17 @@
                                     <input type="email" value="{{ $user->email }}" name="email" class="form-control"
                                         id="input4" disabled>
                                 </div>
-
+                                
                                 <div class="col-md-12">
                                     <label for="input3" class="form-label">Phone</label>
                                     <input type="text" value="{{ $user->phone }}" name="phone" class="form-control"
                                         id="input3" placeholder="Phone">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="input3" class="form-label">Address</label>
+                                   
+                                        <textarea name="address" id="input5" class="form-control" placeholder="Jalan Kuala Lumpur" cols="30" rows="5">{{ $user->address }}</textarea>
                                 </div>
 
                                 <div class="col-md-12">
