@@ -87,210 +87,136 @@
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <div class="modal-body">
+                                                                <form method="POST" action="{{ route('users.update', $user->id) }}">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                    
+                                                                    <!-- Personal Information -->
+                                                                    <h5 class="mb-3">Personal Information</h5>
                                                                     <div class="row">
-                                                                        <div class="col-12">
-                                                                            <form method="POST"
-                                                                                action="{{ route('users.update', $user->id) }}">
-                                                                                @csrf
-                                                                                @method('PUT')
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="name">Name:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control"
-                                                                                                name="name"
-                                                                                                value="{{ $user->name }}"
-                                                                                                disabled>
-                                                                                            @error('name')
-                                                                                                <span
-                                                                                                    class="text-danger">{{ $message }}</span>
-                                                                                            @enderror
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="email">Email:</label>
-                                                                                            <input type="email"
-                                                                                                class="form-control"
-                                                                                                disabled name="email"
-                                                                                                value="{{ $user->email }}"
-                                                                                                disabled>
-                                                                                            @error('email')
-                                                                                                <span
-                                                                                                    class="text-danger">{{ $message }}</span>
-                                                                                            @enderror
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="phone">Phone:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control"
-                                                                                                name="phone"
-                                                                                                value="{{ $user->phone }}"
-                                                                                                disabled>
-                                                                                            @error('phone')
-                                                                                                <span
-                                                                                                    class="text-danger">{{ $message }}</span>
-                                                                                            @enderror
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="role">Role:</label>
-                                                                                            <select class="form-control"
-                                                                                                id="role"
-                                                                                                name="role" disabled>
-                                                                                                <option
-                                                                                                    value="{{ $user->role == 'Content Creator' ? 'Content Creator' : 'Staff' }}">
-                                                                                                    {{ $user->role == 'Content Creator' ? 'Content Creator' : 'Staff' }}
-                                                                                                </option>
-                                                                                            </select>
-                                                                                            @error('role')
-                                                                                                <span
-                                                                                                    class="text-danger">{{ $message }}</span>
-                                                                                            @enderror
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="tiktok_username">TikTok
-                                                                                                Username:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control mb-3"
-                                                                                                id="tiktok_username"
-                                                                                                name="tiktok_username"
-                                                                                                value="{{ $user->tiktok_username ?? 'No Details' }}"
-                                                                                                readonly disabled>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="tiktok_profile_link">TikTok
-                                                                                                Profile Link:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control mb-3"
-                                                                                                id="tiktok_profile_link"
-                                                                                                name="tiktok_profile_link"
-                                                                                                value="{{ $user->tiktok_profile_link ?? 'No Details' }}"
-                                                                                                readonly disabled>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label for="ic_number">IC
-                                                                                                Number:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control mb-3"
-                                                                                                id="ic_number"
-                                                                                                name="ic_number"
-                                                                                                value="{{ $user->ic_number ?? 'No Details' }}"
-                                                                                                readonly disabled>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label for="bank_name">Bank
-                                                                                                Name:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control mb-3"
-                                                                                                id="bank_name"
-                                                                                                name="bank_name"
-                                                                                                value="{{ $user->bank_name ?? 'No Details' }}"
-                                                                                                readonly disabled>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="cardholder_name">Cardholder
-                                                                                                Name:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control mb-3"
-                                                                                                id="cardholder_name"
-                                                                                                name="cardholder_name"
-                                                                                                value="{{ $user->cardholder_name ?? 'No Details' }}"
-                                                                                                readonly disabled>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="bank_account_number">Bank
-                                                                                                Account Number:</label>
-                                                                                            <input type="text"
-                                                                                                class="form-control mb-3"
-                                                                                                id="bank_account_number"
-                                                                                                name="bank_account_number"
-                                                                                                value="{{ $user->bank_account_number ?? 'No Details' }}"
-                                                                                                readonly disabled>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="form-group mb-3">
-                                                                                            <label
-                                                                                                for="approval">Approval:</label>
-                                                                                            <select class="form-control"
-                                                                                                id="approval"
-                                                                                                name="is_approved"
-                                                                                                {{ Auth::user()->role == 'Finance' ? 'disabled' : '' }}>
-                                                                                                <option value=""
-                                                                                                    {{ $user->is_approved == null ? 'selected' : '' }}>
-                                                                                                    Select</option>
-                                                                                                <option value="1"
-                                                                                                    {{ $user->is_approved == 1 ? 'selected' : '' }}>
-                                                                                                    Approve</option>
-                                                                                                <option value="0"
-                                                                                                    {{ $user->is_approved != 1 ? 'selected' : '' }}>
-                                                                                                    Reject</option>
-                                                                                            </select>
-                                                                                            @error('role')
-                                                                                                <span
-                                                                                                    class="text-danger">{{ $message }}</span>
-                                                                                            @enderror
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-
-
-                                                                                    <div
-                                                                                        class="col-md-12 d-flex justify-content-end">
-                                                                                        @if (Auth::user()->role == 'Finance')
-                                                                                        @else
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-primary px-4 me-2">Submit</button>
-                                                                                        @endif
-                                                                                        <button type="button"
-                                                                                            class="btn btn-danger px-4"
-                                                                                            data-bs-dismiss="modal">Close</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </form>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="name">Name:</label>
+                                                                                <input type="text" class="form-control" name="name" value="{{ $user->name }}" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="email">Email:</label>
+                                                                                <input type="email" class="form-control" name="email" value="{{ $user->email }}" disabled>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="phone">Phone:</label>
+                                                                                <input type="text" class="form-control" name="phone" value="{{ $user->phone }}" disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="ic_number">IC Number:</label>
+                                                                                <input type="text" class="form-control" id="ic_number" name="ic_number" value="{{ $user->ic_number ?? 'No Details' }}" readonly disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="address">Address:</label>
+                                                                                <textarea name="address" class="form-control" cols="30" rows="2" disabled>{{ $user->address ?? '' }}</textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                    
+                                                                    <!-- Role Information -->
+                                                                    <h5 class="mb-3">User Role</h5>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="role">Role:</label>
+                                                                                <select class="form-control" id="role" name="role" disabled>
+                                                                                    <option value="{{ $user->role == 'Content Creator' ? 'Content Creator' : 'Staff' }}">
+                                                                                        {{ $user->role == 'Content Creator' ? 'Content Creator' : 'Staff' }}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                    
+                                                                    <!-- TikTok Information -->
+                                                                    <h5 class="mb-3">TikTok Details</h5>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="tiktok_username">TikTok Username:</label>
+                                                                                <input type="text" class="form-control" id="tiktok_username" name="tiktok_username" value="{{ $user->tiktok_username ?? 'No Details' }}" readonly disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="tiktok_profile_link">TikTok Profile Link:</label>
+                                                                                <input type="text" class="form-control" id="tiktok_profile_link" name="tiktok_profile_link" value="{{ $user->tiktok_profile_link ?? 'No Details' }}" readonly disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                    
+                                                                    <!-- Financial Information -->
+                                                                    <h5 class="mb-3">Banking Details</h5>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="bank_name">Bank Name:</label>
+                                                                                <input type="text" class="form-control" id="bank_name" name="bank_name" value="{{ $user->bank_name ?? 'No Details' }}" readonly disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="cardholder_name">Cardholder Name:</label>
+                                                                                <input type="text" class="form-control" id="cardholder_name" name="cardholder_name" value="{{ $user->cardholder_name ?? 'No Details' }}" readonly disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="bank_account_number">Bank Account Number:</label>
+                                                                                <input type="text" class="form-control" id="bank_account_number" name="bank_account_number" value="{{ $user->bank_account_number ?? 'No Details' }}" readonly disabled>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                    
+                                                                    <!-- Approval -->
+                                                                    <h5 class="mb-3">Approval</h5>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group mb-3">
+                                                                                <label for="approval">Approval:</label>
+                                                                                <select class="form-control" id="approval" name="is_approved" {{ Auth::user()->role == 'Finance' ? 'disabled' : '' }}>
+                                                                                    <option value="" {{ $user->is_approved == null ? 'selected' : '' }}>Select</option>
+                                                                                    <option value="1" {{ $user->is_approved == 1 ? 'selected' : '' }}>Approve</option>
+                                                                                    <option value="0" {{ $user->is_approved != 1 ? 'selected' : '' }}>Reject</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                    
+                                                                    <!-- Action Buttons -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 d-flex justify-content-end">
+                                                                            @if (Auth::user()->role != 'Finance')
+                                                                                <button type="submit" class="btn btn-primary px-4 me-2">Submit</button>
+                                                                            @endif
+                                                                            <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                    
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
