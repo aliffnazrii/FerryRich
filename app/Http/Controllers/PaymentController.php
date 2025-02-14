@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\PaidReview;
+use App\Models\Product;
 use App\Models\Video;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class PaymentController extends Controller
                 'paidReview',
                 function ($query) {
                     $query->where('order_status', 'delivered');
-                    
+
                 }
             )
             ->whereHas(
@@ -234,5 +235,20 @@ class PaymentController extends Controller
             'Content-Type' => $mimeType, // Use the correct MIME type
             'Content-Disposition' => 'inline; filename="' . basename($path) . '"'
         ]);
+    }
+
+    public function openReceipt($id)
+    {
+        $payment = Payment::with('paidReview')->findOrFail($id);
+        // $pr = PaidReview::with('product')->where('id',$payment->paid_review_id);
+        $user = User::findOrFail($payment->paidReview->content_creator_id);
+        $products = Product::where('id', $payment->paidReview->product_id)->get();
+
+        return view('payment.receipt', compact(['payment','products', 'user']));
+
+
+
+
+ 
     }
 }

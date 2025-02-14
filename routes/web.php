@@ -53,6 +53,7 @@ Route::put('/videos/upload-link/{id}', [VideoController::class, 'uploadLink'])->
 Route::put('/review/update-order-status/{id}', [PaidReviewController::class, 'updateOrderStatus'])->name('reviews.updateOrderStatus');
 
 Route::get('/payment/viewReceipt/{id}', [PaymentController::class, 'viewReceipt'])->name('payments.viewReceipt');
+Route::get('/payment/openReceipt/{id}', [PaymentController::class, 'openReceipt'])->name('payments.openReceipt');
 
 
 #STAFF SIDE SECTION (CUSTOM ROUTE)

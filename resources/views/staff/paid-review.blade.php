@@ -198,6 +198,10 @@
                                                                     <div class="col-md-12 my-3">
                                                                         <label for="shipment_tracking_number"
                                                                             class="form-label">Tracking Number</label>
+                                                                        <span
+                                                                            class="badge bg-danger">
+                                                                           J&T
+                                                                        </span>
                                                                         <input type="text"
                                                                             value="{{ $review->shipment_tracking_number ?? '' }}"
                                                                             name="shipment_tracking_number"

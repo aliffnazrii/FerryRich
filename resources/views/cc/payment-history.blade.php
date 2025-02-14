@@ -105,6 +105,10 @@
                                                                     <br>
                                                                     <a class="btn btn-primary mt-1 ml-1"
                                                                         href="{{ route('payments.viewReceipt', $payment->id) }}"
+                                                                        target="_blank">View Trasnfer Receipt</a>
+
+                                                                        <a class="btn btn-primary mt-1 ml-1"
+                                                                        href="{{ route('payments.openReceipt', $payment->id) }}"
                                                                         target="_blank">View Receipt</a>
                                                                 </div>
                                                             @endif
